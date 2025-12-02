@@ -1,19 +1,16 @@
-import { useState } from "react";
-
-function Hero() {
-  const [isLightMode, setIsLightMode] = useState(true);
-
-  const toggleMode = () => {
-    setIsLightMode(!isLightMode);
-  };
-
-  const theme = isLightMode ? "light" : "dark";
+function Hero({ theme = "dark", onToggleTheme }) {
+  const isLightMode = theme === "light";
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Fallback Background Gradient */}
-      {/* Dark gradient background that shows if video doesn't load */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
+      <div
+        className={`absolute inset-0 w-full h-full bg-gradient-to-br ${
+          isLightMode
+            ? "from-gray-200 via-white to-gray-100"
+            : "from-gray-900 via-black to-gray-800"
+        }`}
+      ></div>
       
       {/* Video Background - Dark Mode */}
       {/* Dark mode video that shows when theme is dark */}
@@ -43,37 +40,51 @@ function Hero() {
         <source src="/light-mode.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark Overlay */}
-      {/* Semi-transparent black overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/50 z-10"></div>
+      {/* Overlay for readability */}
+      <div
+        className={`absolute inset-0 z-10 ${
+          isLightMode ? "bg-white/40" : "bg-black/50"
+        }`}
+      ></div>
 
       {/* Top Navigation */}
       {/* Navigation bar positioned at the top */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8">
         {/* Logo - Left side */}
-        <div className="text-white text-xl md:text-2xl font-bold">
+        <div
+          className={`text-xl md:text-2xl font-bold ${
+            isLightMode ? "text-black" : "text-white"
+          }`}
+        >
           AI Tools
         </div>
         
         {/* Navigation Links - Right side */}
-        <div className="flex items-center gap-6 md:gap-8 text-white text-sm md:text-base font-light">
+        <div
+          className={`flex items-center gap-7 md:gap-10 text-base md:text-lg font-light ${
+            isLightMode ? "text-black" : "text-white"
+          }`}
+        >
           <button 
-            onClick={toggleMode}
-            className="text-white text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
+            onClick={onToggleTheme}
+            className="hover:opacity-70 transition-opacity flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
           >
             <img 
               src="/exposure-time.png" 
               alt="mode icon" 
-              className="w-5 h-5"
+              className="w-6 h-6"
             />
-            {isLightMode ? 'light mode' : 'dark mode'}
+            {isLightMode ? "dark mode" : "light mode"}
           </button>
-          <a href="#menu" className="hover:opacity-70 transition-opacity flex items-center gap-2 text-white">
+          <a
+            href="#menu"
+            className="hover:opacity-70 transition-opacity flex items-center gap-2"
+          >
             menu
             <img 
               src="/transparent-hd-white-menu-icon.png" 
               alt="menu icon" 
-              className="w-5 h-5"
+              className="w-6 h-6"
             />
           </a>
         </div>
@@ -84,7 +95,11 @@ function Hero() {
       <div className="relative z-20 flex flex-col justify-center h-full px-6 md:px-12 lg:px-16">
         <div className="max-w-4xl">
           {/* Main Heading - Multi-line, large, light font weight */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white leading-tight mb-6 md:mb-8">
+          <h1
+            className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
+              isLightMode ? "text-black" : "text-white"
+            }`}
+          >
             EXPAND INTO
             <br />
             A NEW ERA
@@ -94,16 +109,20 @@ function Hero() {
 
           {/* Sub-text Row */}
           {/* Small row with category and contact link */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-white">
+          <div
+            className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
+              isLightMode ? "text-black" : "text-white"
+            }`}
+          >
             {/* Category label */}
             <span className="text-xs md:text-sm uppercase tracking-wider opacity-80">
               / DIGITAL PORTFOLIO
             </span>
             
             {/* Contact link */}
-            <a 
-              href="#contact" 
-              className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2 text-white"
+            <a
+              href="#contact"
+              className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2"
             >
               CONTACT US
               <span className="text-lg">→</span>

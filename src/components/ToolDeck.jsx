@@ -62,7 +62,7 @@ const tools = [
   },
 ];
 
-export default function ToolDeck() {
+export default function ToolDeck({ theme = "dark" }) {
   const trackRef = useRef(null);
 
   const GAP = 32; // match CSS gap in toolDeck.css
@@ -95,19 +95,19 @@ export default function ToolDeck() {
   };
 
   return (
-    <section className="tooldeck-section">
+    <section
+      className={
+        theme === "light" ? "tooldeck-section tooldeck-section--light" : "tooldeck-section"
+      }
+    >
       <header className="tooldeck-header">
         <div>
-          <p className="tooldeck-kicker">/ LIVE TOOL DECK</p>
+          <p className="tooldeck-kicker">/ DISCOVER AI</p>
           <h2 className="tooldeck-title">
-            Slide through the current AI landscape.
+            Explore, Learn, and Master Every AI Tool
           </h2>
         </div>
         <div className="tooldeck-subcopy">
-          <p>
-            Horizontally scroll to explore each tool. Cards snap into the center
-            so you always have a clear focal point.
-          </p>
           <div className="tooldeck-toggle">
             <span>—</span>
             <span>≡</span>

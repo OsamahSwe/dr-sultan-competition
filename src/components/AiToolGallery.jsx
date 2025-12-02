@@ -9,6 +9,7 @@ const tools = [
     image: "/chatgpt/cover.png",
     about: "Great for drafting content, brainstorming ideas, and chatting through concepts in natural language.",
     link: "https://chat.openai.com",
+    accent: "#10b981", // emerald
   },
   {
     name: "Claude AI",
@@ -16,6 +17,7 @@ const tools = [
     image: "/claude-ai/cover.png",
     about: "Excellent at deep analysis, long documents, and thoughtful written output.",
     link: "https://claude.ai",
+    accent: "#fb923c", // warm orange
   },
   {
     name: "Gemini",
@@ -23,6 +25,7 @@ const tools = [
     image: "/gemini-ai/cover.png",
     about: "Connects text, images, and the web for research and creative exploration.",
     link: "https://gemini.google.com",
+    accent: "#6366f1", // indigo
   },
   {
     name: "DeepSeek",
@@ -30,6 +33,7 @@ const tools = [
     image: "/deepseek/cover.png",
     about: "Optimized for speed and efficiency on technical, research, and coding tasks.",
     link: "https://www.deepseek.com",
+    accent: "#3b82f6", // blue
   },
   {
     name: "GitHub Copilot",
@@ -37,6 +41,7 @@ const tools = [
     image: "/github-copilot-ai/cover.png",
     about: "Pairs with you in your editor to suggest code, tests, and small refactors as you type.",
     link: "https://github.com/features/copilot",
+    accent: "#0ea5e9", // cyan
   },
   {
     name: "Cursor",
@@ -44,13 +49,15 @@ const tools = [
     image: "/cursor-ai/cover.png",
     about: "Combines a modern editor with AI so you can iterate on code in-place.",
     link: "https://cursor.sh",
+    accent: "#a1a1aa", // neutral
   },
   {
     name: "Codex AI",
     description: "Experimental code-focused workflows and dev tools.",
     image: "/codex-ai/cover.png",
     about: "A sandbox for trying new code-generation workflows and dev tooling.",
-    link: "",
+    link: "https://openai.com/codex/",
+    accent: "#22d3ee", // teal / neon
   },
   {
     name: "Lovable AI",
@@ -58,6 +65,7 @@ const tools = [
     image: "/loveable-ai/cover.png",
     about: "Turn product ideas into working full-stack apps with iterative prompts.",
     link: "https://lovable.dev",
+    accent: "#f97316", // warm gradient-inspired
   },
   {
     name: "UX Pilot",
@@ -65,11 +73,13 @@ const tools = [
     image: "/ux-pilot-ai/cover.png",
     about: "Quickly visualize UX states and flows to move designs forward faster.",
     link: "https://uxpilot.ai",
+    accent: "#4f46e5", // UX blue/purple
   },
 ];
 
-export default function AiToolGallery() {
+export default function AiToolGallery({ theme = "dark" }) {
   const containerRef = useRef(null);
+  const isDark = theme === "dark";
 
   const scrollByAmount = (direction) => {
     if (!containerRef.current) return;
@@ -98,12 +108,40 @@ export default function AiToolGallery() {
   };
 
   return (
-    <section className="w-full py-28 bg-transparent">
-      <div className="max-w-[1400px] mx-auto">
+    <section className={`w-full py-28 ${isDark ? "bg-black" : "bg-slate-50"}`}>
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <div className="mb-10 md:mb-14 text-center">
+          <p
+            className={`text-xs md:text-sm uppercase tracking-[0.25em] mb-3 ${
+              isDark ? "text-teal-300/80" : "text-teal-600"
+            }`}
+          >
+            / AI TOOLS
+          </p>
+          <h2
+            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
+              isDark ? "text-white" : "text-slate-900"
+            }`}
+          >
+            Step Into the AI Era |{" "}
+            <span
+              className={`${
+                isDark ? "text-teal-300" : "text-teal-600"
+              } font-semibold`}
+            >
+              Try the Tools
+            </span>
+          </h2>
+        </div>
+
         <div className="carousel relative flex items-center justify-center gap-6">
           <button
             onClick={() => scrollByAmount("prev")}
-            className="arrow flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition duration-200 hover:bg-white/25"
+            className={`arrow flex h-[50px] w-[50px] items-center justify-center rounded-full backdrop-blur-md transition duration-200 ${
+              isDark
+                ? "bg-white/10 text-white hover:bg-white/25"
+                : "bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-100"
+            }`}
             aria-label="Previous tool"
           >
             <ChevronLeft size={26} />
@@ -118,10 +156,28 @@ export default function AiToolGallery() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4 }}
                   whileHover={{ scale: 1.05 }}
-                  className="tool-card card flex h-[480px] w-[260px] flex-col items-center justify-start rounded-[28px] bg-white/5 p-6 text-center"
-                  style={{ transition: "transform 0.25s ease" }}
+                  className={`tool-card card flex h-[480px] w-[260px] flex-col items-center justify-start rounded-[28px] p-6 text-center relative overflow-hidden ${
+                    isDark
+                      ? "border border-white/10"
+                      : "border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.06)]"
+                  }`}
+                  style={{
+                    transition: "transform 0.25s ease",
+                    background: isDark
+                      ? `radial-gradient(circle at 0% 0%, ${
+                          tool.accent ?? "#22c55e"
+                        }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
+                      : "linear-gradient(180deg, #ffffff 0%, #f9fafb 100%)",
+                  }}
                 >
-                  <div className="card-image-wrapper mb-6 flex h-[180px] w-[180px] items-center justify-center">
+                  <div
+                    className={`card-image-wrapper mb-6 flex h-[180px] w-[180px] items-center justify-center rounded-3xl ${
+                      isDark ? "bg-black/40" : "bg-slate-100"
+                    }`}
+                    style={{
+                      boxShadow: `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
+                    }}
+                  >
                     <img
                       src={tool.image}
                       className="card-image h-full w-full object-contain"
@@ -129,18 +185,28 @@ export default function AiToolGallery() {
                     />
                   </div>
 
-                  <h3 className="text-xl font-semibold text-white mb-3">
+                  <h3
+                    className={`text-xl font-semibold mb-3 ${
+                      isDark ? "text-white" : "text-slate-900"
+                    }`}
+                  >
                     {tool.name}
                   </h3>
                   <p
-                    className="text-sm text-white/80 leading-relaxed px-3"
+                    className={`text-sm leading-relaxed px-3 ${
+                      isDark ? "text-white/80" : "text-slate-600"
+                    }`}
                     style={{ maxHeight: "72px", overflow: "hidden" }}
                   >
                     {tool.description}
                   </p>
 
                   {tool.about && (
-                    <p className="text-gray-400 text-sm mt-3 max-w-md mx-auto px-3">
+                    <p
+                      className={`text-sm mt-3 max-w-md mx-auto px-3 ${
+                        isDark ? "text-gray-400" : "text-slate-500"
+                      }`}
+                    >
                       {tool.about}
                     </p>
                   )}
@@ -150,7 +216,11 @@ export default function AiToolGallery() {
                       href={tool.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-block rounded-full px-6 py-2 bg-white/10 hover:bg-white/20 transition text-sm backdrop-blur-xl"
+                      className={`mt-4 inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
+                        isDark
+                          ? "bg-white/10 text-white hover:bg-white/20"
+                          : "bg-slate-900 text-white shadow-md hover:bg-slate-800"
+                      }`}
                     >
                       Try it now →
                     </a>
@@ -162,7 +232,11 @@ export default function AiToolGallery() {
 
           <button
             onClick={() => scrollByAmount("next")}
-            className="arrow flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition duration-200 hover:bg-white/25"
+            className={`arrow flex h-[50px] w-[50px] items-center justify-center rounded-full backdrop-blur-md transition duration-200 ${
+              isDark
+                ? "bg-white/10 text-white hover:bg-white/25"
+                : "bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-100"
+            }`}
             aria-label="Next tool"
           >
             <ChevronRight size={26} />
