@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { motion } from "framer-motion";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="text-4xl font-bold text-purple-500 p-10">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="text-4xl font-bold text-purple-500 p-10"
+    >
       Tailwind is working 🎉
-    </div>
+    </motion.div>
   )
 }
 
