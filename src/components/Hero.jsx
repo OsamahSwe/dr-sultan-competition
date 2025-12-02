@@ -1,4 +1,12 @@
+import { useState } from 'react';
+
 function Hero() {
+  const [isLightMode, setIsLightMode] = useState(true);
+
+  const toggleMode = () => {
+    setIsLightMode(!isLightMode);
+  };
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Fallback Background Gradient */}
@@ -27,17 +35,30 @@ function Hero() {
       {/* Navigation bar positioned at the top */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8">
         {/* Logo - Left side */}
-        <div className="text-white text-xl md:text-2xl font-light">
+        <div className="text-white text-xl md:text-2xl font-bold">
           AI Tools
         </div>
         
         {/* Navigation Links - Right side */}
         <div className="flex items-center gap-6 md:gap-8 text-white text-sm md:text-base font-light">
-          <a href="#works" className="hover:opacity-70 transition-opacity">
-            works
-          </a>
-          <a href="#menu" className="hover:opacity-70 transition-opacity">
+          <button 
+            onClick={toggleMode}
+            className="text-white text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
+          >
+            <img 
+              src="/exposure-time.png" 
+              alt="mode icon" 
+              className="w-5 h-5"
+            />
+            {isLightMode ? 'light mode' : 'dark mode'}
+          </button>
+          <a href="#menu" className="hover:opacity-70 transition-opacity flex items-center gap-2">
             menu
+            <img 
+              src="/transparent-hd-white-menu-icon.png" 
+              alt="menu icon" 
+              className="w-5 h-5"
+            />
           </a>
         </div>
       </nav>
@@ -48,22 +69,22 @@ function Hero() {
         <div className="max-w-4xl">
           {/* Main Heading - Multi-line, large, light font weight */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-white leading-tight mb-6 md:mb-8">
-            Unbound your
+            EXPAND INTO
             <br />
-            business,
+            A NEW ERA
             <br />
-            now and forever
+            OF INTELLIGENT CREATION
           </h1>
 
           {/* Sub-text Row */}
           {/* Small row with category and contact link */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-white">
-            {/* Left: Category label */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-white">
+            {/* Category label */}
             <span className="text-xs md:text-sm uppercase tracking-wider opacity-80">
               / DIGITAL PORTFOLIO
             </span>
             
-            {/* Right: Contact link */}
+            {/* Contact link */}
             <a 
               href="#contact" 
               className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2"
