@@ -1,11 +1,7 @@
-import Hero from './components/Hero';
+import Home from "./Home";
 
 function App() {
-  return (
-    <div className="w-full">
-      <Hero />
-    </div>
-  );
+  return <Home />;
 }
 
-export default App
+export default App;
