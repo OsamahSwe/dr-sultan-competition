@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 function Hero() {
   const [isLightMode, setIsLightMode] = useState(true);
@@ -7,24 +7,40 @@ function Hero() {
     setIsLightMode(!isLightMode);
   };
 
+  const theme = isLightMode ? "light" : "dark";
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Fallback Background Gradient */}
       {/* Dark gradient background that shows if video doesn't load */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
       
-      {/* Video Background */}
-      {/* Video element with auto-play, loop, muted for background effect */}
+      {/* Video Background - Dark Mode */}
+      {/* Dark mode video that shows when theme is dark */}
       <video
-        className="absolute inset-0 w-full h-full object-cover"
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          theme === "dark" ? "opacity-100" : "opacity-0"
+        }`}
         autoPlay
         loop
         muted
         playsInline
       >
-        {/* Placeholder: Replace with your actual video source */}
         <source src="/hero-video.mp4" type="video/mp4" />
-        {/* Fallback: If video doesn't load, the gradient background above will show */}
+      </video>
+
+      {/* Video Background - Light Mode */}
+      {/* Light mode video that shows when theme is light */}
+      <video
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          theme === "light" ? "opacity-100" : "opacity-0"
+        }`}
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/light-mode.mp4" type="video/mp4" />
       </video>
 
       {/* Dark Overlay */}
@@ -52,7 +68,7 @@ function Hero() {
             />
             {isLightMode ? 'light mode' : 'dark mode'}
           </button>
-          <a href="#menu" className="hover:opacity-70 transition-opacity flex items-center gap-2">
+          <a href="#menu" className="hover:opacity-70 transition-opacity flex items-center gap-2 text-white">
             menu
             <img 
               src="/transparent-hd-white-menu-icon.png" 
@@ -87,7 +103,7 @@ function Hero() {
             {/* Contact link */}
             <a 
               href="#contact" 
-              className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2"
+              className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2 text-white"
             >
               CONTACT US
               <span className="text-lg">→</span>
