@@ -1,5 +1,5 @@
 // src/components/ToolDeck.jsx
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./toolDeck.css";
 
@@ -64,35 +64,44 @@ const tools = [
 
 export default function ToolDeck({ theme = "dark" }) {
   const trackRef = useRef(null);
+  const cardsRef = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const GAP = 32; // match CSS gap in toolDeck.css
-
-  const scrollStrip = (direction) => {
+  const scrollToCard = (index) => {
     const container = trackRef.current;
-    if (!container) return;
+    const card = cardsRef.current[index];
+    if (!container || !card) return;
 
-    const card = container.querySelector(".tool-card");
-    if (!card) return;
+    const containerWidth = container.offsetWidth;
+    const cardWidth = card.offsetWidth;
+    const targetScroll =
+      card.offsetLeft - (containerWidth / 2 - cardWidth / 2);
 
-    const cardWidth = card.offsetWidth + GAP;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-
-    if (direction === "next") {
-      if (container.scrollLeft < maxScroll) {
-        container.scrollBy({
-          left: cardWidth,
-          behavior: "smooth",
-        });
-      }
-    } else {
-      if (container.scrollLeft > 0) {
-        container.scrollBy({
-          left: -cardWidth,
-          behavior: "smooth",
-        });
-      }
-    }
+    container.scrollTo({
+      left: targetScroll,
+      behavior: "smooth",
+    });
   };
+
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % tools.length;
+    setActiveIndex(nextIndex);
+    scrollToCard(nextIndex);
+  };
+
+  const handlePrev = () => {
+    const prevIndex = (activeIndex - 1 + tools.length) % tools.length;
+    setActiveIndex(prevIndex);
+    scrollToCard(prevIndex);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      scrollToCard(0);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section
@@ -118,16 +127,17 @@ export default function ToolDeck({ theme = "dark" }) {
       <div className="tooldeck-shell">
         <button
           className="tooldeck-arrow tooldeck-arrow-left"
-          onClick={() => scrollStrip("prev")}
+          onClick={handlePrev}
           aria-label="Previous tool"
         >
           ‹
         </button>
 
         <div className="tooldeck-track" ref={trackRef}>
-          {tools.map((tool) => (
+          {tools.map((tool, index) => (
             <motion.article
               key={tool.id}
+              ref={(el) => (cardsRef.current[index] = el)}
               className="tool-card"
               style={{
                 "--card-accent": tool.color,
@@ -156,7 +166,7 @@ export default function ToolDeck({ theme = "dark" }) {
 
         <button
           className="tooldeck-arrow tooldeck-arrow-right"
-          onClick={() => scrollStrip("next")}
+          onClick={handleNext}
           aria-label="Next tool"
         >
           ›
