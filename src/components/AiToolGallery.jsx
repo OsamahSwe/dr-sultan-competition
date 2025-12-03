@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import CarouselArrow from "./CarouselArrow";
 
 const tools = [
   {
@@ -123,11 +123,11 @@ export default function AiToolGallery({ theme = "dark" }) {
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="mb-10 md:mb-14 text-center">
           <p
-            className={`text-xs md:text-sm uppercase tracking-[0.25em] mb-3 ${
-              isDark ? "text-teal-300/80" : "text-teal-600"
+            className={`text-lg md:text-xl font-semibold mb-4 ${
+              isDark ? "text-teal-300" : "text-teal-600"
             }`}
           >
-            / AI TOOLS
+            AI Tools
           </p>
           <h2
             className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
@@ -145,52 +145,55 @@ export default function AiToolGallery({ theme = "dark" }) {
           </h2>
         </div>
 
-        <div className="carousel relative flex items-center justify-center gap-6">
+        <div className="carousel relative flex items-center justify-center">
           <button
+            type="button"
             onClick={handlePrev}
-            className={`arrow flex h-[50px] w-[50px] items-center justify-center rounded-full backdrop-blur-md transition duration-200 ${
-              isDark
-                ? "bg-white/10 text-white hover:bg-white/25"
-                : "bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-100"
-            }`}
+            className="carousel-arrow left"
             aria-label="Previous tool"
           >
-            <ChevronLeft size={26} />
+            <CarouselArrow direction="left" />
           </button>
 
           <div className="overflow-hidden px-2" ref={containerRef} id="tool-strip">
-            <div className="cards-wrapper flex gap-[40px] py-10">
+            <div className="cards-wrapper flex py-10">
               {tools.map((tool, index) => (
-                <motion.div
+                <div
                   key={tool.name}
                   ref={(el) => (cardsRef.current[index] = el)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  whileHover={{ scale: 1.05 }}
-                  className={`tool-card card flex h-[480px] w-[260px] flex-col items-center justify-start rounded-[28px] p-6 text-center relative overflow-hidden ${
-                    isDark
-                      ? "border border-white/10"
-                      : "border border-transparent shadow-[0_22px_55px_rgba(15,23,42,0.35)]"
-                  }`}
-                  style={{
-                    transition: "transform 0.25s ease",
-                    background: isDark
-                      ? `radial-gradient(circle at 0% 0%, ${
-                          tool.accent ?? "#22c55e"
-                        }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
-                      : tool.name === "Cursor"
-                        ? "linear-gradient(135deg, #0f0f17, #202736)" // dark futuristic
-                        : tool.name === "Codex AI"
-                          ? "linear-gradient(135deg, #0d0b1f, #1a1c3c)" // neon coding
-                          : tool.name === "Lovable AI"
-                            ? "linear-gradient(135deg, #1a0c25, #281338)" // soft romantic
-                            : `linear-gradient(135deg,
-                                color-mix(in srgb, ${tool.accent ?? "#22c55e"} 80%, #ffffff),
-                                color-mix(in srgb, ${tool.accent ?? "#22c55e"} 55%, #020617)
-                              )`,
-                  }}
+                  className="tool-slide flex-shrink-0 w-full"
                 >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    whileHover={{
+                      scale: 1.03,
+                      boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+                    }}
+                    className={`tool-card card flex h-[480px] w-full max-w-[1100px] mx-auto flex-col items-center justify-start rounded-[28px] p-6 md:p-10 text-center relative overflow-hidden ${
+                      isDark
+                        ? "border border-white/10"
+                        : "border border-transparent shadow-[0_22px_55px_rgba(15,23,42,0.35)]"
+                    }`}
+                    style={{
+                      transition: "transform 0.25s ease",
+                      background: isDark
+                        ? `radial-gradient(circle at 0% 0%, ${
+                            tool.accent ?? "#22c55e"
+                          }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
+                        : tool.name === "Cursor"
+                          ? "linear-gradient(135deg, #0f0f17, #202736)" // dark futuristic
+                          : tool.name === "Codex AI"
+                            ? "linear-gradient(135deg, #0d0b1f, #1a1c3c)" // neon coding
+                            : tool.name === "Lovable AI"
+                              ? "linear-gradient(135deg, #1a0c25, #281338)" // soft romantic
+                              : `linear-gradient(135deg,
+                                  color-mix(in srgb, ${tool.accent ?? "#22c55e"} 80%, #ffffff),
+                                  color-mix(in srgb, ${tool.accent ?? "#22c55e"} 55%, #020617)
+                                )`,
+                    }}
+                  >
                   <div
                     className={`card-image-wrapper mb-6 flex h-[180px] w-[180px] items-center justify-center rounded-3xl ${
                       isDark ? "bg-black/40" : "bg-white/10"
@@ -246,21 +249,19 @@ export default function AiToolGallery({ theme = "dark" }) {
                       Try it now →
                     </a>
                   )}
-                </motion.div>
+                  </motion.div>
+                </div>
               ))}
             </div>
           </div>
 
           <button
+            type="button"
             onClick={handleNext}
-            className={`arrow flex h-[50px] w-[50px] items-center justify-center rounded-full backdrop-blur-md transition duration-200 ${
-              isDark
-                ? "bg-white/10 text-white hover:bg-white/25"
-                : "bg-white text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-100"
-            }`}
+            className="carousel-arrow right"
             aria-label="Next tool"
           >
-            <ChevronRight size={26} />
+            <CarouselArrow direction="right" />
           </button>
         </div>
       </div>

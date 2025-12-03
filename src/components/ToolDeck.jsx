@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./toolDeck.css";
+import CarouselArrow from "./CarouselArrow";
 
 const tools = [
   {
@@ -111,26 +112,28 @@ export default function ToolDeck({ theme = "dark" }) {
     >
       <header className="tooldeck-header">
         <div>
-          <p className="tooldeck-kicker">/ DISCOVER AI</p>
+          <p
+            className={`text-lg md:text-xl font-semibold mb-3 ${
+              theme === "dark" ? "text-teal-300" : "text-teal-600"
+            }`}
+          >
+            Discover AI
+          </p>
           <h2 className="tooldeck-title">
             Explore, Learn, and Master Every AI Tool
           </h2>
         </div>
-        <div className="tooldeck-subcopy">
-          <div className="tooldeck-toggle">
-            <span>—</span>
-            <span>≡</span>
-          </div>
-        </div>
+        {/* Right side subcopy removed per design update */}
       </header>
 
-      <div className="tooldeck-shell">
+      <div className="tooldeck-shell relative">
         <button
-          className="tooldeck-arrow tooldeck-arrow-left"
+          type="button"
+          className="carousel-arrow left"
           onClick={handlePrev}
           aria-label="Previous tool"
         >
-          ‹
+          <CarouselArrow direction="left" />
         </button>
 
         <div className="tooldeck-track" ref={trackRef}>
@@ -165,11 +168,12 @@ export default function ToolDeck({ theme = "dark" }) {
         </div>
 
         <button
-          className="tooldeck-arrow tooldeck-arrow-right"
+          type="button"
+          className="carousel-arrow right"
           onClick={handleNext}
           aria-label="Next tool"
         >
-          ›
+          <CarouselArrow direction="right" />
         </button>
       </div>
     </section>

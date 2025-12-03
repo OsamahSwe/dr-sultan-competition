@@ -73,11 +73,11 @@ function AIToolShowcase() {
         </div>
 
         {/* Horizontal scroll container */}
-        <div className="flex gap-10 overflow-x-scroll no-scrollbar snap-x snap-mandatory px-20 py-20 scroll-smooth">
+        <div className="flex gap-10 overflow-x-scroll no-scrollbar px-20 py-20">
           {aiTools.map((tool, index) => (
             <motion.article
               key={tool.name}
-              className={`snap-center w-[80vw] h-[60vh] rounded-3xl overflow-hidden bg-black/20 border border-white/10 p-10 shadow-xl shrink-0 relative flex flex-col justify-between bg-gradient-to-br ${tool.theme}`}
+              className={`w-[80vw] h-[60vh] rounded-3xl overflow-hidden bg-black/20 border border-white/10 p-10 shadow-xl shrink-0 relative flex flex-col justify-between bg-gradient-to-br ${tool.theme}`}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
