@@ -4,6 +4,8 @@
   padding: 6rem 6vw 5rem;
   background: #000000; /* pure black backdrop */
   color: #f9fafb;
+  position: relative;
+  overflow: hidden;
 }
 .tooldeck-section--light {
   background: #ffffff;

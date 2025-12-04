@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide text caret globally so it never shows on static text */
+body {
+  caret-color: transparent;
+}
+
 /* Single-slide AI tools carousel */
 
 #tool-strip {

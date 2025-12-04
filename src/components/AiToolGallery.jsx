@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import CarouselArrow from "./CarouselArrow";
 
 const tools = [
@@ -78,50 +78,34 @@ const tools = [
 ];
 
 export default function AiToolGallery({ theme = "dark" }) {
-  const containerRef = useRef(null);
-  const cardsRef = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const isDark = theme === "dark";
-
-  const scrollToCard = (index) => {
-    const container = containerRef.current;
-    const card = cardsRef.current[index];
-    if (!container || !card) return;
-
-    const containerWidth = container.offsetWidth;
-    const cardWidth = card.offsetWidth;
-    const targetScroll = card.offsetLeft - (containerWidth / 2 - cardWidth / 2);
-
-    container.scrollTo({
-      left: targetScroll,
-      behavior: "smooth",
-    });
-  };
 
   const handleNext = () => {
     const nextIndex = (activeIndex + 1) % tools.length;
     setActiveIndex(nextIndex);
-    scrollToCard(nextIndex);
   };
 
   const handlePrev = () => {
     const prevIndex = (activeIndex - 1 + tools.length) % tools.length;
     setActiveIndex(prevIndex);
-    scrollToCard(prevIndex);
   };
 
-  useEffect(() => {
-    // Center the first card on mount
-    const timer = setTimeout(() => {
-      scrollToCard(0);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <section className={`w-full py-28 ${isDark ? "bg-black" : "bg-slate-50"}`}>
+    <section
+      className={`w-full ${
+        isDark ? "bg-black py-20 md:py-24" : "bg-slate-50 py-20 md:py-24"
+      }`}
+    >
       <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-        <div className="mb-10 md:mb-14 text-center">
+        <div
+          className={`${
+            isDark
+              ? ""
+              : "rounded-[32px] bg-white/80 shadow-[0_32px_110px_rgba(15,23,42,0.12)] border border-slate-200/60 backdrop-blur-md px-4 md:px-8 pt-10 md:pt-12 pb-12 md:pb-14"
+          }`}
+        >
+        <div className="mb-10 md:mb-12 text-center">
           <p
             className={`text-lg md:text-xl font-semibold mb-4 ${
               isDark ? "text-teal-300" : "text-teal-600"
@@ -155,51 +139,63 @@ export default function AiToolGallery({ theme = "dark" }) {
             <CarouselArrow direction="left" />
           </button>
 
-          <div className="overflow-hidden px-2" ref={containerRef} id="tool-strip">
-            <div className="cards-wrapper flex py-10">
-              {tools.map((tool, index) => (
-                <div
-                  key={tool.name}
-                  ref={(el) => (cardsRef.current[index] = el)}
-                  className="tool-slide flex-shrink-0 w-full"
-                >
+          <div className="overflow-hidden px-2 w-full" id="tool-strip">
+            <div className="py-10">
+              <AnimatePresence mode="wait" initial={false}>
+                {(() => {
+                  const tool = tools[activeIndex];
+                  return (
+                    <motion.div
+                      key={tool.name}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        duration: 0.25,
+                        ease: "easeOut",
+                      }}
+                      className={`tool-card card flex h-[480px] w-full max-w-[1100px] mx-auto flex-col items-center justify-start rounded-[28px] p-6 md:p-10 text-center relative overflow-hidden ${
+                        isDark
+                          ? "border border-white/10"
+                          : "border border-transparent shadow-[0_22px_55px_rgba(15,23,42,0.35)]"
+                      }`}
+                      style={{
+                        transition: "transform 0.25s ease",
+                        background: isDark
+                          ? `radial-gradient(circle at 0% 0%, ${
+                              tool.accent ?? "#22c55e"
+                            }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
+                          : tool.name === "Cursor"
+                            ? "linear-gradient(135deg, #0f0f17, #202736)" // dark futuristic
+                            : tool.name === "Codex AI"
+                              ? "linear-gradient(135deg, #0d0b1f, #1a1c3c)" // neon coding
+                              : tool.name === "Lovable AI"
+                                ? "linear-gradient(135deg, #1a0c25, #281338)" // soft romantic
+                                : `linear-gradient(135deg,
+                                    color-mix(in srgb, ${tool.accent ?? "#22c55e"} 80%, #ffffff),
+                                    color-mix(in srgb, ${tool.accent ?? "#22c55e"} 55%, #020617)
+                                  )`,
+                      }}
+                    >
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    whileHover={{
-                      scale: 1.03,
-                      boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
-                    }}
-                    className={`tool-card card flex h-[480px] w-full max-w-[1100px] mx-auto flex-col items-center justify-start rounded-[28px] p-6 md:p-10 text-center relative overflow-hidden ${
-                      isDark
-                        ? "border border-white/10"
-                        : "border border-transparent shadow-[0_22px_55px_rgba(15,23,42,0.35)]"
-                    }`}
-                    style={{
-                      transition: "transform 0.25s ease",
-                      background: isDark
-                        ? `radial-gradient(circle at 0% 0%, ${
-                            tool.accent ?? "#22c55e"
-                          }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
-                        : tool.name === "Cursor"
-                          ? "linear-gradient(135deg, #0f0f17, #202736)" // dark futuristic
-                          : tool.name === "Codex AI"
-                            ? "linear-gradient(135deg, #0d0b1f, #1a1c3c)" // neon coding
-                            : tool.name === "Lovable AI"
-                              ? "linear-gradient(135deg, #1a0c25, #281338)" // soft romantic
-                              : `linear-gradient(135deg,
-                                  color-mix(in srgb, ${tool.accent ?? "#22c55e"} 80%, #ffffff),
-                                  color-mix(in srgb, ${tool.accent ?? "#22c55e"} 55%, #020617)
-                                )`,
-                    }}
-                  >
-                  <div
                     className={`card-image-wrapper mb-6 flex h-[180px] w-[180px] items-center justify-center rounded-3xl ${
                       isDark ? "bg-black/40" : "bg-white/10"
                     }`}
                     style={{
                       boxShadow: `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
+                    }}
+                    animate={{
+                      scale: [1, 1.02, 1],
+                      boxShadow: [
+                        `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
+                        `0 0 60px ${(tool.accent ?? "#22c55e") + "aa"}`,
+                        `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
+                      ],
+                    }}
+                    transition={{
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: "easeInOut",
                     }}
                   >
                     <img
@@ -207,7 +203,7 @@ export default function AiToolGallery({ theme = "dark" }) {
                       className="card-image h-full w-full object-contain"
                       alt={tool.name}
                     />
-                  </div>
+                  </motion.div>
 
                   <h3
                     className={`text-xl font-semibold mb-3 ${
@@ -236,10 +232,13 @@ export default function AiToolGallery({ theme = "dark" }) {
                   )}
 
                   {tool.link && (
-                    <a
+                    <motion.a
                       href={tool.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      whileHover={{ scale: 1.03, y: -1 }}
+                      whileTap={{ scale: 0.97, y: 0 }}
+                      transition={{ duration: 0.15, ease: "easeOut" }}
                       className={`mt-4 inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
                         isDark
                           ? "bg-white/10 text-white hover:bg-white/20"
@@ -247,11 +246,12 @@ export default function AiToolGallery({ theme = "dark" }) {
                       }`}
                     >
                       Try it now →
-                    </a>
+                    </motion.a>
                   )}
                   </motion.div>
-                </div>
-              ))}
+                  );
+                })()}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -263,6 +263,7 @@ export default function AiToolGallery({ theme = "dark" }) {
           >
             <CarouselArrow direction="right" />
           </button>
+        </div>
         </div>
       </div>
     </section>

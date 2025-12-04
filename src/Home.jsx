@@ -78,10 +78,24 @@ function Home() {
       </section>
 
       {/* Horizontal AI tool gallery placed directly under hero */}
-      <AiToolGallery theme={theme} />
+      <motion.section
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <AiToolGallery theme={theme} />
+      </motion.section>
 
       {/* Center-snapping Tool Deck section */}
-      <ToolDeck theme={theme} />
+      <motion.section
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+      >
+        <ToolDeck theme={theme} />
+      </motion.section>
     </main>
   );
 }

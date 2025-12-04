@@ -1,3 +1,22 @@
+import { motion } from "framer-motion";
+
+const heroStagger = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
+  },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 40, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 function Hero({ theme = "dark", onToggleTheme }) {
   const isLightMode = theme === "light";
 
@@ -92,27 +111,34 @@ function Hero({ theme = "dark", onToggleTheme }) {
 
       {/* Main Hero Content */}
       {/* Vertically centered content, slightly left-aligned */}
-      <div className="relative z-20 flex flex-col justify-center h-full px-6 md:px-12 lg:px-16">
-        <div className="max-w-4xl">
+      <motion.div
+        className="relative z-20 flex flex-col justify-center h-full px-6 md:px-12 lg:px-16"
+        variants={heroStagger}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.div className="max-w-4xl" variants={heroItem}>
           {/* Main Heading - Multi-line, large, light font weight */}
-          <h1
+          <motion.h1
             className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
               isLightMode ? "text-black" : "text-white"
             }`}
+            variants={heroItem}
           >
             EXPAND INTO
             <br />
             A NEW ERA
             <br />
             OF INTELLIGENT CREATION
-          </h1>
+          </motion.h1>
 
           {/* Sub-text Row */}
           {/* Small row with category and contact link */}
-          <div
+          <motion.div
             className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
               isLightMode ? "text-black" : "text-white"
             }`}
+            variants={heroItem}
           >
             {/* Category label */}
             <span className="text-xs md:text-sm uppercase tracking-wider opacity-80">
@@ -127,9 +153,9 @@ function Hero({ theme = "dark", onToggleTheme }) {
               CONTACT US
               <span className="text-lg">→</span>
             </a>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
       {/* Side Label */}
       {/* Vertical label on the right edge of the screen */}

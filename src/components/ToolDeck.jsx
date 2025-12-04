@@ -110,33 +110,46 @@ export default function ToolDeck({ theme = "dark" }) {
         theme === "light" ? "tooldeck-section tooldeck-section--light" : "tooldeck-section"
       }
     >
-      <header className="tooldeck-header">
-        <div>
-          <p
-            className={`text-lg md:text-xl font-semibold mb-3 ${
-              theme === "dark" ? "text-teal-300" : "text-teal-600"
-            }`}
-          >
-            Discover AI
-          </p>
-          <h2 className="tooldeck-title">
-            Explore, Learn, and Master Every AI Tool
-          </h2>
-        </div>
-        {/* Right side subcopy removed per design update */}
-      </header>
-
-      <div className="tooldeck-shell relative">
-        <button
-          type="button"
-          className="carousel-arrow left"
-          onClick={handlePrev}
-          aria-label="Previous tool"
+      {theme === "light" && (
+        <video
+          className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-35"
+          autoPlay
+          loop
+          muted
+          playsInline
         >
-          <CarouselArrow direction="left" />
-        </button>
+          <source src="/light-mode.mp4" type="video/mp4" />
+        </video>
+      )}
 
-        <div className="tooldeck-track" ref={trackRef}>
+      <div className="relative z-10">
+        <header className="tooldeck-header">
+          <div>
+            <p
+              className={`text-lg md:text-xl font-semibold mb-3 ${
+                theme === "dark" ? "text-teal-300" : "text-teal-600"
+              }`}
+            >
+              Discover AI
+            </p>
+            <h2 className="tooldeck-title">
+              Explore, Learn, and Master Every AI Tool
+            </h2>
+          </div>
+          {/* Right side subcopy removed per design update */}
+        </header>
+
+        <div className="tooldeck-shell relative">
+          <button
+            type="button"
+            className="carousel-arrow left"
+            onClick={handlePrev}
+            aria-label="Previous tool"
+          >
+            <CarouselArrow direction="left" />
+          </button>
+
+          <div className="tooldeck-track" ref={trackRef}>
           {tools.map((tool, index) => (
             <motion.article
               key={tool.id}
@@ -144,12 +157,20 @@ export default function ToolDeck({ theme = "dark" }) {
               className="tool-card"
               style={{
                 "--card-accent": tool.color,
+                willChange: "transform, box-shadow",
               }}
+              initial={{ scale: 1, rotateX: 0, rotateY: 0, boxShadow: "0 26px 70px rgba(0,0,0,0.55)" }}
               whileHover={{
-                scale: 1.03,
-                boxShadow: "0 30px 80px rgba(0,0,0,0.5)",
+                scale: 1.015,
+                rotateX: -1.5,
+                rotateY: 1.5,
+                boxShadow: "0 30px 80px rgba(0,0,0,0.8)",
               }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              transition={{
+                type: "tween",
+                duration: 0.18,
+                ease: "easeOut",
+              }}
             >
               <div className="tool-card-inner">
                 <p className="tool-card-role">{tool.role}</p>
@@ -160,21 +181,30 @@ export default function ToolDeck({ theme = "dark" }) {
                     {String(tools.indexOf(tool) + 1).padStart(2, "0")} /{" "}
                     {String(tools.length).padStart(2, "0")}
                   </span>
-                  <button className="tool-card-cta">explore tool →</button>
+                  <motion.button
+                    type="button"
+                    whileHover={{ scale: 1.03, y: -1 }}
+                    whileTap={{ scale: 0.97, y: 0 }}
+                    transition={{ duration: 0.15, ease: "easeOut" }}
+                    className="tool-card-cta"
+                  >
+                    explore tool →
+                  </motion.button>
                 </div>
               </div>
             </motion.article>
           ))}
         </div>
 
-        <button
-          type="button"
-          className="carousel-arrow right"
-          onClick={handleNext}
-          aria-label="Next tool"
-        >
-          <CarouselArrow direction="right" />
-        </button>
+          <button
+            type="button"
+            className="carousel-arrow right"
+            onClick={handleNext}
+            aria-label="Next tool"
+          >
+            <CarouselArrow direction="right" />
+          </button>
+        </div>
       </div>
     </section>
   );
