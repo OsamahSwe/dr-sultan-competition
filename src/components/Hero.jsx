@@ -84,28 +84,28 @@ function Hero({ theme = "dark", onToggleTheme }) {
             isLightMode ? "text-black" : "text-white"
           }`}
         >
-          <button 
+          <button
             onClick={onToggleTheme}
             className="hover:opacity-70 transition-opacity flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
           >
-            <img 
-              src="/exposure-time.png" 
-              alt="mode icon" 
+            <img
+              src="/exposure-time.png"
+              alt="mode icon"
               className="w-6 h-6"
             />
             {isLightMode ? "dark mode" : "light mode"}
           </button>
-          <a
+          {/* <a
             href="#menu"
             className="hover:opacity-70 transition-opacity flex items-center gap-2"
           >
             menu
-            <img 
-              src="/transparent-hd-white-menu-icon.png" 
-              alt="menu icon" 
+            <img
+              src="/transparent-hd-white-menu-icon.png"
+              alt="menu icon"
               className="w-6 h-6"
             />
-          </a>
+          </a> */}
         </div>
       </nav>
 

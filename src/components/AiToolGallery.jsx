@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import CarouselArrow from "./CarouselArrow";
 
 const tools = [
@@ -78,6 +79,7 @@ const tools = [
 ];
 
 export default function AiToolGallery({ theme = "dark" }) {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const isDark = theme === "dark";
 
@@ -231,23 +233,51 @@ export default function AiToolGallery({ theme = "dark" }) {
                     </p>
                   )}
 
-                  {tool.link && (
-                    <motion.a
-                      href={tool.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  <div className="flex gap-3 mt-4">
+                    <motion.button
+                      onClick={() => {
+                        const toolId = tool.name.toLowerCase()
+                          .replace(/\s+/g, '')
+                          .replace('chatgpt', 'chatgpt')
+                          .replace('claudeai', 'claude')
+                          .replace('gemini', 'gemini')
+                          .replace('deepseek', 'deepseek')
+                          .replace('githubcopilot', 'copilot')
+                          .replace('cursor', 'cursor')
+                          .replace('codexai', 'codex')
+                          .replace('lovableai', 'lovable')
+                          .replace('uxpilot', 'uxpilot');
+                        navigate(`/tool/${toolId}`);
+                      }}
                       whileHover={{ scale: 1.03, y: -1 }}
                       whileTap={{ scale: 0.97, y: 0 }}
                       transition={{ duration: 0.15, ease: "easeOut" }}
-                      className={`mt-4 inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
+                      className={`inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
                         isDark
-                          ? "bg-white/10 text-white hover:bg-white/20"
-                          : "bg-slate-900 text-white shadow-md hover:bg-slate-800"
+                          ? "bg-teal-500/20 text-teal-300 hover:bg-teal-500/30 border border-teal-400/30"
+                          : "bg-teal-600 text-white shadow-md hover:bg-teal-700"
                       }`}
                     >
-                      Try it now →
-                    </motion.a>
-                  )}
+                      Learn More →
+                    </motion.button>
+                    {tool.link && (
+                      <motion.a
+                        href={tool.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.03, y: -1 }}
+                        whileTap={{ scale: 0.97, y: 0 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className={`inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
+                          isDark
+                            ? "bg-white/10 text-white hover:bg-white/20"
+                            : "bg-slate-900 text-white shadow-md hover:bg-slate-800"
+                        }`}
+                      >
+                        Try it now →
+                      </motion.a>
+                    )}
+                  </div>
                   </motion.div>
                   );
                 })()}

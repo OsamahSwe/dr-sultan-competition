@@ -1,6 +1,7 @@
 // src/components/ToolDeck.jsx
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./toolDeck.css";
 import CarouselArrow from "./CarouselArrow";
 
@@ -64,6 +65,7 @@ const tools = [
 ];
 
 export default function ToolDeck({ theme = "dark" }) {
+  const navigate = useNavigate();
   const trackRef = useRef(null);
   const cardsRef = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -183,6 +185,7 @@ export default function ToolDeck({ theme = "dark" }) {
                   </span>
                   <motion.button
                     type="button"
+                    onClick={() => navigate(`/tool/${tool.id}`)}
                     whileHover={{ scale: 1.03, y: -1 }}
                     whileTap={{ scale: 0.97, y: 0 }}
                     transition={{ duration: 0.15, ease: "easeOut" }}

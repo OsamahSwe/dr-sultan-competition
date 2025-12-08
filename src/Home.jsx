@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Hero from "./components/Hero";
 import AiToolGallery from "./components/AiToolGallery";
 import ToolDeck from "./components/ToolDeck";
@@ -61,12 +60,7 @@ const tools = [
   },
 ];
 
-function Home() {
-  const [theme, setTheme] = useState("dark");
-
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-
+function Home({ theme = "dark", onToggleTheme }) {
   const mainClass =
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
 
@@ -74,7 +68,7 @@ function Home() {
     <main className={mainClass}>
       {/* Hero / Landing section with video */}
       <section className="h-screen">
-        <Hero theme={theme} onToggleTheme={toggleTheme} />
+        <Hero theme={theme} onToggleTheme={onToggleTheme} />
       </section>
 
       {/* Horizontal AI tool gallery placed directly under hero */}

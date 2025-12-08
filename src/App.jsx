@@ -1,7 +1,29 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Home from "./Home";
+import ToolDetailPage from "./pages/ToolDetailPage";
 
 function App() {
-  return <Home />;
+  const [theme, setTheme] = useState("dark");
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={<Home theme={theme} onToggleTheme={toggleTheme} />}
+        />
+        <Route
+          path="/tool/:toolId"
+          element={<ToolDetailPage theme={theme} onToggleTheme={toggleTheme} />}
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
