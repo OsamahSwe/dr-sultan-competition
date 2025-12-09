@@ -1,6 +1,7 @@
 import Hero from "./components/Hero";
 import AiToolGallery from "./components/AiToolGallery";
 import ToolDeck from "./components/ToolDeck";
+import AboutUs from "./components/AboutUs";
 import { motion } from "framer-motion";
 
 const tools = [
@@ -89,6 +90,16 @@ function Home({ theme = "dark", onToggleTheme }) {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
         <ToolDeck theme={theme} />
+      </motion.section>
+
+      {/* About Us section */}
+      <motion.section
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <AboutUs theme={theme} />
       </motion.section>
     </main>
   );

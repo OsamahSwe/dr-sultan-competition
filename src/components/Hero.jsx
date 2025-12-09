@@ -133,24 +133,19 @@ function Hero({ theme = "dark", onToggleTheme }) {
           </motion.h1>
 
           {/* Sub-text Row */}
-          {/* Small row with category and contact link */}
+          {/* Small row with about us link */}
           <motion.div
             className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
               isLightMode ? "text-black" : "text-white"
             }`}
             variants={heroItem}
           >
-            {/* Category label */}
-            <span className="text-xs md:text-sm uppercase tracking-wider opacity-80">
-              / DIGITAL PORTFOLIO
-            </span>
-            
-            {/* Contact link */}
+            {/* About Us link */}
             <a
-              href="#contact"
+              href="#about-us"
               className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2"
             >
-              CONTACT US
+              ABOUT US
               <span className="text-lg">→</span>
             </a>
           </motion.div>
