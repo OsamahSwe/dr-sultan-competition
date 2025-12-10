@@ -158,7 +158,7 @@ function ToolDetailPage({ theme = "dark" }) {
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex gap-8 overflow-x-auto">
+          <div className="flex gap-8 overflow-x-auto tab-scroll">
             {["features", "use-cases", "how-to-use", "pricing"].map((tab) => (
               <button
                 key={tab}

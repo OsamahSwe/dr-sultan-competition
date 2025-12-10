@@ -155,8 +155,18 @@ function Hero({ theme = "dark", onToggleTheme }) {
       {/* Side Label */}
       {/* Vertical label on the right edge of the screen */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20">
-        <div className="bg-teal-400/20 backdrop-blur-sm px-2 py-12 rounded-l-lg">
-          <div className="text-white text-xs font-light uppercase tracking-wider transform -rotate-90 whitespace-nowrap">
+        <div
+          className={`backdrop-blur-md px-2 py-12 rounded-l-lg border ${
+            isLightMode
+              ? "bg-gradient-to-b from-teal-200 via-cyan-200/90 to-emerald-200/90 border-teal-300/80 shadow-[0_10px_30px_rgba(34,197,94,0.25)]"
+              : "bg-teal-400/20 border-white/10 shadow-[0_10px_24px_rgba(16,185,129,0.35)]"
+          }`}
+        >
+          <div
+            className={`text-xs font-semibold uppercase tracking-wider transform -rotate-90 whitespace-nowrap ${
+              isLightMode ? "text-teal-800" : "text-white"
+            }`}
+          >
             AI
           </div>
         </div>

@@ -220,7 +220,8 @@
   }
   .tool-card {
     flex: 0 0 82vw;
-    height: 22rem;
+    height: auto; /* let content size naturally on smaller screens */
+    min-height: 30rem; /* ensure buttons/content stay visible */
   }
   .tooldeck-arrow {
     display: none; /* mobile can just swipe/scroll */

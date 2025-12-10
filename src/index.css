@@ -298,3 +298,46 @@ body {
     margin-top: 1.6rem;
   }
 }
+
+/* Premium horizontal tabs scroll hint */
+.tab-scroll {
+  position: relative;
+  padding: 0 12px; /* lets next tab peek in */
+  margin: 0 -12px; /* keeps visual alignment with container edges */
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+
+.tab-scroll::before,
+.tab-scroll::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px; /* slimmer fade to avoid covering labels */
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tab-scroll::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.tab-scroll::after {
+  right: 0;
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.55), transparent);
+}
+
+.tab-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.tab-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-scroll::-webkit-scrollbar-thumb {
+  background: rgba(45, 212, 191, 0.65);
+  border-radius: 999px;
+}
