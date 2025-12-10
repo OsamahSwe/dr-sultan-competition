@@ -95,11 +95,24 @@ export default function AiToolGallery({ theme = "dark" }) {
 
   return (
     <section
-      className={`w-full ${
-        isDark ? "bg-black py-20 md:py-24" : "bg-slate-50 py-20 md:py-24"
+      className={`w-full relative ${
+        isDark ? "bg-black py-20 md:py-24" : "bg-transparent py-20 md:py-24"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+      {/* Light mode video background */}
+      {!isDark && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/light-mode.mp4" type="video/mp4" />
+        </video>
+      )}
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10">
         <div
           className={`${
             isDark

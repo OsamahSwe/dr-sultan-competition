@@ -52,7 +52,7 @@ function AboutUs({ theme = "dark" }) {
       viewport={{ once: true, amount: 0.2 }}
       variants={containerVariants}
       className={`min-h-screen w-full py-20 md:py-32 px-6 md:px-12 ${
-        isDark ? "bg-black" : "bg-slate-50"
+        isDark ? "bg-black" : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto">
@@ -106,7 +106,9 @@ function AboutUs({ theme = "dark" }) {
                   <img
                     src={member.photo}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${
+                      isDark ? "" : "brightness-90"
+                    }`}
                     onError={(e) => {
                       // Fallback if image doesn't exist
                       e.target.style.display = "none";
@@ -120,13 +122,9 @@ function AboutUs({ theme = "dark" }) {
                     }}
                   />
                   {/* Subtle glow effect */}
-                  <div
-                    className={`absolute inset-0 ${
-                      isDark
-                        ? "bg-gradient-to-t from-black/60 to-transparent"
-                        : "bg-gradient-to-t from-white/60 to-transparent"
-                    }`}
-                  />
+                  {isDark && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  )}
                 </motion.div>
 
                 {/* Name and Role */}
@@ -168,7 +166,9 @@ function AboutUs({ theme = "dark" }) {
               <img
                 src={teamMembers[2].photo}
                 alt={teamMembers[2].name}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover ${
+                  isDark ? "" : "brightness-90"
+                }`}
                 onError={(e) => {
                   // Fallback if image doesn't exist
                   e.target.style.display = "none";
@@ -182,13 +182,9 @@ function AboutUs({ theme = "dark" }) {
                 }}
               />
               {/* Subtle glow effect */}
-              <div
-                className={`absolute inset-0 ${
-                  isDark
-                    ? "bg-gradient-to-t from-black/60 to-transparent"
-                    : "bg-gradient-to-t from-white/60 to-transparent"
-                }`}
-              />
+              {isDark && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              )}
             </motion.div>
 
             {/* Name and Role */}

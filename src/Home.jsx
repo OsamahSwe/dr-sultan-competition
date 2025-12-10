@@ -64,13 +64,29 @@ const tools = [
 function Home({ theme = "dark", onToggleTheme }) {
   const mainClass =
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
+  const isLightMode = theme === "light";
 
   return (
-    <main className={mainClass}>
-      {/* Hero / Landing section with video */}
-      <section className="h-screen">
-        <Hero theme={theme} onToggleTheme={onToggleTheme} />
-      </section>
+    <main className={`${mainClass} relative`}>
+      {/* Full-page light mode video background */}
+      {isLightMode && (
+        <video
+          className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/light-mode.mp4" type="video/mp4" />
+        </video>
+      )}
+
+      {/* Content wrapper with relative positioning */}
+      <div className="relative z-10">
+        {/* Hero / Landing section with video */}
+        <section className="h-screen">
+          <Hero theme={theme} onToggleTheme={onToggleTheme} />
+        </section>
 
       {/* Horizontal AI tool gallery placed directly under hero */}
       <motion.section
@@ -92,16 +108,6 @@ function Home({ theme = "dark", onToggleTheme }) {
         <ToolDeck theme={theme} />
       </motion.section>
 
-      {/* About Us section */}
-      <motion.section
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <AboutUs theme={theme} />
-      </motion.section>
-
       {/* Tutorial Video section */}
       <motion.section
         initial={{ opacity: 0, y: 60 }}
@@ -109,7 +115,7 @@ function Home({ theme = "dark", onToggleTheme }) {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={`py-20 md:py-32 px-6 md:px-12 ${
-          theme === "dark" ? "bg-black" : "bg-slate-50"
+          theme === "dark" ? "bg-black" : "bg-transparent"
         }`}
       >
         <div className="max-w-6xl mx-auto">
@@ -146,6 +152,17 @@ function Home({ theme = "dark", onToggleTheme }) {
           </div>
         </div>
       </motion.section>
+
+      {/* About Us section */}
+      <motion.section
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <AboutUs theme={theme} />
+      </motion.section>
+      </div>
     </main>
   );
 }
