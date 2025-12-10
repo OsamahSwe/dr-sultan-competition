@@ -101,6 +101,51 @@ function Home({ theme = "dark", onToggleTheme }) {
       >
         <AboutUs theme={theme} />
       </motion.section>
+
+      {/* Tutorial Video section */}
+      <motion.section
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className={`py-20 md:py-32 px-6 md:px-12 ${
+          theme === "dark" ? "bg-black" : "bg-slate-50"
+        }`}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2
+              className={`text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 ${
+                theme === "dark" ? "text-white" : "text-slate-900"
+              }`}
+            >
+              Practical Tutorial
+            </h2>
+            <p
+              className={`text-base md:text-lg ${
+                theme === "dark" ? "text-white/70" : "text-slate-600"
+              }`}
+            >
+              Learn how to build a login page step by step
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <video
+              controls
+              preload="metadata"
+              style={{ maxWidth: "100%", borderRadius: "8px" }}
+              className="w-full"
+            >
+              <source
+                src="/practical-tutorial-login-page.mp4"
+                type="video/mp4"
+              />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </motion.section>
     </main>
   );
 }
