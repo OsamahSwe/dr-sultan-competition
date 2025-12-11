@@ -23,8 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large video files
+# Large video files - allow optimized MP4s for deployment (except hero-video which is too large)
 public/hero-video.mp4
-*.mp4
+# *.mp4
 *.mov
 *.avi
