@@ -12,12 +12,12 @@ const tutorials = [
     status: "live",
   },
   {
-    title: "Ship Faster with Cursor (Coming Soon)",
+    title: "Coming Soon",
     youtubeUrl: null,
     status: "tbd",
   },
   {
-    title: "Design Better UX Flows Using AI (Coming Soon)",
+    title: "Coming Soon",
     youtubeUrl: null,
     status: "tbd",
   },
