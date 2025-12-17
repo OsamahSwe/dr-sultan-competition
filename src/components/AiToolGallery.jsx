@@ -228,10 +228,9 @@ export default function AiToolGallery({ theme = "dark" }) {
                     {tool.name}
                   </h3>
                   <p
-                    className={`text-sm leading-relaxed px-3 ${
-                      isDark ? "text-white/80" : "text-white/90"
+                    className={`text-sm md:text-base leading-relaxed px-3 ${
+                      isDark ? "text-white/95" : "text-white"
                     }`}
-                    style={{ maxHeight: "72px", overflow: "hidden" }}
                   >
                     {tool.description}
                   </p>
@@ -239,7 +238,7 @@ export default function AiToolGallery({ theme = "dark" }) {
                   {tool.about && (
                     <p
                       className={`text-sm mt-3 max-w-md mx-auto px-3 ${
-                        isDark ? "text-gray-400" : "text-slate-100/90"
+                        isDark ? "text-slate-100/95" : "text-slate-100"
                       }`}
                     >
                       {tool.about}
