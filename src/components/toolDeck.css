@@ -18,6 +18,10 @@
   gap: 2rem;
   margin-bottom: 2.5rem;
 }
+.tooldeck-header--center {
+  justify-content: center;
+  text-align: center;
+}
 .tooldeck-kicker {
   letter-spacing: 0.26em;
   text-transform: uppercase;
