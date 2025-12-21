@@ -2,15 +2,23 @@ import Hero from "./components/Hero";
 import AiToolGallery from "./components/AiToolGallery";
 import ToolDeck from "./components/ToolDeck";
 import AboutUs from "./components/AboutUs";
+import MobileHeader from "./components/MobileHeader";
 import { motion } from "framer-motion";
 
-function Home({ theme = "dark", onToggleTheme }) {
+function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
   const mainClass =
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
   const isLightMode = theme === "light";
 
   return (
-    <main className={`${mainClass} relative`}>
+    <>
+      <MobileHeader
+        theme={theme}
+        language={language}
+        onToggleLanguage={onToggleLanguage}
+        onToggleTheme={onToggleTheme}
+      />
+      <main className={`${mainClass} relative`}>
       {/* Full-page light mode video background */}
       {isLightMode && (
         <video
@@ -28,7 +36,12 @@ function Home({ theme = "dark", onToggleTheme }) {
       <div className="relative z-10">
         {/* Hero / Landing section with video */}
         <section className="h-screen">
-          <Hero theme={theme} onToggleTheme={onToggleTheme} />
+          <Hero
+            theme={theme}
+            onToggleTheme={onToggleTheme}
+            language={language}
+            onToggleLanguage={onToggleLanguage}
+          />
         </section>
 
       {/* Horizontal AI tool gallery placed directly under hero */}
@@ -38,7 +51,7 @@ function Home({ theme = "dark", onToggleTheme }) {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <AiToolGallery theme={theme} />
+        <AiToolGallery theme={theme} language={language} />
       </motion.section>
 
       {/* Center-snapping Tool Deck section */}
@@ -48,7 +61,7 @@ function Home({ theme = "dark", onToggleTheme }) {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
-        <ToolDeck theme={theme} />
+        <ToolDeck theme={theme} language={language} />
       </motion.section>
 
       {/* About Us section */}
@@ -58,10 +71,11 @@ function Home({ theme = "dark", onToggleTheme }) {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <AboutUs theme={theme} />
+        <AboutUs theme={theme} language={language} />
       </motion.section>
       </div>
     </main>
+    </>
   );
 }
 

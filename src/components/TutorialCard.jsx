@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { translations } from "../config/translations";
 
-function TutorialCard({ title, youtubeUrl, videoId, status }) {
+function TutorialCard({ title, youtubeUrl, videoId, status, language = "en" }) {
+  const t = translations[language];
   const isLive = status === "live" && youtubeUrl && videoId;
   const thumbnailUrl = isLive
     ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
@@ -37,18 +39,24 @@ function TutorialCard({ title, youtubeUrl, videoId, status }) {
               <div className="ml-0.5 h-0 w-0 border-y-[9px] border-y-transparent border-l-[16px] border-l-white" />
             </div>
           ) : (
-            <div className="rounded-full bg-black/70 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-100/90 border border-white/15">
-              Coming Soon
+            <div className={`rounded-full bg-black/70 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-100/90 border border-white/15 ${
+              language === "ar" ? "arabic-body" : ""
+            }`}>
+              {t.comingSoon}
             </div>
           )}
         </div>
       </div>
 
       <div className="flex flex-col gap-3 px-6 pb-6 pt-4">
-        <span className="inline-flex items-center rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
-          Practical Tutorial
+        <span className={`inline-flex items-center rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300 ${
+          language === "ar" ? "arabic-body" : ""
+        }`}>
+          {t.practicalTutorial}
         </span>
-        <h3 className="text-base md:text-lg lg:text-xl font-medium leading-snug text-white text-center">
+        <h3 className={`text-base md:text-lg lg:text-xl font-medium leading-snug text-white text-center ${
+          language === "ar" ? "arabic-body" : ""
+        }`}>
           {title}
         </h3>
       </div>

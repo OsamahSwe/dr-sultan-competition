@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CarouselArrow from "./CarouselArrow";
+import { translations } from "../config/translations";
 
 const tools = [
   {
@@ -78,10 +79,11 @@ const tools = [
   },
 ];
 
-export default function AiToolGallery({ theme = "dark" }) {
+export default function AiToolGallery({ theme = "dark", language = "en" }) {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
   const isDark = theme === "dark";
+  const t = translations[language];
 
   const handleNext = () => {
     const nextIndex = (activeIndex + 1) % tools.length;
@@ -123,23 +125,27 @@ export default function AiToolGallery({ theme = "dark" }) {
         <div className="mb-10 md:mb-12 text-center">
           <p
             className={`text-lg md:text-xl font-semibold mb-4 ${
+              language === "ar" ? "arabic-section-title" : ""
+            } ${
               isDark ? "text-teal-300" : "text-teal-600"
             }`}
           >
-            AI Tools
+            {t.aiTools}
           </p>
           <h2
             className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
+              language === "ar" ? "arabic-section-title" : ""
+            } ${
               isDark ? "text-white" : "text-slate-900"
             }`}
           >
-            Step Into the AI Era |{" "}
+            {t.stepIntoAiEra}
             <span
               className={`${
                 isDark ? "text-teal-300" : "text-teal-600"
               } font-semibold`}
             >
-              Try the Tools
+              {t.tryTheTools}
             </span>
           </h2>
         </div>
@@ -264,13 +270,15 @@ export default function AiToolGallery({ theme = "dark" }) {
                       whileHover={{ scale: 1.03, y: -1 }}
                       whileTap={{ scale: 0.97, y: 0 }}
                       transition={{ duration: 0.15, ease: "easeOut" }}
-                      className={`inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
+                      className={`button-fixed transition backdrop-blur-xl ${
+                        language === "ar" ? "arabic-button" : ""
+                      } ${
                         isDark
                           ? "bg-teal-500/20 text-teal-300 hover:bg-teal-500/30 border border-teal-400/30"
                           : "bg-teal-600 text-white shadow-md hover:bg-teal-700"
                       }`}
                     >
-                      Learn More →
+                      {t.learnMore} {t.arrow}
                     </motion.button>
                     {tool.link && (
                       <motion.a
@@ -280,13 +288,15 @@ export default function AiToolGallery({ theme = "dark" }) {
                         whileHover={{ scale: 1.03, y: -1 }}
                         whileTap={{ scale: 0.97, y: 0 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
-                        className={`inline-block rounded-full px-6 py-2 text-sm transition backdrop-blur-xl ${
+                        className={`button-fixed transition backdrop-blur-xl ${
+                          language === "ar" ? "arabic-button" : ""
+                        } ${
                           isDark
                             ? "bg-white/10 text-white hover:bg-white/20"
                             : "bg-slate-900 text-white shadow-md hover:bg-slate-800"
                         }`}
                       >
-                        Try it now →
+                        {t.tryItNow} {t.arrow}
                       </motion.a>
                     )}
                   </div>

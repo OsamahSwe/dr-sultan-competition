@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { translations } from "../config/translations";
 
 const heroStagger = {
   hidden: {},
@@ -17,8 +18,10 @@ const heroItem = {
   },
 };
 
-function Hero({ theme = "dark", onToggleTheme }) {
+function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
   const isLightMode = theme === "light";
+  const t = translations[language];
+  const headingLines = t.heroHeading.split("\n");
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -68,14 +71,16 @@ function Hero({ theme = "dark", onToggleTheme }) {
 
       {/* Top Navigation */}
       {/* Navigation bar positioned at the top */}
-      <nav className="relative z-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8">
+      <nav className="hero-top-nav relative z-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8">
         {/* Logo - Left side */}
         <div
           className={`text-xl md:text-2xl font-bold ${
+            language === "ar" ? "arabic-section-title" : ""
+          } ${
             isLightMode ? "text-black" : "text-white"
           }`}
         >
-          AI Tools
+          {t.aiTools}
         </div>
         
         {/* Navigation Links - Right side */}
@@ -84,6 +89,13 @@ function Hero({ theme = "dark", onToggleTheme }) {
             isLightMode ? "text-black" : "text-white"
           }`}
         >
+          <button
+            onClick={onToggleLanguage}
+            className="lang-toggle hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none"
+          >
+            <span className="lang-label-full">English | العربية</span>
+            <span className="lang-label-short">EN | AR</span>
+          </button>
           <button
             onClick={onToggleTheme}
             className="hover:opacity-70 transition-opacity flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
@@ -118,24 +130,29 @@ function Hero({ theme = "dark", onToggleTheme }) {
         animate="visible"
       >
         <motion.div className="max-w-4xl" variants={heroItem}>
-          {/* Main Heading - Multi-line, large, light font weight */}
+          {/* Main Heading - Multi-line, light font weight */}
           <motion.h1
-            className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
+            className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
+              language === "ar" ? "arabic-hero" : "leading-tight"
+            } mb-6 md:mb-8 ${
               isLightMode ? "text-black" : "text-white"
             }`}
             variants={heroItem}
           >
-            EXPAND INTO
-            <br />
-            A NEW ERA
-            <br />
-            OF INTELLIGENT CREATION
+            {headingLines.map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < headingLines.length - 1 && <br />}
+              </span>
+            ))}
           </motion.h1>
 
           {/* Sub-text Row */}
           {/* Small row with about us link */}
           <motion.div
             className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
+              language === "ar" ? "mt-5 md:mt-6" : ""
+            } ${
               isLightMode ? "text-black" : "text-white"
             }`}
             variants={heroItem}
@@ -143,10 +160,14 @@ function Hero({ theme = "dark", onToggleTheme }) {
             {/* About Us link */}
             <a
               href="#about-us"
-              className="text-sm md:text-base font-light hover:opacity-70 transition-opacity flex items-center gap-2"
+              className={`hero-cta ${
+                language === "ar" 
+                  ? "arabic-hero-cta" 
+                  : "font-light"
+              } hover:opacity-70 transition-opacity flex items-center gap-2`}
             >
-              ABOUT US
-              <span className="text-lg">→</span>
+              {t.aboutUs}
+              <span className="text-lg">{t.arrow}</span>
             </a>
           </motion.div>
         </motion.div>

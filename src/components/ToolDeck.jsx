@@ -3,27 +3,29 @@ import React from "react";
 import { motion } from "framer-motion";
 import "./toolDeck.css";
 import TutorialCard from "./TutorialCard";
+import { translations } from "../config/translations";
 
-const tutorials = [
-  {
-    title: "Build a Modern AI Login Page with ChatGPT | Cursor | UX Pilot",
-    videoId: "PfofIwsj3hM",
-    youtubeUrl: "https://youtu.be/PfofIwsj3hM?si=itTePnB3W0vJh9vP",
-    status: "live",
-  },
-  {
-    title: "Coming Soon",
-    youtubeUrl: null,
-    status: "tbd",
-  },
-  {
-    title: "Coming Soon",
-    youtubeUrl: null,
-    status: "tbd",
-  },
-];
-
-export default function ToolDeck({ theme = "dark" }) {
+export default function ToolDeck({ theme = "dark", language = "en" }) {
+  const t = translations[language];
+  
+  const tutorials = [
+    {
+      title: t.tutorialTitle,
+      videoId: "PfofIwsj3hM",
+      youtubeUrl: "https://youtu.be/PfofIwsj3hM?si=itTePnB3W0vJh9vP",
+      status: "live",
+    },
+    {
+      title: t.comingSoon,
+      youtubeUrl: null,
+      status: "tbd",
+    },
+    {
+      title: t.comingSoon,
+      youtubeUrl: null,
+      status: "tbd",
+    },
+  ];
   return (
     <section
       className={
@@ -46,14 +48,20 @@ export default function ToolDeck({ theme = "dark" }) {
         <header className="tooldeck-header tooldeck-header--center">
           <div>
             <p
-              className={`text-lg md:text-xl font-semibold mb-3 ${
+              className={`text-lg md:text-xl font-semibold mb-4 ${
+                language === "ar" ? "arabic-section-title" : ""
+              } ${
                 theme === "dark" ? "text-teal-300" : "text-teal-600"
               }`}
             >
-              Watch & Build
+              {t.watchAndBuild}
             </p>
-            <h2 className="tooldeck-title">
-              Practical Tutorials
+            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
+              language === "ar" ? "arabic-section-title" : ""
+            } ${
+              theme === "dark" ? "text-white" : "text-slate-900"
+            }`}>
+              {t.practicalTutorials}
             </h2>
           </div>
         </header>
@@ -73,6 +81,7 @@ export default function ToolDeck({ theme = "dark" }) {
               youtubeUrl={tutorial.youtubeUrl}
               videoId={tutorial.videoId}
               status={tutorial.status}
+              language={language}
             />
           ))}
         </motion.div>

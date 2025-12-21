@@ -11,6 +11,123 @@ body {
   caret-color: transparent;
 }
 
+/* Mobile header - fixed position (MOBILE ONLY) */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  /* Mobile header - Dark mode */
+  .mobile-header.mobile-header-dark {
+    background: #000000;
+  }
+
+  /* Mobile header - Light mode */
+  .mobile-header.mobile-header-light {
+    background: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* Theme-aware icon styling for light mode toggle (mobile only) */
+  .mobile-header-light img[alt="mode icon"] {
+    filter: brightness(0);
+  }
+  
+  .hero-top-nav {
+    display: none;
+  }
+  
+  /* Add padding-top to body to compensate for fixed header */
+  body {
+    padding-top: 60px;
+  }
+}
+
+/* Desktop: hide mobile header, show desktop nav */
+@media (min-width: 769px) {
+  .mobile-header {
+    display: none !important;
+  }
+  
+  body {
+    padding-top: 0;
+  }
+  
+  .hero-top-nav {
+    display: flex;
+  }
+}
+
+/* Global Arabic font classes */
+.arabic-text {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  direction: ltr;
+  text-align: left;
+}
+
+.arabic-hero {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 700;
+  direction: ltr;
+  letter-spacing: normal;
+  line-height: 1.45;
+}
+
+.arabic-section-title {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 600;
+  direction: ltr;
+}
+
+.arabic-body {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 400;
+  direction: ltr;
+}
+
+.arabic-button {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 400;
+  direction: ltr;
+}
+
+.arabic-hero-cta {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 550;
+  direction: ltr;
+}
+
+/* Unified hero CTA size for both languages */
+.hero-cta {
+  font-size: 1.0625rem; /* ~17px */
+}
+
+@media (min-width: 768px) {
+  .hero-cta {
+    font-size: 1.25rem; /* ~20px */
+  }
+}
+
+/* Fixed button styles for consistency across languages */
+.button-fixed {
+  min-width: 120px;
+  height: 38px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 /* Single-slide AI tools carousel */
 
 #tool-strip {
@@ -340,4 +457,36 @@ body {
 .tab-scroll::-webkit-scrollbar-thumb {
   background: rgba(45, 212, 191, 0.65);
   border-radius: 999px;
+}
+
+/* Language toggle button */
+.lang-toggle {
+  min-width: 96px;
+  height: 36px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1;
+  border-radius: 9999px;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.lang-label-full {
+  display: inline;
+}
+
+.lang-label-short {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .lang-label-full {
+    display: none;
+  }
+  .lang-label-short {
+    display: inline;
+  }
 }

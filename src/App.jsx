@@ -5,9 +5,14 @@ import ToolDetailPage from "./pages/ToolDetailPage";
 
 function App() {
   const [theme, setTheme] = useState("dark");
+  const [language, setLanguage] = useState("en");
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === "en" ? "ar" : "en"));
   };
 
   return (
@@ -15,7 +20,14 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home theme={theme} onToggleTheme={toggleTheme} />}
+          element={
+            <Home
+              theme={theme}
+              onToggleTheme={toggleTheme}
+              language={language}
+              onToggleLanguage={toggleLanguage}
+            />
+          }
         />
         <Route
           path="/tool/:toolId"

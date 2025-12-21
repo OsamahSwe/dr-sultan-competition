@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { translations } from "../config/translations";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 60 },
@@ -23,8 +24,9 @@ const itemVariants = {
   },
 };
 
-function AboutUs({ theme = "dark" }) {
+function AboutUs({ theme = "dark", language = "en" }) {
   const isDark = theme === "dark";
+  const t = translations[language];
 
   const teamMembers = [
     {
@@ -57,28 +59,27 @@ function AboutUs({ theme = "dark" }) {
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20">
-          <p
-            className={`text-lg md:text-xl font-semibold mb-4 ${
-              isDark ? "text-teal-300" : "text-teal-600"
-            }`}
-          >
-            About Us
-          </p>
-          <h2
-            className={`text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight mb-4 ${
-              isDark ? "text-white" : "text-slate-900"
-            }`}
-          >
-            Meet the Team
-          </h2>
-          <p
-            className={`text-base md:text-lg max-w-2xl mx-auto ${
-              isDark ? "text-white/70" : "text-slate-600"
-            }`}
-          >
-            The passionate individuals behind this project
-          </p>
+        <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20 pt-8 md:pt-12">
+          <div>
+            <p
+              className={`text-lg md:text-xl font-semibold mb-3 ${
+                language === "ar" ? "arabic-section-title" : ""
+              } ${
+                isDark ? "text-teal-300" : "text-teal-600"
+              }`}
+            >
+              {t.meetTheTeam}
+            </p>
+            <h2
+              className={`text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight ${
+                language === "ar" ? "arabic-section-title" : ""
+              } ${
+                isDark ? "text-white" : "text-slate-900"
+              }`}
+            >
+              {t.aboutUs}
+            </h2>
+          </div>
         </motion.div>
 
         {/* Team Grid - Triangular Layout */}
