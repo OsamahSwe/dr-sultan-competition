@@ -113,6 +113,16 @@ body {
   }
 }
 
+/* Smooth text transitions for language changes */
+.text-transition {
+  transition: opacity 0.3s ease-in-out, font-family 0.3s ease-in-out;
+}
+
+.translated-text {
+  transition: opacity 0.25s ease-in-out;
+  will-change: opacity;
+}
+
 /* Fixed button styles for consistency across languages */
 .button-fixed {
   min-width: 120px;

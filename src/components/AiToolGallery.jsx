@@ -123,17 +123,25 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
           }`}
         >
         <div className="mb-10 md:mb-12 text-center">
-          <p
-            className={`text-lg md:text-xl font-semibold mb-4 ${
+          <motion.p
+            key={`aiTools-title-${language}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className={`text-lg md:text-xl font-semibold mb-4 translated-text ${
               language === "ar" ? "arabic-section-title" : ""
             } ${
               isDark ? "text-teal-300" : "text-teal-600"
             }`}
           >
             {t.aiTools}
-          </p>
-          <h2
-            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
+          </motion.p>
+          <motion.h2
+            key={`stepIntoAiEra-${language}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text ${
               language === "ar" ? "arabic-section-title" : ""
             } ${
               isDark ? "text-white" : "text-slate-900"
@@ -147,7 +155,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             >
               {t.tryTheTools}
             </span>
-          </h2>
+          </motion.h2>
         </div>
 
         <div className="carousel relative flex items-center justify-center">
@@ -267,10 +275,13 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                           .replace('uxpilot', 'uxpilot');
                         navigate(`/tool/${toolId}`);
                       }}
+                      key={`learnMore-${language}-${tool.name}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
                       whileHover={{ scale: 1.03, y: -1 }}
                       whileTap={{ scale: 0.97, y: 0 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className={`button-fixed transition backdrop-blur-xl ${
+                      className={`button-fixed transition backdrop-blur-xl translated-text ${
                         language === "ar" ? "arabic-button" : ""
                       } ${
                         isDark
@@ -285,10 +296,13 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                         href={tool.link}
                         target="_blank"
                         rel="noopener noreferrer"
+                        key={`tryItNow-${language}-${tool.name}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
                         whileHover={{ scale: 1.03, y: -1 }}
                         whileTap={{ scale: 0.97, y: 0 }}
-                        transition={{ duration: 0.15, ease: "easeOut" }}
-                        className={`button-fixed transition backdrop-blur-xl ${
+                        className={`button-fixed transition backdrop-blur-xl translated-text ${
                           language === "ar" ? "arabic-button" : ""
                         } ${
                           isDark

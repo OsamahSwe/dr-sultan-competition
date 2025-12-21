@@ -61,24 +61,32 @@ function AboutUs({ theme = "dark", language = "en" }) {
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20 pt-8 md:pt-12">
           <div>
-            <p
-              className={`text-lg md:text-xl font-semibold mb-3 ${
+            <motion.p
+              key={`meetTheTeam-${language}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className={`text-lg md:text-xl font-semibold mb-3 translated-text ${
                 language === "ar" ? "arabic-section-title" : ""
               } ${
                 isDark ? "text-teal-300" : "text-teal-600"
               }`}
             >
               {t.meetTheTeam}
-            </p>
-            <h2
-              className={`text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight ${
+            </motion.p>
+            <motion.h2
+              key={`aboutUs-title-${language}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className={`text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight translated-text ${
                 language === "ar" ? "arabic-section-title" : ""
               } ${
                 isDark ? "text-white" : "text-slate-900"
               }`}
             >
               {t.aboutUs}
-            </h2>
+            </motion.h2>
           </div>
         </motion.div>
 

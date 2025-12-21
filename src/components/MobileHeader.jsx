@@ -42,3 +42,4 @@ function MobileHeader({ theme = "dark", language = "en", onToggleLanguage, onTog
 }
 
 export default MobileHeader;
+

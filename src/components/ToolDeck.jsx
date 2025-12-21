@@ -47,22 +47,32 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
       <div className="relative z-10">
         <header className="tooldeck-header tooldeck-header--center">
           <div>
-            <p
-              className={`text-lg md:text-xl font-semibold mb-4 ${
+            <motion.p
+              key={`watchAndBuild-${language}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className={`text-lg md:text-xl font-semibold mb-4 translated-text ${
                 language === "ar" ? "arabic-section-title" : ""
               } ${
                 theme === "dark" ? "text-teal-300" : "text-teal-600"
               }`}
             >
               {t.watchAndBuild}
-            </p>
-            <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight ${
-              language === "ar" ? "arabic-section-title" : ""
-            } ${
-              theme === "dark" ? "text-white" : "text-slate-900"
-            }`}>
+            </motion.p>
+            <motion.h2
+              key={`practicalTutorials-${language}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text ${
+                language === "ar" ? "arabic-section-title" : ""
+              } ${
+                theme === "dark" ? "text-white" : "text-slate-900"
+              }`}
+            >
               {t.practicalTutorials}
-            </h2>
+            </motion.h2>
           </div>
         </header>
 

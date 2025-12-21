@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../config/translations";
 
 const heroStagger = {
@@ -73,15 +73,19 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
       {/* Navigation bar positioned at the top */}
       <nav className="hero-top-nav relative z-20 flex items-center justify-between px-6 md:px-12 pt-6 md:pt-8">
         {/* Logo - Left side */}
-        <div
-          className={`text-xl md:text-2xl font-bold ${
+        <motion.div
+          key={language}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className={`text-xl md:text-2xl font-bold translated-text ${
             language === "ar" ? "arabic-section-title" : ""
           } ${
             isLightMode ? "text-black" : "text-white"
           }`}
         >
           {t.aiTools}
-        </div>
+        </motion.div>
         
         {/* Navigation Links - Right side */}
         <div
@@ -129,48 +133,56 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="max-w-4xl" variants={heroItem}>
-          {/* Main Heading - Multi-line, light font weight */}
-          <motion.h1
-            className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
-              language === "ar" ? "arabic-hero" : "leading-tight"
-            } mb-6 md:mb-8 ${
-              isLightMode ? "text-black" : "text-white"
-            }`}
-            variants={heroItem}
-          >
-            {headingLines.map((line, index) => (
-              <span key={index}>
-                {line}
-                {index < headingLines.length - 1 && <br />}
-              </span>
-            ))}
-          </motion.h1>
-
-          {/* Sub-text Row */}
-          {/* Small row with about us link */}
-          <motion.div
-            className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
-              language === "ar" ? "mt-5 md:mt-6" : ""
-            } ${
-              isLightMode ? "text-black" : "text-white"
-            }`}
-            variants={heroItem}
-          >
-            {/* About Us link */}
-            <a
-              href="#about-us"
-              className={`hero-cta ${
-                language === "ar" 
-                  ? "arabic-hero-cta" 
-                  : "font-light"
-              } hover:opacity-70 transition-opacity flex items-center gap-2`}
+        <div className="max-w-4xl">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={language}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              {t.aboutUs}
-              <span className="text-lg">{t.arrow}</span>
-            </a>
-          </motion.div>
-        </motion.div>
+              {/* Main Heading - Multi-line, light font weight */}
+              <h1
+                className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
+                  language === "ar" ? "arabic-hero" : "leading-tight"
+                } mb-6 md:mb-8 ${
+                  isLightMode ? "text-black" : "text-white"
+                }`}
+              >
+                {headingLines.map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    {index < headingLines.length - 1 && <br />}
+                  </span>
+                ))}
+              </h1>
+
+              {/* Sub-text Row */}
+              {/* Small row with about us link */}
+              <div
+                className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 ${
+                  language === "ar" ? "mt-5 md:mt-6" : ""
+                } ${
+                  isLightMode ? "text-black" : "text-white"
+                }`}
+              >
+                {/* About Us link */}
+                <a
+                  href="#about-us"
+                  className={`hero-cta ${
+                    language === "ar" 
+                      ? "arabic-hero-cta" 
+                      : "font-light"
+                  } hover:opacity-70 transition-opacity flex items-center gap-2`}
+                >
+                  {t.aboutUs}
+                  <span className="text-lg">{t.arrow}</span>
+                </a>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </motion.div>
 
       {/* Side Label */}
