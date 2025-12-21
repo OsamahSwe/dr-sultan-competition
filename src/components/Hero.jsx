@@ -45,7 +45,7 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
         muted
         playsInline
       >
-        <source src="/hero-video.mp4" type="video/mp4" />
+        <source src="/hero-video-v2.mp4" type="video/mp4" />
       </video>
 
       {/* Video Background - Light Mode */}
