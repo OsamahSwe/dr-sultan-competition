@@ -32,6 +32,19 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
         theme === "light" ? "tooldeck-section tooldeck-section--light" : "tooldeck-section"
       }`}
     >
+      {/* Light mode video background */}
+      {theme === "light" && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/light-mode.mp4" type="video/mp4" />
+        </video>
+      )}
+
       <div className="relative z-10">
         <header className="tooldeck-header tooldeck-header--center">
           <div className="text-center">
