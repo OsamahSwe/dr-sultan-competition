@@ -224,6 +224,7 @@
   }
   .tooldeck-header--center {
     text-align: center;
+    align-items: center;
   }
   .tooldeck-header--center .arabic-section-title {
     text-align: center !important;
