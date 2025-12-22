@@ -130,20 +130,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
         >
           {t.tryAndLearn}
         </motion.h2>
-        <motion.p
-          key={`tryAndLearnSubtitle-${language}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className={`text-sm md:text-base max-w-2xl mx-auto translated-text text-center mb-8 md:mb-0 ${
-            language === "ar" ? "arabic-section-title" : ""
-          } ${
-            isDark ? "text-gray-400" : "text-slate-600"
-          }`}
-          dir={language === "ar" ? "rtl" : "ltr"}
-        >
-          {t.tryAndLearnSubtitle}
-        </motion.p>
       </div>
 
       {/* Carousel Section */}
@@ -188,6 +174,34 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                         />
                       </div>
 
+                      {/* Mobile: Carousel Arrows - Below Logo */}
+                      <div className="flex md:hidden justify-center items-center gap-4 mb-6 w-full">
+                        <button
+                          type="button"
+                          onClick={handlePrev}
+                          className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
+                            isDark
+                              ? "border-white/25 text-white hover:border-white/45"
+                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                          }`}
+                          aria-label="Previous tool"
+                        >
+                          <CarouselArrow direction="left" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
+                            isDark
+                              ? "border-white/25 text-white hover:border-white/45"
+                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                          }`}
+                          aria-label="Next tool"
+                        >
+                          <CarouselArrow direction="right" />
+                        </button>
+                      </div>
+
                       {/* Content Container - Mobile: Centered, Desktop: Left Aligned */}
                       <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
                         {/* Tool Name - Hero Headline */}
@@ -211,7 +225,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto mb-6 md:mb-0">
+                        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto">
                           <motion.button
                             onClick={() => {
                               const toolId = tool.name.toLowerCase()
@@ -268,42 +282,14 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                             </motion.a>
                           )}
                         </div>
-
-                        {/* Mobile: Carousel Arrows - Below Buttons */}
-                        <div className="flex md:hidden justify-center items-center gap-3 mt-2">
-                          <button
-                            type="button"
-                            onClick={handlePrev}
-                            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
-                              isDark
-                                ? "border-white/25 text-white hover:border-white/45"
-                                : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                            }`}
-                            aria-label="Previous tool"
-                          >
-                            <CarouselArrow direction="left" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleNext}
-                            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
-                              isDark
-                                ? "border-white/25 text-white hover:border-white/45"
-                                : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                            }`}
-                            aria-label="Next tool"
-                          >
-                            <CarouselArrow direction="right" />
-                          </button>
-                        </div>
                       </div>
 
                       {/* Desktop: Carousel Arrows - Below Logo */}
-                      <div className="hidden md:flex absolute left-1/2 top-[80%] -translate-x-1/2 items-center gap-4 z-20">
+                      <div className="hidden md:flex absolute left-1/2 top-[85%] -translate-x-1/2 items-center gap-5 z-20">
                         <button
                           type="button"
                           onClick={handlePrev}
-                          className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                          className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
                             isDark
                               ? "border-white/25 text-white hover:border-white/45"
                               : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
@@ -315,7 +301,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                         <button
                           type="button"
                           onClick={handleNext}
-                          className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                          className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
                             isDark
                               ? "border-white/25 text-white hover:border-white/45"
                               : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"

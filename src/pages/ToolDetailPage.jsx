@@ -53,10 +53,12 @@ function ToolDetailPage({ theme = "dark" }) {
   const mutedTextClass = isLightMode ? "text-slate-500" : "text-gray-400";
 
   return (
-    <main className={`min-h-screen ${mainClass}`}>
+    <main className={`min-h-screen ${mainClass}`} style={{ backgroundColor: isLightMode ? "#ffffff" : "#000000" }}>
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 backdrop-blur-xl border-b" style={{
-        backgroundColor: isLightMode ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)",
+        backgroundColor: isLightMode 
+          ? "rgba(255, 255, 255, 1)" 
+          : "rgba(0, 0, 0, 1)",
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -89,30 +91,30 @@ function ToolDetailPage({ theme = "dark" }) {
         animate="visible"
         variants={fadeInUp}
       >
-        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-6 py-12 md:py-20 md:py-28">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left Content */}
             <div>
               <motion.div
-                className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 ${isLightMode ? "bg-teal-100 text-teal-700" : "bg-teal-500/20 text-teal-300"}`}
+                className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-4 md:mb-6 ${isLightMode ? "bg-teal-100 text-teal-700" : "bg-teal-500/20 text-teal-300"}`}
                 variants={fadeInUp}
               >
                 {tool.role}
               </motion.div>
               <motion.h1
-                className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 ${headingClass}`}
+                className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 ${headingClass}`}
                 variants={fadeInUp}
               >
                 {tool.name}
               </motion.h1>
               <motion.p
-                className={`text-xl md:text-2xl mb-8 ${textClass} leading-relaxed`}
+                className={`text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 ${textClass} leading-relaxed`}
                 variants={fadeInUp}
               >
                 {tool.tagline}
               </motion.p>
               <motion.p
-                className={`text-lg ${mutedTextClass} leading-relaxed mb-8`}
+                className={`text-base md:text-lg ${mutedTextClass} leading-relaxed mb-6 md:mb-8`}
                 variants={fadeInUp}
               >
                 {tool.overview}
@@ -122,7 +124,7 @@ function ToolDetailPage({ theme = "dark" }) {
                   href={tool.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-8 py-4 rounded-full text-lg font-medium ${isLightMode ? "bg-teal-600 text-white hover:bg-teal-700" : "bg-teal-500 text-black hover:bg-teal-400"} transition-all hover:scale-105`}
+                  className={`px-6 md:px-8 py-3 md:py-4 rounded-full text-base md:text-lg font-medium ${isLightMode ? "bg-teal-600 text-white hover:bg-teal-700" : "bg-teal-500 text-black hover:bg-teal-400"} transition-all hover:scale-105`}
                 >
                   Try {tool.shortName}
                 </a>
