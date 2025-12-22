@@ -1,8 +1,8 @@
+import { useEffect } from "react";
 import Hero from "./components/Hero";
 import AiToolGallery from "./components/AiToolGallery";
 import ToolDeck from "./components/ToolDeck";
 import AboutUs from "./components/AboutUs";
-import MobileHeader from "./components/MobileHeader";
 import { motion } from "framer-motion";
 
 function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
@@ -10,15 +10,28 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
   const isLightMode = theme === "light";
 
+  // Handle hash navigation (e.g., #try-and-learn)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash === "#try-and-learn") {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById("try-and-learn");
+        if (element) {
+          const headerHeight = window.innerWidth < 768 ? 60 : 0;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
-    <>
-      <MobileHeader
-        theme={theme}
-        language={language}
-        onToggleLanguage={onToggleLanguage}
-        onToggleTheme={onToggleTheme}
-      />
-      <main className={`${mainClass} relative`}>
+    <main className={`${mainClass} relative`}>
       {/* Full-page light mode video background */}
       {isLightMode && (
         <video
@@ -75,7 +88,6 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
       </motion.section>
       </div>
     </main>
-    </>
   );
 }
 

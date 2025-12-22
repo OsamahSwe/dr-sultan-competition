@@ -2,7 +2,7 @@ function MobileHeader({ theme = "dark", language = "en", onToggleLanguage, onTog
   const isLightMode = theme === "light";
 
   return (
-    <header className={`mobile-header mobile-header-${theme} fixed top-0 left-0 right-0 z-[1000] hidden`}>
+    <header className={`mobile-header mobile-header-${theme} fixed top-0 left-0 right-0 z-[1000] flex md:hidden`}>
       <div className="flex items-center w-full px-4 py-3.5">
         {/* Logo - Left side - Always in English */}
         <div
@@ -42,6 +42,7 @@ function MobileHeader({ theme = "dark", language = "en", onToggleLanguage, onTog
 }
 
 export default MobileHeader;
+
 
 
 

@@ -34,7 +34,7 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className={`text-lg md:text-xl font-semibold mb-4 translated-text text-center ${
+              className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mb-4 translated-text text-center ${
                 language === "ar" ? "arabic-section-title" : ""
               } ${
                 theme === "dark" ? "text-teal-300" : "text-teal-600"

@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ExternalLink, CheckCircle2, Lightbulb, DollarSign, TrendingUp, AlertCircle } from "lucide-react";
 import { getToolById } from "../data/toolData";
@@ -23,6 +23,7 @@ function ToolDetailPage({ theme = "dark" }) {
   const { toolId } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("features");
+  const tabScrollRef = useRef(null);
   const tool = getToolById(toolId);
 
   const isLightMode = theme === "light";
@@ -31,6 +32,35 @@ function ToolDetailPage({ theme = "dark" }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [toolId]);
+
+  // Handle tab scroll fade visibility
+  useEffect(() => {
+    const tabContainer = tabScrollRef.current;
+    if (!tabContainer) return;
+
+    const updateScrollClasses = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = tabContainer;
+      const isAtStart = scrollLeft <= 1;
+      const isAtEnd = scrollLeft >= scrollWidth - clientWidth - 1;
+
+      tabContainer.classList.toggle("scrolled-left", isAtStart);
+      tabContainer.classList.toggle("scrolled-right", isAtEnd);
+    };
+
+    // Initial check
+    updateScrollClasses();
+
+    // Listen to scroll events
+    tabContainer.addEventListener("scroll", updateScrollClasses);
+    
+    // Also check on resize (content might change)
+    window.addEventListener("resize", updateScrollClasses);
+
+    return () => {
+      tabContainer.removeEventListener("scroll", updateScrollClasses);
+      window.removeEventListener("resize", updateScrollClasses);
+    };
+  }, []);
 
   if (!tool) {
     return (
@@ -160,7 +190,7 @@ function ToolDetailPage({ theme = "dark" }) {
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex gap-8 overflow-x-auto tab-scroll">
+          <div ref={tabScrollRef} className="flex gap-8 overflow-x-auto tab-scroll">
             {["features", "use-cases", "how-to-use", "pricing"].map((tab) => (
               <button
                 key={tab}
@@ -400,7 +430,7 @@ function ToolDetailPage({ theme = "dark" }) {
               <ExternalLink size={20} />
             </a>
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/#try-and-learn")}
               className={`px-8 py-4 rounded-full text-lg font-medium border-2 ${isLightMode ? "border-slate-300 text-black hover:bg-slate-50" : "border-white/20 text-white hover:bg-white/5"} transition-all`}
             >
               Explore Other Tools

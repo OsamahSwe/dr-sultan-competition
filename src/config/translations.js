@@ -3,6 +3,7 @@ export const translations = {
     "aiTools": "AI Tools",
     "tryAndLearn": "Try & Learn",
     "tryAndLearnSubtitle": "Explore powerful AI tools and learn how to use them in real workflows.",
+    "modernDevelopment": "Modern Development",
     "heroHeading": "EXPAND INTO\nA NEW ERA\nOF INTELLIGENT\nCREATION",
     "aboutUs": "About Us",
     "meetTheTeam": "Meet The Team",
@@ -21,6 +22,7 @@ export const translations = {
     "aiTools": "أدوات الذكاء الاصطناعي",
     "tryAndLearn": "جرّب وتعلّم",
     "tryAndLearnSubtitle": "استكشف أدوات الذكاء الاصطناعي القوية وتعلّم كيفية استخدامها في سير العمل الحقيقية.",
+    "modernDevelopment": "التطوير الحديث",
     "heroHeading": "انطلق نحو عصر جديد\nمن الإبداع الذكي",
     "aboutUs": "من نحن",
     "meetTheTeam": "تعرف على الفريق",
@@ -36,6 +38,7 @@ export const translations = {
     "arrow": "→",
   },
 };
+
 
 
 

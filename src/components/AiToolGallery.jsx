@@ -97,7 +97,8 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
 
   return (
     <section
-      className={`w-full relative h-screen flex items-center justify-center overflow-hidden ${
+      id="try-and-learn"
+      className={`w-full relative h-screen flex items-center justify-center overflow-hidden scroll-mt-[60px] md:scroll-mt-0 ${
         isDark ? "bg-black" : "bg-white"
       }`}
     >
@@ -124,11 +125,25 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
           className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center mb-4 ${
             language === "ar" ? "arabic-section-title" : ""
           } ${
-            isDark ? "text-white" : "text-slate-900"
+            isDark ? "text-teal-300" : "text-teal-600"
           }`}
           dir={language === "ar" ? "rtl" : "ltr"}
         >
           {t.tryAndLearn}
+        </motion.h2>
+        <motion.h2
+          key={`modernDevelopment-${language}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center ${
+            language === "ar" ? "arabic-section-title" : ""
+          } ${
+            isDark ? "text-white" : "text-slate-900"
+          }`}
+          dir={language === "ar" ? "rtl" : "ltr"}
+        >
+          {t.modernDevelopment}
         </motion.h2>
       </div>
 
@@ -154,7 +169,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                       <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
                         <img
                           src={tool.image}
-                          className={`w-[680px] lg:w-[820px] h-auto object-contain opacity-100 ${
+                          className={`w-[500px] lg:w-[600px] h-auto object-contain opacity-100 ${
                             isDark
                               ? "mix-blend-screen drop-shadow-[0_0_60px_rgba(255,255,255,0.04)]"
                               : "mix-blend-multiply drop-shadow-[0_0_40px_rgba(0,0,0,0.05)]"
@@ -168,7 +183,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                       <div className="flex md:hidden justify-center w-full px-6 mt-8 mb-6">
                         <img
                           src={tool.image}
-                          className="w-[60vw] max-w-[260px] h-auto object-contain"
+                          className="w-[50vw] max-w-[200px] h-auto object-contain"
                           alt=""
                           aria-hidden="true"
                         />
