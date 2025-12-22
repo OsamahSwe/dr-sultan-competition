@@ -28,22 +28,10 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
   ];
   return (
     <section
-      className={
+      className={`min-h-screen py-20 md:py-32 ${
         theme === "light" ? "tooldeck-section tooldeck-section--light" : "tooldeck-section"
-      }
+      }`}
     >
-      {theme === "light" && (
-        <video
-          className="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-35"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/light-mode.mp4" type="video/mp4" />
-        </video>
-      )}
-
       <div className="relative z-10">
         <header className="tooldeck-header tooldeck-header--center">
           <div className="text-center">
@@ -99,5 +87,4 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
     </section>
   );
 }
-
 

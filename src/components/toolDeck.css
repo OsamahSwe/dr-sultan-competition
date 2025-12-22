@@ -1,7 +1,7 @@
 /* SECTION WRAPPER */
 
 .tooldeck-section {
-  padding: 6rem 6vw 5rem;
+  /* Padding moved to Tailwind classes in component */
   background: #000000; /* pure black backdrop */
   color: #f9fafb;
   position: relative;
