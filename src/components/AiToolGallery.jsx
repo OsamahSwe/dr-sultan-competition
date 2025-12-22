@@ -128,7 +128,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className={`text-lg md:text-xl font-semibold mb-4 translated-text ${
+            className={`text-lg md:text-xl font-semibold mb-4 translated-text text-center ${
               language === "ar" ? "arabic-section-title" : ""
             } ${
               isDark ? "text-teal-300" : "text-teal-600"
@@ -141,7 +141,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text ${
+            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center ${
               language === "ar" ? "arabic-section-title" : ""
             } ${
               isDark ? "text-white" : "text-slate-900"

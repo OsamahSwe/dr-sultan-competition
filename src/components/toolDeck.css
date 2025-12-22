@@ -22,6 +22,9 @@
   justify-content: center;
   text-align: center;
 }
+.tooldeck-header--center .arabic-section-title {
+  text-align: center !important;
+}
 .tooldeck-kicker {
   letter-spacing: 0.26em;
   text-transform: uppercase;
@@ -218,6 +221,19 @@
 @media (max-width: 900px) {
   .tooldeck-header {
     flex-direction: column;
+  }
+  .tooldeck-header--center {
+    text-align: center;
+  }
+  .tooldeck-header--center .arabic-section-title {
+    text-align: center !important;
+  }
+  .tooldeck-header--center > div {
+    text-align: center !important;
+  }
+  .tooldeck-header--center p,
+  .tooldeck-header--center h2 {
+    text-align: center !important;
   }
   .tool-card-inner {
     padding: 2rem 1.75rem;

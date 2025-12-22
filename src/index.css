@@ -82,6 +82,21 @@ body {
   font-family: 'IBM Plex Sans Arabic', sans-serif;
   font-weight: 600;
   direction: ltr;
+  text-align: inherit;
+}
+
+/* Force center alignment when parent has text-center */
+.text-center .arabic-section-title {
+  text-align: center !important;
+}
+
+/* Force center alignment on mobile for Arabic section titles */
+@media (max-width: 900px) {
+  .text-center .arabic-section-title,
+  .tooldeck-header--center .arabic-section-title,
+  .arabic-section-title.text-center {
+    text-align: center !important;
+  }
 }
 
 .arabic-body {
@@ -492,11 +507,21 @@ body {
   display: none;
 }
 
+/* Mobile header always shows full label, desktop nav uses responsive labels */
+.mobile-header .lang-label-full {
+  display: inline !important;
+}
+
+.mobile-header .lang-label-short {
+  display: none !important;
+}
+
 @media (max-width: 640px) {
-  .lang-label-full {
+  /* Only apply to desktop nav, not mobile header */
+  .hero-top-nav .lang-label-full {
     display: none;
   }
-  .lang-label-short {
+  .hero-top-nav .lang-label-short {
     display: inline;
   }
 }

@@ -1,0 +1,22 @@
+[33m0e1dfd7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Update tutorial coming soon titles
+[33m6dcda08[m Improve AI tool card description visibility
+[33m336595f[m Refine Practical Tutorials YouTube showcase
+[33m69e351d[m dd ercel configuration for video file serving
+[33m6f693d9[m dd optimized video files for ercel deployment (excluding large hero-video)
+[33ma804105[m ptimize tutorial video resolution for ercel deployment
+[33mb9d0f5c[m chore: use npm instead of yarn for Cloudflare Pages
+[33m0803110[m Improve light mode badge and tab scroll hint
+[33mcd72175[m Add light mode video backgrounds and fix photo brightness in About Us section
+[33m51ee121[m Add tutorial video section with practical login page tutorial
+[33m8599d67[m Add About Us section with triangular team layout and update hero navigation
+[33m8a22240[m creates the tools pages
+[33m3dc3e9f[m Polish hero motion, AI carousels, and light-mode layouts
+[33m12fc0b6[m Refine hero layout and unify AI carousels
+[33mc383020[m Make AI tool carousels infinitely looping and centered
+[33m8948f77[m efine light/dark theming and  tools
+[33m3ddf143[m Add AI tool carousels, decks, and animations
+[33m3bb6ec5[m Add theme-based video switching with smooth transitions in Hero component
+[33mc493dc3[m Update Hero component: add icons, toggle light/dark mode, update text layout
+[33me6d3ddb[m Add Hero component with video background support and update App.jsx
+[33m59818fb[m Add Framer Motion for animations and update App.jsx
+[33m4fb6514[m Initial commit: AI tools website with Tailwind CSS
