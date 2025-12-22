@@ -1,6 +1,8 @@
 export const translations = {
   en: {
     "aiTools": "AI Tools",
+    "tryAndLearn": "Try & Learn",
+    "tryAndLearnSubtitle": "Explore powerful AI tools and learn how to use them in real workflows.",
     "heroHeading": "EXPAND INTO\nA NEW ERA\nOF INTELLIGENT\nCREATION",
     "aboutUs": "About Us",
     "meetTheTeam": "Meet The Team",
@@ -17,6 +19,8 @@ export const translations = {
   },
   ar: {
     "aiTools": "أدوات الذكاء الاصطناعي",
+    "tryAndLearn": "جرّب وتعلّم",
+    "tryAndLearnSubtitle": "استكشف أدوات الذكاء الاصطناعي القوية وتعلّم كيفية استخدامها في سير العمل الحقيقية.",
     "heroHeading": "انطلق نحو عصر جديد\nمن الإبداع الذكي",
     "aboutUs": "من نحن",
     "meetTheTeam": "تعرف على الفريق",

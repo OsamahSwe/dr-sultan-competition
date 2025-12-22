@@ -97,8 +97,8 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
 
   return (
     <section
-      className={`w-full relative min-h-screen ${
-        isDark ? "bg-black py-20 md:py-32" : "bg-white py-20 md:py-32 overflow-hidden"
+      className={`w-full relative h-screen flex items-center justify-center overflow-hidden ${
+        isDark ? "bg-black" : "bg-white"
       }`}
     >
       {/* Light mode video background */}
@@ -114,63 +114,42 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
         </video>
       )}
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10">
-        <div
-          className={`${
-            isDark
-              ? ""
-              : "rounded-[32px] bg-white/80 shadow-[0_32px_110px_rgba(15,23,42,0.12)] border border-slate-200/60 backdrop-blur-md px-4 md:px-8 pt-10 md:pt-12 pb-12 md:pb-14"
+      {/* Try & Learn Section Title - Top Center */}
+      <div className="absolute top-10 md:top-12 left-1/2 -translate-x-1/2 text-center z-20 w-full px-6">
+        <motion.h2
+          key={`tryAndLearn-${language}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center mb-4 ${
+            language === "ar" ? "arabic-section-title" : ""
+          } ${
+            isDark ? "text-white" : "text-slate-900"
           }`}
+          dir={language === "ar" ? "rtl" : "ltr"}
         >
-        <div className="mb-10 md:mb-12 text-center">
-          <motion.p
-            key={`aiTools-title-${language}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className={`text-lg md:text-xl font-semibold mb-4 translated-text text-center ${
-              language === "ar" ? "arabic-section-title" : ""
-            } ${
-              isDark ? "text-teal-300" : "text-teal-600"
-            }`}
-          >
-            {t.aiTools}
-          </motion.p>
-          <motion.h2
-            key={`stepIntoAiEra-${language}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center ${
-              language === "ar" ? "arabic-section-title" : ""
-            } ${
-              isDark ? "text-white" : "text-slate-900"
-            }`}
-          >
-            {t.stepIntoAiEra}
-            <span
-              className={`${
-                isDark ? "text-teal-300" : "text-teal-600"
-              } font-semibold`}
-            >
-              {t.tryTheTools}
-            </span>
-          </motion.h2>
-        </div>
+          {t.tryAndLearn}
+        </motion.h2>
+        <motion.p
+          key={`tryAndLearnSubtitle-${language}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className={`text-sm md:text-base max-w-2xl mx-auto translated-text text-center mb-8 md:mb-0 ${
+            language === "ar" ? "arabic-section-title" : ""
+          } ${
+            isDark ? "text-gray-400" : "text-slate-600"
+          }`}
+          dir={language === "ar" ? "rtl" : "ltr"}
+        >
+          {t.tryAndLearnSubtitle}
+        </motion.p>
+      </div>
 
-        <div className="carousel relative flex items-center justify-center">
-          <button
-            type="button"
-            onClick={handlePrev}
-            className="carousel-arrow left"
-            aria-label="Previous tool"
-          >
-            <CarouselArrow direction="left" />
-          </button>
-
-          <div className="overflow-hidden px-2 w-full" id="tool-strip">
-            <div className="py-10">
-              <AnimatePresence mode="wait" initial={false}>
+      {/* Carousel Section */}
+      <div className="carousel relative flex items-center justify-center w-full h-full">
+          <div className="w-full h-full overflow-x-hidden" id="tool-strip">
+            <AnimatePresence mode="wait" initial={false}>
                 {(() => {
                   const tool = tools[activeIndex];
                   return (
@@ -183,155 +162,176 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                         duration: 0.25,
                         ease: "easeOut",
                       }}
-                      className={`tool-card card flex h-[480px] w-full max-w-[1100px] mx-auto flex-col items-center justify-start rounded-[28px] p-6 md:p-10 text-center relative overflow-hidden ${
-                        isDark
-                          ? "border border-white/10"
-                          : "border border-transparent shadow-[0_22px_55px_rgba(15,23,42,0.35)]"
-                      }`}
-                      style={{
-                        transition: "transform 0.25s ease",
-                        background: isDark
-                          ? `radial-gradient(circle at 0% 0%, ${
-                              tool.accent ?? "#22c55e"
-                            }33, transparent 55%), radial-gradient(circle at 100% 100%, #020617, #000000 75%)`
-                          : tool.name === "Cursor"
-                            ? "linear-gradient(135deg, #0f0f17, #202736)" // dark futuristic
-                            : tool.name === "Codex AI"
-                              ? "linear-gradient(135deg, #0d0b1f, #1a1c3c)" // neon coding
-                              : tool.name === "Lovable AI"
-                                ? "linear-gradient(135deg, #1a0c25, #281338)" // soft romantic
-                                : `linear-gradient(135deg,
-                                    color-mix(in srgb, ${tool.accent ?? "#22c55e"} 80%, #ffffff),
-                                    color-mix(in srgb, ${tool.accent ?? "#22c55e"} 55%, #020617)
-                                  )`,
-                      }}
+                      className="relative w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-start"
                     >
-                  <motion.div
-                    className={`card-image-wrapper mb-6 flex h-[180px] w-[180px] items-center justify-center rounded-3xl ${
-                      isDark ? "bg-black/40" : "bg-white/10"
-                    }`}
-                    style={{
-                      boxShadow: `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
-                    }}
-                    animate={{
-                      scale: [1, 1.02, 1],
-                      boxShadow: [
-                        `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
-                        `0 0 60px ${(tool.accent ?? "#22c55e") + "aa"}`,
-                        `0 0 40px ${(tool.accent ?? "#22c55e") + "55"}`,
-                      ],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <img
-                      src={tool.image}
-                      className="card-image h-full w-full object-contain"
-                      alt={tool.name}
-                    />
-                  </motion.div>
+                      {/* Desktop: Background Hero Watermark - Watch Dial (Centered) */}
+                      <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
+                        <img
+                          src={tool.image}
+                          className={`w-[680px] lg:w-[820px] h-auto object-contain opacity-100 ${
+                            isDark
+                              ? "mix-blend-screen drop-shadow-[0_0_60px_rgba(255,255,255,0.04)]"
+                              : "mix-blend-multiply drop-shadow-[0_0_40px_rgba(0,0,0,0.05)]"
+                          }`}
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      </div>
 
-                  <h3
-                    className={`text-xl font-semibold mb-3 ${
-                      isDark ? "text-white" : "text-white"
-                    }`}
-                  >
-                    {tool.name}
-                  </h3>
-                  <p
-                    className={`text-sm md:text-base leading-relaxed px-3 ${
-                      isDark ? "text-white/95" : "text-white"
-                    }`}
-                  >
-                    {tool.description}
-                  </p>
+                      {/* Mobile: Tool Logo as Block Element */}
+                      <div className="flex md:hidden justify-center w-full px-6 mt-8 mb-6">
+                        <img
+                          src={tool.image}
+                          className="w-[60vw] max-w-[260px] h-auto object-contain"
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      </div>
 
-                  {tool.about && (
-                    <p
-                      className={`text-sm mt-3 max-w-md mx-auto px-3 ${
-                        isDark ? "text-slate-100/95" : "text-slate-100"
-                      }`}
-                    >
-                      {tool.about}
-                    </p>
-                  )}
+                      {/* Content Container - Mobile: Centered, Desktop: Left Aligned */}
+                      <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
+                        {/* Tool Name - Hero Headline */}
+                        <h2
+                          className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold mb-4 md:mb-6 ${
+                            isDark ? "text-white" : "text-slate-900"
+                          } ${language === "ar" ? "leading-snug" : ""}`}
+                          dir={language === "ar" ? "rtl" : "ltr"}
+                        >
+                          {tool.name}
+                        </h2>
 
-                  <div className="flex gap-3 mt-4">
-                    <motion.button
-                      onClick={() => {
-                        const toolId = tool.name.toLowerCase()
-                          .replace(/\s+/g, '')
-                          .replace('chatgpt', 'chatgpt')
-                          .replace('claudeai', 'claude')
-                          .replace('gemini', 'gemini')
-                          .replace('deepseek', 'deepseek')
-                          .replace('githubcopilot', 'copilot')
-                          .replace('cursor', 'cursor')
-                          .replace('codexai', 'codex')
-                          .replace('lovableai', 'lovable')
-                          .replace('uxpilot', 'uxpilot');
-                        navigate(`/tool/${toolId}`);
-                      }}
-                      key={`learnMore-${language}-${tool.name}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      whileHover={{ scale: 1.03, y: -1 }}
-                      whileTap={{ scale: 0.97, y: 0 }}
-                      className={`button-fixed transition backdrop-blur-xl translated-text ${
-                        language === "ar" ? "arabic-button" : ""
-                      } ${
-                        isDark
-                          ? "bg-teal-500/20 text-teal-300 hover:bg-teal-500/30 border border-teal-400/30"
-                          : "bg-teal-600 text-white shadow-md hover:bg-teal-700"
-                      }`}
-                    >
-                      {t.learnMore} {t.arrow}
-                    </motion.button>
-                    {tool.link && (
-                      <motion.a
-                        href={tool.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        key={`tryItNow-${language}-${tool.name}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                        whileHover={{ scale: 1.03, y: -1 }}
-                        whileTap={{ scale: 0.97, y: 0 }}
-                        className={`button-fixed transition backdrop-blur-xl translated-text ${
-                          language === "ar" ? "arabic-button" : ""
-                        } ${
-                          isDark
-                            ? "bg-white/10 text-white hover:bg-white/20"
-                            : "bg-slate-900 text-white shadow-md hover:bg-slate-800"
-                        }`}
-                      >
-                        {t.tryItNow} {t.arrow}
-                      </motion.a>
-                    )}
-                  </div>
-                  </motion.div>
+                        {/* Statement */}
+                        <p
+                          className={`text-base md:text-xl lg:text-2xl xl:text-3xl leading-relaxed mb-6 md:mb-10 max-w-2xl mobile-description-clamp ${
+                            isDark ? "text-gray-300/80 md:text-gray-300" : "text-slate-700/80 md:text-slate-700"
+                          } ${language === "ar" ? "leading-relaxed" : ""}`}
+                          dir={language === "ar" ? "rtl" : "ltr"}
+                        >
+                          {tool.description}
+                        </p>
+
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto mb-6 md:mb-0">
+                          <motion.button
+                            onClick={() => {
+                              const toolId = tool.name.toLowerCase()
+                                .replace(/\s+/g, '')
+                                .replace('chatgpt', 'chatgpt')
+                                .replace('claudeai', 'claude')
+                                .replace('gemini', 'gemini')
+                                .replace('deepseek', 'deepseek')
+                                .replace('githubcopilot', 'copilot')
+                                .replace('cursor', 'cursor')
+                                .replace('codexai', 'codex')
+                                .replace('lovableai', 'lovable')
+                                .replace('uxpilot', 'uxpilot');
+                              navigate(`/tool/${toolId}`);
+                            }}
+                            key={`learnMore-${language}-${tool.name}`}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            whileHover={{ scale: 1.02, y: -1 }}
+                            whileTap={{ scale: 0.98, y: 0 }}
+                            className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
+                              language === "ar" ? "arabic-button" : ""
+                            } ${
+                              isDark
+                                ? "bg-emerald-500 text-black hover:bg-emerald-400"
+                                : "bg-emerald-500 text-black hover:bg-emerald-600"
+                            }`}
+                            dir={language === "ar" ? "rtl" : "ltr"}
+                          >
+                            {t.learnMore} {t.arrow}
+                          </motion.button>
+                          {tool.link && (
+                            <motion.a
+                              href={tool.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              key={`tryItNow-${language}-${tool.name}`}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                              whileHover={{ scale: 1.02, y: -1 }}
+                              whileTap={{ scale: 0.98, y: 0 }}
+                              className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
+                                language === "ar" ? "arabic-button" : ""
+                              } ${
+                                isDark
+                                  ? "border border-white/30 text-white hover:border-white/50 hover:bg-white/5"
+                                  : "border border-slate-900/30 text-slate-900 hover:border-slate-900/50 hover:bg-slate-900/5"
+                              }`}
+                              dir={language === "ar" ? "rtl" : "ltr"}
+                            >
+                              {t.tryItNow} {t.arrow}
+                            </motion.a>
+                          )}
+                        </div>
+
+                        {/* Mobile: Carousel Arrows - Below Buttons */}
+                        <div className="flex md:hidden justify-center items-center gap-3 mt-2">
+                          <button
+                            type="button"
+                            onClick={handlePrev}
+                            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
+                              isDark
+                                ? "border-white/25 text-white hover:border-white/45"
+                                : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                            }`}
+                            aria-label="Previous tool"
+                          >
+                            <CarouselArrow direction="left" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleNext}
+                            className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${
+                              isDark
+                                ? "border-white/25 text-white hover:border-white/45"
+                                : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                            }`}
+                            aria-label="Next tool"
+                          >
+                            <CarouselArrow direction="right" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Desktop: Carousel Arrows - Below Logo */}
+                      <div className="hidden md:flex absolute left-1/2 top-[80%] -translate-x-1/2 items-center gap-4 z-20">
+                        <button
+                          type="button"
+                          onClick={handlePrev}
+                          className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                            isDark
+                              ? "border-white/25 text-white hover:border-white/45"
+                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                          }`}
+                          aria-label="Previous tool"
+                        >
+                          <CarouselArrow direction="left" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                            isDark
+                              ? "border-white/25 text-white hover:border-white/45"
+                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                          }`}
+                          aria-label="Next tool"
+                        >
+                          <CarouselArrow direction="right" />
+                        </button>
+                      </div>
+                    </motion.div>
                   );
                 })()}
               </AnimatePresence>
-            </div>
           </div>
-
-          <button
-            type="button"
-            onClick={handleNext}
-            className="carousel-arrow right"
-            aria-label="Next tool"
-          >
-            <CarouselArrow direction="right" />
-          </button>
         </div>
-        </div>
-      </div>
+        {/* End Carousel Section */}
     </section>
   );
 }
