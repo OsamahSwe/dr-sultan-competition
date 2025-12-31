@@ -26,6 +26,9 @@ dist-ssr
 # Large video files - allow optimized MP4s for deployment (except hero-video which is too large)
 public/hero-video.mp4
 public/try-and-learn.mp4
+public/4k-slow1.mp4
+public/4k-slow2.mp4
+public/ai-tools-background.mp4
 # *.mp4
 *.mov
 *.avi
