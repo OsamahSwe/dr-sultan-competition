@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../config/translations";
+import RevealText from "./RevealText";
 
 const heroStagger = {
   hidden: {},
@@ -84,7 +85,14 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
             isLightMode ? "text-black" : "text-white"
           }`}
         >
-          {t.aiTools}
+          <RevealText
+            direction="up"
+            delay={0}
+            triggerOnView={true}
+            className=""
+          >
+            {t.aiTools}
+          </RevealText>
         </motion.div>
         
         {/* Navigation Links - Right side */}
@@ -97,7 +105,16 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
             onClick={onToggleLanguage}
             className="lang-toggle hover:opacity-70 transition-opacity cursor-pointer bg-transparent border-none"
           >
-            <span className="lang-label-full">English | العربية</span>
+            <span className="lang-label-full">
+              <RevealText
+                direction="up"
+                delay={100}
+                triggerOnView={true}
+                className=""
+              >
+                English | العربية
+              </RevealText>
+            </span>
             <span className="lang-label-short">EN | AR</span>
           </button>
           <button
@@ -109,7 +126,14 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
               alt="mode icon"
               className="w-6 h-6"
             />
-            {isLightMode ? "dark mode" : "light mode"}
+            <RevealText
+              direction="up"
+              delay={150}
+              triggerOnView={true}
+              className=""
+            >
+              {isLightMode ? "dark mode" : "light mode"}
+            </RevealText>
           </button>
           {/* <a
             href="#menu"
@@ -152,7 +176,14 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
               >
                 {headingLines.map((line, index) => (
                   <span key={index}>
-                    {line}
+                    <RevealText
+                      direction="up"
+                      delay={200 + index * 100}
+                      triggerOnView={true}
+                      className=""
+                    >
+                      {line}
+                    </RevealText>
                     {index < headingLines.length - 1 && <br />}
                   </span>
                 ))}
@@ -176,7 +207,14 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
                       : "font-light"
                   } hover:opacity-70 transition-opacity flex items-center gap-2`}
                 >
-                  {t.aboutUs}
+                  <RevealText
+                    direction="up"
+                    delay={400}
+                    triggerOnView={true}
+                    className=""
+                  >
+                    {t.aboutUs}
+                  </RevealText>
                   <span className="text-lg">{t.arrow}</span>
                 </a>
               </div>

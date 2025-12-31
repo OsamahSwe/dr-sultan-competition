@@ -1,11 +1,14 @@
 export const translations = {
   en: {
     "aiTools": "AI Tools",
+    "aiToolsSubtitle": "A curated set of intelligent tools to explore and experiment with.",
+    "explore": "Explore",
     "tryAndLearn": "Try & Learn",
     "tryAndLearnSubtitle": "Explore powerful AI tools and learn how to use them in real workflows.",
     "modernDevelopment": "Modern Development",
     "heroHeading": "EXPAND INTO\nA NEW ERA\nOF INTELLIGENT\nCREATION",
     "aboutUs": "About Us",
+    "exploreTools": "Explore Tools",
     "meetTheTeam": "Meet The Team",
     "stepIntoAiEra": "Step Into the AI Era | ",
     "tryTheTools": "Try the Tools",
@@ -20,11 +23,14 @@ export const translations = {
   },
   ar: {
     "aiTools": "أدوات الذكاء الاصطناعي",
+    "aiToolsSubtitle": "مجموعة مختارة من الأدوات الذكية للاستكشاف والتجربة.",
+    "explore": "استكشف",
     "tryAndLearn": "جرّب وتعلّم",
     "tryAndLearnSubtitle": "استكشف أدوات الذكاء الاصطناعي القوية وتعلّم كيفية استخدامها في سير العمل الحقيقية.",
     "modernDevelopment": "التطوير الحديث",
     "heroHeading": "انطلق نحو عصر جديد\nمن الإبداع الذكي",
     "aboutUs": "من نحن",
+    "exploreTools": "استكشف الأدوات",
     "meetTheTeam": "تعرف على الفريق",
     "stepIntoAiEra": "انتقل إلى عصر الذكاء الاصطناعي | ",
     "tryTheTools": "جرّب الأدوات",
@@ -38,6 +44,7 @@ export const translations = {
     "arrow": "→",
   },
 };
+
 
 
 

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Hero from "./components/Hero";
 import AiToolGallery from "./components/AiToolGallery";
+import ExploreTools from "./components/ExploreTools";
 import ToolDeck from "./components/ToolDeck";
 import AboutUs from "./components/AboutUs";
 import { motion } from "framer-motion";
@@ -10,13 +11,28 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
   const isLightMode = theme === "light";
 
-  // Handle hash navigation (e.g., #try-and-learn)
+  // Handle hash navigation (e.g., #try-and-learn, #explore-tools)
   useEffect(() => {
     const hash = window.location.hash;
     if (hash === "#try-and-learn") {
       // Small delay to ensure DOM is ready
       setTimeout(() => {
         const element = document.getElementById("try-and-learn");
+        if (element) {
+          const headerHeight = window.innerWidth < 768 ? 60 : 0;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 100);
+    }
+    if (hash === "#explore-tools") {
+      // Small delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById("explore-tools");
         if (element) {
           const headerHeight = window.innerWidth < 768 ? 60 : 0;
           const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
@@ -65,6 +81,16 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <AiToolGallery theme={theme} language={language} />
+      </motion.section>
+
+      {/* Explore Tools section */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        <ExploreTools theme={theme} language={language} />
       </motion.section>
 
       {/* Center-snapping Tool Deck section */}

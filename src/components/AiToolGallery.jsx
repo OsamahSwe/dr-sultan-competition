@@ -3,6 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CarouselArrow from "./CarouselArrow";
 import { translations } from "../config/translations";
+import RevealText from "./RevealText";
+
+const SHOW_CAROUSEL_UI = false; // Toggle to re-enable carousel UI
 
 const tools = [
   {
@@ -99,13 +102,26 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
     <section
       id="try-and-learn"
       className={`w-full relative h-screen flex items-center justify-center overflow-hidden scroll-mt-[60px] md:scroll-mt-0 ${
-        isDark ? "bg-black" : "bg-white"
+        isDark ? "" : "bg-white"
       }`}
     >
+      {/* Dark mode video background */}
+      {isDark && (
+        <video
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/try-and-learn.mp4" type="video/mp4" />
+        </video>
+      )}
+
       {/* Light mode video background */}
       {!isDark && (
         <video
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-30 z-0"
           autoPlay
           loop
           muted
@@ -115,39 +131,95 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
         </video>
       )}
 
-      {/* Try & Learn Section Title - Top Center */}
-      <div className="absolute top-10 md:top-12 left-1/2 -translate-x-1/2 text-center z-20 w-full px-6">
-        <motion.h2
-          key={`tryAndLearn-${language}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center mb-4 ${
-            language === "ar" ? "arabic-section-title" : ""
-          } ${
-            isDark ? "text-teal-300" : "text-teal-600"
+      {/* New Editorial Title - Top Left */}
+      <div className="absolute top-6 md:top-12 left-6 md:left-12 lg:left-16 z-20 max-w-4xl">
+        <h1
+          className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
+            language === "ar" ? "arabic-hero" : "leading-tight"
+          } mb-6 md:mb-8 ${
+            isDark ? "text-white" : "text-black"
           }`}
-          dir={language === "ar" ? "rtl" : "ltr"}
         >
-          {t.tryAndLearn}
-        </motion.h2>
-        <motion.h2
-          key={`modernDevelopment-${language}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center ${
-            language === "ar" ? "arabic-section-title" : ""
+          {["WHERE", "IDEAS", "EVOLVE", "INTO", "INTELLIGENCE"].map((line, index) => (
+            <span key={index}>
+              <RevealText
+                direction="up"
+                delay={index * 100}
+                triggerOnView={true}
+                className=""
+              >
+                {line}
+              </RevealText>
+              {index < 4 && <br />}
+            </span>
+          ))}
+        </h1>
+        
+        {/* Explore Tools link */}
+        <div
+          className={`flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-6 md:mt-8 ${
+            language === "ar" ? "mt-5 md:mt-6" : ""
           } ${
-            isDark ? "text-white" : "text-slate-900"
+            isDark ? "text-white" : "text-black"
           }`}
-          dir={language === "ar" ? "rtl" : "ltr"}
         >
-          {t.modernDevelopment}
-        </motion.h2>
+          <a
+            href="#explore-tools"
+            className={`hero-cta ${
+              language === "ar" 
+                ? "arabic-hero-cta" 
+                : "font-light"
+            } hover:opacity-70 transition-opacity flex items-center gap-2`}
+          >
+            <RevealText
+              direction="up"
+              delay={600}
+              triggerOnView={true}
+              className=""
+            >
+              {t.exploreTools}
+            </RevealText>
+            <span className="text-lg">↓</span>
+          </a>
+        </div>
       </div>
 
+      {/* Try & Learn Section Title - Top Center */}
+      {SHOW_CAROUSEL_UI && (
+        <div className="absolute top-10 md:top-12 left-1/2 -translate-x-1/2 text-center z-20 w-full px-6">
+          <motion.h2
+            key={`tryAndLearn-${language}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center mb-4 ${
+              language === "ar" ? "arabic-section-title" : ""
+            } ${
+              isDark ? "text-teal-300" : "text-teal-600"
+            }`}
+            dir={language === "ar" ? "rtl" : "ltr"}
+          >
+            {t.tryAndLearn}
+          </motion.h2>
+          <motion.h2
+            key={`modernDevelopment-${language}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            className={`text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight translated-text text-center ${
+              language === "ar" ? "arabic-section-title" : ""
+            } ${
+              isDark ? "text-white" : "text-slate-900"
+            }`}
+            dir={language === "ar" ? "rtl" : "ltr"}
+          >
+            {t.modernDevelopment}
+          </motion.h2>
+        </div>
+      )}
+
       {/* Carousel Section */}
+      {/* Logic remains mounted and functional even when UI is hidden */}
       <div className="carousel relative flex items-center justify-center w-full h-full">
           <div className="w-full h-full overflow-x-hidden" id="tool-strip">
             <AnimatePresence mode="wait" initial={false}>
@@ -165,167 +237,171 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                       }}
                       className="relative w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-start"
                     >
-                      {/* Desktop: Background Hero Watermark - Watch Dial (Centered) */}
-                      <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
-                        <img
-                          src={tool.image}
-                          className={`w-[500px] lg:w-[600px] h-auto object-contain opacity-100 ${
-                            isDark
-                              ? "mix-blend-screen drop-shadow-[0_0_60px_rgba(255,255,255,0.04)]"
-                              : "mix-blend-multiply drop-shadow-[0_0_40px_rgba(0,0,0,0.05)]"
-                          }`}
-                          alt=""
-                          aria-hidden="true"
-                        />
-                      </div>
-
-                      {/* Mobile: Tool Logo as Block Element */}
-                      <div className="flex md:hidden justify-center w-full px-6 mt-8 mb-6">
-                        <img
-                          src={tool.image}
-                          className="w-[50vw] max-w-[200px] h-auto object-contain"
-                          alt=""
-                          aria-hidden="true"
-                        />
-                      </div>
-
-                      {/* Mobile: Carousel Arrows - Below Logo */}
-                      <div className="flex md:hidden justify-center items-center gap-4 mb-6 w-full">
-                        <button
-                          type="button"
-                          onClick={handlePrev}
-                          className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
-                            isDark
-                              ? "border-white/25 text-white hover:border-white/45"
-                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                          }`}
-                          aria-label="Previous tool"
-                        >
-                          <CarouselArrow direction="left" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={handleNext}
-                          className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
-                            isDark
-                              ? "border-white/25 text-white hover:border-white/45"
-                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                          }`}
-                          aria-label="Next tool"
-                        >
-                          <CarouselArrow direction="right" />
-                        </button>
-                      </div>
-
-                      {/* Content Container - Mobile: Centered, Desktop: Left Aligned */}
-                      <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
-                        {/* Tool Name - Hero Headline */}
-                        <h2
-                          className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold mb-4 md:mb-6 ${
-                            isDark ? "text-white" : "text-slate-900"
-                          } ${language === "ar" ? "leading-snug" : ""}`}
-                          dir={language === "ar" ? "rtl" : "ltr"}
-                        >
-                          {tool.name}
-                        </h2>
-
-                        {/* Statement */}
-                        <p
-                          className={`text-base md:text-xl lg:text-2xl xl:text-3xl leading-relaxed mb-6 md:mb-10 max-w-2xl mobile-description-clamp ${
-                            isDark ? "text-gray-300/80 md:text-gray-300" : "text-slate-700/80 md:text-slate-700"
-                          } ${language === "ar" ? "leading-relaxed" : ""}`}
-                          dir={language === "ar" ? "rtl" : "ltr"}
-                        >
-                          {tool.description}
-                        </p>
-
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto">
-                          <motion.button
-                            onClick={() => {
-                              const toolId = tool.name.toLowerCase()
-                                .replace(/\s+/g, '')
-                                .replace('chatgpt', 'chatgpt')
-                                .replace('claudeai', 'claude')
-                                .replace('gemini', 'gemini')
-                                .replace('deepseek', 'deepseek')
-                                .replace('githubcopilot', 'copilot')
-                                .replace('cursor', 'cursor')
-                                .replace('codexai', 'codex')
-                                .replace('lovableai', 'lovable')
-                                .replace('uxpilot', 'uxpilot');
-                              navigate(`/tool/${toolId}`);
-                            }}
-                            key={`learnMore-${language}-${tool.name}`}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                            whileHover={{ scale: 1.02, y: -1 }}
-                            whileTap={{ scale: 0.98, y: 0 }}
-                            className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
-                              language === "ar" ? "arabic-button" : ""
-                            } ${
-                              isDark
-                                ? "bg-emerald-500 text-black hover:bg-emerald-400"
-                                : "bg-emerald-500 text-black hover:bg-emerald-600"
-                            }`}
-                            dir={language === "ar" ? "rtl" : "ltr"}
-                          >
-                            {t.learnMore} {t.arrow}
-                          </motion.button>
-                          {tool.link && (
-                            <motion.a
-                              href={tool.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              key={`tryItNow-${language}-${tool.name}`}
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.3 }}
-                              whileHover={{ scale: 1.02, y: -1 }}
-                              whileTap={{ scale: 0.98, y: 0 }}
-                              className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
-                                language === "ar" ? "arabic-button" : ""
-                              } ${
+                      {SHOW_CAROUSEL_UI && (
+                        <>
+                          {/* Desktop: Background Hero Watermark - Watch Dial (Centered) */}
+                          <div className="hidden md:flex absolute inset-0 items-center justify-center pointer-events-none">
+                            <img
+                              src={tool.image}
+                              className={`w-[500px] lg:w-[600px] h-auto object-contain opacity-100 ${
                                 isDark
-                                  ? "border border-white/30 text-white hover:border-white/50 hover:bg-white/5"
-                                  : "border border-slate-900/30 text-slate-900 hover:border-slate-900/50 hover:bg-slate-900/5"
+                                  ? "mix-blend-screen drop-shadow-[0_0_60px_rgba(255,255,255,0.04)]"
+                                  : "mix-blend-multiply drop-shadow-[0_0_40px_rgba(0,0,0,0.05)]"
                               }`}
+                              alt=""
+                              aria-hidden="true"
+                            />
+                          </div>
+
+                          {/* Mobile: Tool Logo as Block Element */}
+                          <div className="flex md:hidden justify-center w-full px-6 mt-8 mb-6">
+                            <img
+                              src={tool.image}
+                              className="w-[50vw] max-w-[200px] h-auto object-contain"
+                              alt=""
+                              aria-hidden="true"
+                            />
+                          </div>
+
+                          {/* Mobile: Carousel Arrows - Below Logo */}
+                          <div className="flex md:hidden justify-center items-center gap-4 mb-6 w-full">
+                            <button
+                              type="button"
+                              onClick={handlePrev}
+                              className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
+                                isDark
+                                  ? "border-white/25 text-white hover:border-white/45"
+                                  : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                              }`}
+                              aria-label="Previous tool"
+                            >
+                              <CarouselArrow direction="left" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleNext}
+                              className={`w-14 h-14 rounded-full border flex items-center justify-center transition-all ${
+                                isDark
+                                  ? "border-white/25 text-white hover:border-white/45"
+                                  : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                              }`}
+                              aria-label="Next tool"
+                            >
+                              <CarouselArrow direction="right" />
+                            </button>
+                          </div>
+
+                          {/* Content Container - Mobile: Centered, Desktop: Left Aligned */}
+                          <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
+                            {/* Tool Name - Hero Headline */}
+                            <h2
+                              className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold mb-4 md:mb-6 ${
+                                isDark ? "text-white" : "text-slate-900"
+                              } ${language === "ar" ? "leading-snug" : ""}`}
                               dir={language === "ar" ? "rtl" : "ltr"}
                             >
-                              {t.tryItNow} {t.arrow}
-                            </motion.a>
-                          )}
-                        </div>
-                      </div>
+                              {tool.name}
+                            </h2>
 
-                      {/* Desktop: Carousel Arrows - Below Logo */}
-                      <div className="hidden md:flex absolute left-1/2 top-[85%] -translate-x-1/2 items-center gap-5 z-20">
-                        <button
-                          type="button"
-                          onClick={handlePrev}
-                          className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
-                            isDark
-                              ? "border-white/25 text-white hover:border-white/45"
-                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                          }`}
-                          aria-label="Previous tool"
-                        >
-                          <CarouselArrow direction="left" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={handleNext}
-                          className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
-                            isDark
-                              ? "border-white/25 text-white hover:border-white/45"
-                              : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
-                          }`}
-                          aria-label="Next tool"
-                        >
-                          <CarouselArrow direction="right" />
-                        </button>
-                      </div>
+                            {/* Statement */}
+                            <p
+                              className={`text-base md:text-xl lg:text-2xl xl:text-3xl leading-relaxed mb-6 md:mb-10 max-w-2xl mobile-description-clamp ${
+                                isDark ? "text-gray-300/80 md:text-gray-300" : "text-slate-700/80 md:text-slate-700"
+                              } ${language === "ar" ? "leading-relaxed" : ""}`}
+                              dir={language === "ar" ? "rtl" : "ltr"}
+                            >
+                              {tool.description}
+                            </p>
+
+                            {/* CTA Buttons */}
+                            <div className="flex flex-col md:flex-row gap-3 md:gap-4 w-full md:w-auto">
+                              <motion.button
+                                onClick={() => {
+                                  const toolId = tool.name.toLowerCase()
+                                    .replace(/\s+/g, '')
+                                    .replace('chatgpt', 'chatgpt')
+                                    .replace('claudeai', 'claude')
+                                    .replace('gemini', 'gemini')
+                                    .replace('deepseek', 'deepseek')
+                                    .replace('githubcopilot', 'copilot')
+                                    .replace('cursor', 'cursor')
+                                    .replace('codexai', 'codex')
+                                    .replace('lovableai', 'lovable')
+                                    .replace('uxpilot', 'uxpilot');
+                                  navigate(`/tool/${toolId}`);
+                                }}
+                                key={`learnMore-${language}-${tool.name}`}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.3 }}
+                                whileHover={{ scale: 1.02, y: -1 }}
+                                whileTap={{ scale: 0.98, y: 0 }}
+                                className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
+                                  language === "ar" ? "arabic-button" : ""
+                                } ${
+                                  isDark
+                                    ? "bg-emerald-500 text-black hover:bg-emerald-400"
+                                    : "bg-emerald-500 text-black hover:bg-emerald-600"
+                                }`}
+                                dir={language === "ar" ? "rtl" : "ltr"}
+                              >
+                                {t.learnMore} {t.arrow}
+                              </motion.button>
+                              {tool.link && (
+                                <motion.a
+                                  href={tool.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  key={`tryItNow-${language}-${tool.name}`}
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ duration: 0.3 }}
+                                  whileHover={{ scale: 1.02, y: -1 }}
+                                  whileTap={{ scale: 0.98, y: 0 }}
+                                  className={`h-[42px] md:h-auto px-4 md:px-8 py-2 md:py-3 text-sm md:text-base rounded-full font-medium transition-all translated-text w-full md:w-auto ${
+                                    language === "ar" ? "arabic-button" : ""
+                                  } ${
+                                    isDark
+                                      ? "border border-white/30 text-white hover:border-white/50 hover:bg-white/5"
+                                      : "border border-slate-900/30 text-slate-900 hover:border-slate-900/50 hover:bg-slate-900/5"
+                                  }`}
+                                  dir={language === "ar" ? "rtl" : "ltr"}
+                                >
+                                  {t.tryItNow} {t.arrow}
+                                </motion.a>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Desktop: Carousel Arrows - Below Logo */}
+                          <div className="hidden md:flex absolute left-1/2 top-[85%] -translate-x-1/2 items-center gap-5 z-20">
+                            <button
+                              type="button"
+                              onClick={handlePrev}
+                              className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
+                                isDark
+                                  ? "border-white/25 text-white hover:border-white/45"
+                                  : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                              }`}
+                              aria-label="Previous tool"
+                            >
+                              <CarouselArrow direction="left" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleNext}
+                              className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${
+                                isDark
+                                  ? "border-white/25 text-white hover:border-white/45"
+                                  : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
+                              }`}
+                              aria-label="Next tool"
+                            >
+                              <CarouselArrow direction="right" />
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </motion.div>
                   );
                 })()}
