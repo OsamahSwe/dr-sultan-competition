@@ -19,10 +19,56 @@ const stagger = {
   }
 };
 
+// Helper function to map tool IDs to screenshot folder names
+const getScreenshotFolderName = (toolId) => {
+  const folderMap = {
+    copilot: "github-copilot",
+    uxpilot: "ux-pilot",
+    lovable: "loveable",
+  };
+  return folderMap[toolId] || toolId;
+};
+
+// Helper function to test if an image exists
+const testImageExists = (src) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    let resolved = false;
+    
+    const cleanup = () => {
+      if (!resolved) {
+        resolved = true;
+      }
+    };
+    
+    img.onload = () => {
+      cleanup();
+      resolve(true);
+    };
+    
+    img.onerror = () => {
+      cleanup();
+      resolve(false);
+    };
+    
+    // Add a timeout to prevent hanging
+    setTimeout(() => {
+      if (!resolved) {
+        resolved = true;
+        resolve(false);
+      }
+    }, 1000);
+    
+    img.src = src;
+  });
+};
+
 function ToolDetailPage({ theme = "dark" }) {
   const { toolId } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("features");
+  const [screenshots, setScreenshots] = useState([]);
+  const [isLoadingScreenshots, setIsLoadingScreenshots] = useState(false);
   const tabScrollRef = useRef(null);
   const tool = getToolById(toolId);
 
@@ -32,6 +78,47 @@ function ToolDetailPage({ theme = "dark" }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [toolId]);
+
+  // Load screenshots when toolId changes or set-up tab becomes active
+  useEffect(() => {
+    if (!tool) return;
+
+    const loadScreenshots = async () => {
+      setIsLoadingScreenshots(true);
+      setScreenshots([]);
+
+      const folderName = getScreenshotFolderName(toolId);
+      const basePath = `/install-screenshots/${folderName}/`;
+      const foundScreenshots = [];
+      let consecutiveFailures = 0;
+      const maxConsecutiveFailures = 3;
+      const maxImages = 50;
+
+      // Try loading numbered images sequentially (1.png, 2.png, ...)
+      for (let i = 1; i <= maxImages; i++) {
+        const imagePath = `${basePath}${i}.png`;
+        const exists = await testImageExists(imagePath);
+
+        if (exists) {
+          foundScreenshots.push(imagePath);
+          consecutiveFailures = 0;
+        } else {
+          consecutiveFailures++;
+          if (consecutiveFailures >= maxConsecutiveFailures) {
+            break;
+          }
+        }
+      }
+
+      setScreenshots(foundScreenshots);
+      setIsLoadingScreenshots(false);
+    };
+
+    // Only load if set-up tab is active
+    if (activeTab === "set-up") {
+      loadScreenshots();
+    }
+  }, [toolId, activeTab, tool]);
 
   // Handle tab scroll fade visibility
   useEffect(() => {
@@ -191,7 +278,7 @@ function ToolDetailPage({ theme = "dark" }) {
       }}>
         <div className="max-w-7xl mx-auto px-6">
           <div ref={tabScrollRef} className="flex gap-8 overflow-x-auto tab-scroll">
-            {["features", "use-cases", "how-to-use", "pricing"].map((tab) => (
+            {["features", "use-cases", "how-to-use", "pricing", "set-up"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -400,6 +487,45 @@ function ToolDetailPage({ theme = "dark" }) {
                 </motion.div>
               ))}
             </div>
+          </motion.section>
+        )}
+
+        {/* Set Up */}
+        {activeTab === "set-up" && (
+          <motion.section
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+          >
+            <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
+              Set Up {tool.shortName}
+            </motion.h2>
+            
+            {isLoadingScreenshots ? (
+              <motion.p className={textClass} variants={fadeInUp}>
+                Loading setup instructions...
+              </motion.p>
+            ) : screenshots.length > 0 ? (
+              <div className="space-y-8">
+                {screenshots.map((screenshot, index) => (
+                  <div
+                    key={`screenshot-${index}`}
+                    className="flex justify-center w-full"
+                  >
+                    <img
+                      src={screenshot}
+                      alt={`Setup step ${index + 1}`}
+                      className="w-full rounded-lg shadow-lg"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <motion.p className={textClass} variants={fadeInUp}>
+                Setup instructions coming soon.
+              </motion.p>
+            )}
           </motion.section>
         )}
       </div>
