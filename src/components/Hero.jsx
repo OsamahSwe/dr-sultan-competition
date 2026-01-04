@@ -134,7 +134,7 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
               triggerOnView={true}
               className=""
             >
-              {isLightMode ? "dark mode" : "light mode"}
+              {isLightMode ? t.darkMode : t.lightMode}
             </RevealText>
           </button>
           {/* <a
@@ -169,10 +169,9 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               {/* Main Heading - Multi-line, light font weight */}
+              {/* This English hero text stays in English with exact typography even when language is Arabic */}
               <h1
-                className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
-                  language === "ar" ? "arabic-hero" : "leading-tight"
-                } mb-6 md:mb-8 ${
+                className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
                   isLightMode ? "text-black" : "text-white"
                 }`}
               >

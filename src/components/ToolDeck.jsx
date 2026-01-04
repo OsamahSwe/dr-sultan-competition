@@ -97,12 +97,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                Idea
+                {t.idea}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
-              }`}>
-                Start with a rough concept or problem.
+              } ${language === "ar" ? "leading-relaxed" : ""}`}
+              >
+                {t.ideaDescription}
               </p>
             </div>
 
@@ -124,18 +125,19 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 <img
                   src="/chatgpt/cover.png"
                   alt="ChatGPT"
-                  className="w-full h-full object-contain opacity-70"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                ChatGPT
+                {t.chatgptStep1}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
-              }`}>
-                Refine the idea and define requirements.
+              } ${language === "ar" ? "leading-relaxed" : ""}`}
+              >
+                {t.chatgptStep1Description}
               </p>
             </div>
 
@@ -157,18 +159,19 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 <img
                   src="/ux-pilot-ai/cover.png"
                   alt="UX Pilot"
-                  className="w-full h-full object-contain opacity-70"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                UX Pilot
+                {t.uxPilotStep}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
-              }`}>
-                Generate UI flows and wireframes.
+              } ${language === "ar" ? "leading-relaxed" : ""}`}
+              >
+                {t.uxPilotStepDescription}
               </p>
             </div>
 
@@ -190,18 +193,19 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 <img
                   src="/chatgpt/cover.png"
                   alt="ChatGPT"
-                  className="w-full h-full object-contain opacity-70"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                ChatGPT
+                {t.chatgptStep2}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
-              }`}>
-                Improve prompts and logic.
+              } ${language === "ar" ? "leading-relaxed" : ""}`}
+              >
+                {t.chatgptStep2Description}
               </p>
             </div>
 
@@ -223,18 +227,19 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 <img
                   src="/cursor-ai/cover.png"
                   alt="Cursor"
-                  className="w-full h-full object-contain opacity-70"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                Cursor
+                {t.cursorStep}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
-              }`}>
-                Implement and ship the final code.
+              } ${language === "ar" ? "leading-relaxed" : ""}`}
+              >
+                {t.cursorStepDescription}
               </p>
             </div>
           </div>

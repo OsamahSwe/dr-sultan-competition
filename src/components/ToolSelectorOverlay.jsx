@@ -172,7 +172,6 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                 className={`text-xl md:text-2xl lg:text-3xl font-light mb-2 ${
                   isLightMode ? "text-black" : "text-white"
                 } ${language === "ar" ? "arabic-section-title" : ""}`}
-                dir={language === "ar" ? "rtl" : "ltr"}
               >
                 {t.chooseYourTool}
               </h2>
@@ -182,7 +181,6 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                 className={`hidden md:block text-sm md:text-base mb-4 md:mb-6 lg:mb-8 ${
                   isLightMode ? "text-gray-600" : "text-gray-400"
                 } ${language === "ar" ? "leading-relaxed" : ""}`}
-                dir={language === "ar" ? "rtl" : "ltr"}
               >
                 {t.eachToolDifferent}
               </p>
@@ -240,7 +238,6 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                               boxShadow: undefined,
                             }
                       }
-                      dir={language === "ar" ? "rtl" : "ltr"}
                       aria-label={tool.name}
                     >
                       {/* Tool Logo and Name - Always visible */}

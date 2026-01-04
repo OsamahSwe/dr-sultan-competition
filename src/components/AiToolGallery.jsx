@@ -134,11 +134,10 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
       )}
 
       {/* New Editorial Title - Top Left */}
+      {/* This English hero text stays in English with exact typography even when language is Arabic */}
       <div className="absolute top-6 md:top-12 left-6 md:left-12 lg:left-16 z-20 max-w-4xl">
         <h1
-          className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light ${
-            language === "ar" ? "arabic-hero" : "leading-tight"
-          } mb-6 md:mb-8 ${
+          className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
             isDark ? "text-white" : "text-black"
           }`}
         >
@@ -199,7 +198,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             } ${
               isDark ? "text-teal-300" : "text-teal-600"
             }`}
-            dir={language === "ar" ? "rtl" : "ltr"}
           >
             {t.tryAndLearn}
           </motion.h2>
@@ -213,7 +211,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             } ${
               isDark ? "text-white" : "text-slate-900"
             }`}
-            dir={language === "ar" ? "rtl" : "ltr"}
           >
             {t.modernDevelopment}
           </motion.h2>
@@ -275,7 +272,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label="Previous tool"
+                              aria-label={t.previousTool}
                             >
                               <CarouselArrow direction="left" />
                             </button>
@@ -287,7 +284,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label="Next tool"
+                              aria-label={t.nextTool}
                             >
                               <CarouselArrow direction="right" />
                             </button>
@@ -297,10 +294,9 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                           <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
                             {/* Tool Name - Hero Headline */}
                             <h2
-                              className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold mb-4 md:mb-6 ${
+                              className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-4 md:mb-6 ${
                                 isDark ? "text-white" : "text-slate-900"
-                              } ${language === "ar" ? "leading-snug" : ""}`}
-                              dir={language === "ar" ? "rtl" : "ltr"}
+                              }`}
                             >
                               {tool.name}
                             </h2>
@@ -310,7 +306,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                               className={`text-base md:text-xl lg:text-2xl xl:text-3xl leading-relaxed mb-6 md:mb-10 max-w-2xl mobile-description-clamp ${
                                 isDark ? "text-gray-300/80 md:text-gray-300" : "text-slate-700/80 md:text-slate-700"
                               } ${language === "ar" ? "leading-relaxed" : ""}`}
-                              dir={language === "ar" ? "rtl" : "ltr"}
                             >
                               {tool.description}
                             </p>
@@ -345,7 +340,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                     ? "bg-emerald-500 text-black hover:bg-emerald-400"
                                     : "bg-emerald-500 text-black hover:bg-emerald-600"
                                 }`}
-                                dir={language === "ar" ? "rtl" : "ltr"}
                               >
                                 {t.learnMore} {t.arrow}
                               </motion.button>
@@ -367,7 +361,6 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                       ? "border border-white/30 text-white hover:border-white/50 hover:bg-white/5"
                                       : "border border-slate-900/30 text-slate-900 hover:border-slate-900/50 hover:bg-slate-900/5"
                                   }`}
-                                  dir={language === "ar" ? "rtl" : "ltr"}
                                 >
                                   {t.tryItNow} {t.arrow}
                                 </motion.a>
@@ -397,7 +390,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label="Next tool"
+                              aria-label={t.nextTool}
                             >
                               <CarouselArrow direction="right" />
                             </button>

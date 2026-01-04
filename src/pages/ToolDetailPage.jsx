@@ -219,7 +219,7 @@ function ToolDetailPage({ theme = "dark" }) {
                 {tool.role}
               </motion.div>
               <motion.h1
-                className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 ${headingClass}`}
+                className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 md:mb-6 ${headingClass}`}
                 variants={fadeInUp}
               >
                 {tool.name}

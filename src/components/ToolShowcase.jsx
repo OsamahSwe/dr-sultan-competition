@@ -118,10 +118,9 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
             >
               {/* Tool Name */}
               <h1
-                className={`text-6xl md:text-7xl lg:text-8xl font-light mb-6 md:mb-8 ${
+                className={`text-6xl md:text-7xl lg:text-8xl font-light leading-tight mb-6 md:mb-8 ${
                   isDark ? "text-white" : "text-black"
-                } ${language === "ar" ? "arabic-hero" : "leading-tight"}`}
-                dir={language === "ar" ? "rtl" : "ltr"}
+                }`}
               >
                 {tool.shortName || tool.name}
               </h1>
@@ -131,7 +130,6 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                 className={`text-xl md:text-2xl font-light opacity-80 mb-8 md:mb-12 ${
                   isDark ? "text-white" : "text-slate-700"
                 } ${language === "ar" ? "leading-relaxed" : ""}`}
-                dir={language === "ar" ? "rtl" : "ltr"}
               >
                 {tool.tagline}
               </p>
@@ -148,7 +146,6 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                       ? "border-white/30 text-white hover:border-white/50 hover:bg-white/5"
                       : "border-slate-300 text-black hover:border-slate-400 hover:bg-slate-50"
                   }`}
-                  dir={language === "ar" ? "rtl" : "ltr"}
                 >
                   {t.tryItNow}
                 </a>
@@ -161,7 +158,6 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                       ? "text-white/80 hover:text-white hover:opacity-100"
                       : "text-slate-700/80 hover:text-black hover:opacity-100"
                   }`}
-                  dir={language === "ar" ? "rtl" : "ltr"}
                 >
                   <span>{t.learnMore}</span>
                   <span>{t.arrow}</span>
