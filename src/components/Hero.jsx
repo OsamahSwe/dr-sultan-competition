@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { translations } from "../config/translations";
+import { useToolSelector } from "../context/ToolSelectorContext";
 import RevealText from "./RevealText";
 
 const heroStagger = {
@@ -23,9 +24,10 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
   const isLightMode = theme === "light";
   const t = translations[language];
   const headingLines = t.heroHeading.split("\n");
+  const { isToolSelectorOpen } = useToolSelector();
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className={`relative h-screen w-full overflow-hidden ${isToolSelectorOpen ? "opacity-60 transition-opacity duration-300" : ""}`}>
       {/* Fallback Background Gradient */}
       <div
         className={`absolute inset-0 w-full h-full bg-gradient-to-br ${

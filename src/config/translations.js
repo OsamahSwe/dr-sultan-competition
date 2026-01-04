@@ -20,6 +20,10 @@ export const translations = {
     "tutorialTitle": "Build a Modern AI Login Page with ChatGPT | Cursor | UX Pilot",
     "comingSoon": "Coming Soon",
     "arrow": "→",
+    "chooseYourTool": "Choose your AI tool",
+    "eachToolDifferent": "Each tool is built for a different way of thinking.",
+    "exploreWith": "Explore with",
+    "cancel": "Cancel",
   },
   ar: {
     "aiTools": "أدوات الذكاء الاصطناعي",
@@ -42,6 +46,10 @@ export const translations = {
     "tutorialTitle": "بناء صفحة تسجيل دخول ذكية باستخدام ChatGPT و Cursor و UX Pilot",
     "comingSoon": "قريباً",
     "arrow": "→",
+    "chooseYourTool": "اختر أداة الذكاء الاصطناعي",
+    "eachToolDifferent": "كل أداة مصممة لأسلوب تفكير مختلف.",
+    "exploreWith": "استكشف باستخدام",
+    "cancel": "إلغاء",
   },
 };
 

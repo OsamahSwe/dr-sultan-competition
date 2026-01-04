@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import CarouselArrow from "./CarouselArrow";
 import { translations } from "../config/translations";
+import { useToolSelector } from "../context/ToolSelectorContext";
 import RevealText from "./RevealText";
 
 const SHOW_CAROUSEL_UI = false; // Toggle to re-enable carousel UI
@@ -87,6 +88,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const isDark = theme === "dark";
   const t = translations[language];
+  const { openToolSelector } = useToolSelector();
 
   const handleNext = () => {
     const nextIndex = (activeIndex + 1) % tools.length;
@@ -163,13 +165,13 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
             isDark ? "text-white" : "text-black"
           }`}
         >
-          <a
-            href="#explore-tools"
+          <button
+            onClick={openToolSelector}
             className={`hero-cta ${
               language === "ar" 
                 ? "arabic-hero-cta" 
                 : "font-light"
-            } hover:opacity-70 transition-opacity flex items-center gap-2`}
+            } hover:opacity-70 transition-opacity flex items-center gap-2 bg-transparent border-none p-0 cursor-pointer`}
           >
             <RevealText
               direction="up"
@@ -180,7 +182,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
               {t.exploreTools}
             </RevealText>
             <span className="text-lg">↓</span>
-          </a>
+          </button>
         </div>
       </div>
 

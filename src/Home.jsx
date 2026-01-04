@@ -4,6 +4,8 @@ import AiToolGallery from "./components/AiToolGallery";
 import ExploreTools from "./components/ExploreTools";
 import ToolDeck from "./components/ToolDeck";
 import AboutUs from "./components/AboutUs";
+import ToolSelectorOverlay from "./components/ToolSelectorOverlay";
+import { ToolSelectorProvider } from "./context/ToolSelectorContext";
 import { motion } from "framer-motion";
 
 function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
@@ -47,22 +49,23 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
   }, []);
 
   return (
-    <main className={`${mainClass} relative`}>
-      {/* Full-page light mode video background */}
-      {isLightMode && (
-        <video
-          className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/light-mode.mp4" type="video/mp4" />
-        </video>
-      )}
+    <ToolSelectorProvider>
+      <main className={`${mainClass} relative`}>
+        {/* Full-page light mode video background */}
+        {isLightMode && (
+          <video
+            className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
+            <source src="/light-mode.mp4" type="video/mp4" />
+          </video>
+        )}
 
-      {/* Content wrapper with relative positioning */}
-      <div className="relative z-10">
+        {/* Content wrapper with relative positioning */}
+        <div className="relative z-10">
         {/* Hero / Landing section with video */}
         <section className="h-screen">
           <Hero
@@ -113,7 +116,11 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
         <AboutUs theme={theme} language={language} />
       </motion.section>
       </div>
+      
+      {/* Tool Selector Overlay */}
+      <ToolSelectorOverlay theme={theme} language={language} />
     </main>
+    </ToolSelectorProvider>
   );
 }
 
