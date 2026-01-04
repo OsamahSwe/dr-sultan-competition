@@ -31,17 +31,17 @@ function AboutUs({ theme = "dark", language = "en" }) {
   const teamMembers = [
     {
       name: "Osamah Alosaimi",
-      role: "Team Member",
+      role: t.teamMember,
       photo: "/team/osamah.png",
     },
     {
       name: "Abdullah Barakeh",
-      role: "Team Member",
+      role: t.teamMember,
       photo: "/team/abdullah.png",
     },
     {
       name: "Dr. Sultan Alsarra",
-      role: "Instructor",
+      role: t.instructor,
       photo: "/team/drsultan.png",
     },
   ];

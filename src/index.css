@@ -4,24 +4,29 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    background-color: #ffffff;
+  }
 }
 
 /* Hide text caret globally so it never shows on static text */
 body {
   caret-color: transparent;
+  background-color: #000000;
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #ffffff;
+  }
 }
 
 /* Mobile header - fixed position (MOBILE ONLY) */
 @media (max-width: 768px) {
-  .mobile-header {
-    display: flex !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-  }
-
   /* Mobile header - Dark mode */
   .mobile-header.mobile-header-dark {
     background: #000000;
@@ -41,23 +46,10 @@ body {
   .hero-top-nav {
     display: none;
   }
-  
-  /* Add padding-top to body to compensate for fixed header */
-  body {
-    padding-top: 60px;
-  }
 }
 
-/* Desktop: hide mobile header, show desktop nav */
+/* Desktop: show desktop nav */
 @media (min-width: 769px) {
-  .mobile-header {
-    display: none !important;
-  }
-  
-  body {
-    padding-top: 0;
-  }
-  
   .hero-top-nav {
     display: flex;
   }
@@ -463,12 +455,26 @@ body {
 
 .tab-scroll::before {
   left: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), transparent);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent);
+  transition: opacity 0.3s ease;
+  width: 20px; /* Slightly wider for smoother fade */
 }
 
 .tab-scroll::after {
   right: 0;
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0.55), transparent);
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.08), transparent);
+  transition: opacity 0.3s ease;
+  width: 20px; /* Slightly wider for smoother fade */
+}
+
+/* Hide left fade when scrolled fully left */
+.tab-scroll.scrolled-left::before {
+  opacity: 0;
+}
+
+/* Hide right fade when scrolled fully right */
+.tab-scroll.scrolled-right::after {
+  opacity: 0;
 }
 
 .tab-scroll::-webkit-scrollbar {
@@ -523,5 +529,15 @@ body {
   }
   .hero-top-nav .lang-label-short {
     display: inline;
+  }
+}
+
+/* Mobile description line clamp */
+@media (max-width: 767px) {
+  .mobile-description-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

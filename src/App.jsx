@@ -1,11 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Layout from "./layout/Layout";
 import Home from "./Home";
 import ToolDetailPage from "./pages/ToolDetailPage";
 
 function App() {
   const [theme, setTheme] = useState("dark");
   const [language, setLanguage] = useState("en");
+
+  // Update HTML document language when language changes (keep LTR direction)
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dir = "ltr"; // Always LTR, even for Arabic
+  }, [language]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
@@ -19,20 +26,31 @@ function App() {
     <Router>
       <Routes>
         <Route
-          path="/"
           element={
-            <Home
+            <Layout
               theme={theme}
               onToggleTheme={toggleTheme}
               language={language}
               onToggleLanguage={toggleLanguage}
             />
           }
-        />
-        <Route
-          path="/tool/:toolId"
-          element={<ToolDetailPage theme={theme} onToggleTheme={toggleTheme} />}
-        />
+        >
+          <Route
+            path="/"
+            element={
+              <Home
+                theme={theme}
+                onToggleTheme={toggleTheme}
+                language={language}
+                onToggleLanguage={toggleLanguage}
+              />
+            }
+          />
+          <Route
+            path="/tool/:toolId"
+            element={<ToolDetailPage theme={theme} onToggleTheme={toggleTheme} />}
+          />
+        </Route>
       </Routes>
     </Router>
   );
