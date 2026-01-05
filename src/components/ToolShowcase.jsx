@@ -4,6 +4,10 @@ import { useToolSelector } from "../context/ToolSelectorContext";
 import { getToolById } from "../data/toolData";
 import { translations } from "../config/translations";
 
+// Global GIF size standard - matches largest rendered dimension
+// All GIFs and YouTube cards should use these constraints for visual consistency
+const DESKTOP_GIF_MAX_HEIGHT = "max-h-[900px] xl:max-h-[1000px] 2xl:max-h-[1100px]";
+
 // Map tool IDs to their hero image filenames (folder structure: /{tool}-hero/{filename})
 const getToolHeroImage = (toolId) => {
   const heroImageMap = {
@@ -13,7 +17,6 @@ const getToolHeroImage = (toolId) => {
     cursor: "0_VfWmB7dy737ViF0F.gif",
     deepseek: "deepseek_r1_example_en.gif",
     gemini: "Guided Learning Comparison_compressed.gif",
-    copilot: "jest_unit_tests.webp", // github-copilot-hero folder
     lovable: "agent-mode-beta.gif",
     uxpilot: "1714335360-matchmakingdesktop-optimize.gif", // ux-pilot-hero folder
   };
@@ -23,9 +26,7 @@ const getToolHeroImage = (toolId) => {
   
   // Handle special folder naming cases
   let folderName;
-  if (toolId === "copilot") {
-    folderName = "github-copilot-hero";
-  } else if (toolId === "uxpilot") {
+  if (toolId === "uxpilot") {
     folderName = "ux-pilot-hero";
   } else if (toolId === "lovable") {
     folderName = "loveable-hero"; // Note: folder uses "loveable" not "lovable"
@@ -181,7 +182,7 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                   <img
                     src={heroImage}
                     alt={tool.name}
-                    className="w-full h-auto max-h-[900px] xl:max-h-[1000px] 2xl:max-h-[1100px] object-contain object-right"
+                    className={`w-full h-auto ${DESKTOP_GIF_MAX_HEIGHT} object-contain object-right`}
                   />
                 </div>
               </motion.div>

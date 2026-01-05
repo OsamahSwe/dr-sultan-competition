@@ -7,8 +7,8 @@ import { translations } from "../config/translations";
 // Get all tools from toolData and create config
 const getAllToolConfig = () => {
   const allTools = getAllTools();
-  // Order the tools as specified: chatgpt, claude, codex, cursor, deepseek, gemini, github-copilot, loveable, ux-pilot
-  const toolOrder = ["chatgpt", "claude", "codex", "cursor", "deepseek", "gemini", "copilot", "lovable", "uxpilot"];
+  // Order the tools as specified: chatgpt, claude, codex, cursor, deepseek, gemini, loveable, ux-pilot
+  const toolOrder = ["chatgpt", "claude", "codex", "cursor", "deepseek", "gemini", "lovable", "uxpilot"];
   
   return toolOrder
     .map(id => allTools.find(tool => tool.id === id))

@@ -30,13 +30,6 @@ const aiTools = [
     theme: "from-fuchsia-400/40 via-purple-500/20 to-slate-900/60",
   },
   {
-    name: "GitHub Copilot",
-    category: "In-Editor Coding",
-    description:
-      "Inline code suggestions, test generation, and refactors directly in your IDE.",
-    theme: "from-teal-300/40 via-cyan-500/20 to-slate-900/60",
-  },
-  {
     name: "Midjourney",
     category: "Visual Exploration",
     description:

@@ -36,15 +36,6 @@ export const hexTools = [
       "DeepSeek is optimized for technical work—from debugging and refactors to algorithm exploration and research-grade Q&A for engineering teams.",
   },
   {
-    id: "copilot",
-    title: "GitHub Copilot",
-    icon: "terminal",
-    category: "In-Editor Coding",
-    shortDescription: "Inline code suggestions as you type.",
-    longDescription:
-      "GitHub Copilot lives in your editor and suggests code, tests, and refactors in real time so you can stay in flow and ship faster.",
-  },
-  {
     id: "codex",
     title: "Codex",
     icon: "cube",
