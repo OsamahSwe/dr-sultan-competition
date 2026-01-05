@@ -185,8 +185,8 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                 {t.eachToolDifferent}
               </p>
 
-              {/* Tool Cards Grid - Single column on mobile, 2 columns on desktop */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3 lg:gap-4">
+              {/* Tool Cards Grid - 2 columns on mobile (square), 2 columns on desktop */}
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5 md:gap-3 lg:gap-4">
                 {toolConfig.map((tool) => {
                   const isSelected = selectedTool === tool.id;
 
@@ -210,7 +210,7 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                     <button
                       key={tool.id}
                       onClick={() => handleToolClick(tool.id)}
-                      className={`relative p-3 md:p-4 lg:p-5 rounded-xl text-left transition-all border ${
+                      className={`relative p-3 md:p-4 lg:p-5 rounded-xl text-left transition-all border aspect-square md:aspect-auto ${
                         isSelected
                           ? "backdrop-blur-sm"
                           : isLightMode
@@ -220,7 +220,7 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                         isLightMode 
                           ? "focus:ring-slate-400/30 focus:ring-offset-white/85" 
                           : "focus:ring-white/20 focus:ring-offset-black/40"
-                      } min-h-[48px] md:min-h-0`}
+                      } min-h-[48px] md:min-h-0 flex flex-col items-center justify-center md:items-start md:justify-start`}
                       style={
                         isSelected 
                           ? {
@@ -242,15 +242,15 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                     >
                       {/* Tool Logo and Name - Always visible */}
                       {tool.image && (
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3 w-full">
                           <img
                             src={tool.image}
                             alt={tool.shortName || tool.name}
-                            className="w-10 h-10 md:w-12 md:h-12 object-contain flex-shrink-0"
+                            className="w-12 h-12 md:w-12 md:h-12 object-contain flex-shrink-0"
                           />
-                          <div className="flex-1 min-w-0">
+                          <div className="flex-1 min-w-0 text-center md:text-left">
                             <h3
-                              className={`text-base md:text-lg font-medium ${
+                              className={`text-sm md:text-lg font-medium ${
                                 isLightMode ? "text-black" : "text-white"
                               }`}
                             >
