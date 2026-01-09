@@ -32,20 +32,39 @@ const getYouTubeThumbnail = (youtubeUrl) => {
   return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 };
 
+// Helper function to extract TikTok video ID from URL
+const getTikTokVideoId = (url) => {
+  // TikTok URLs can be in formats like:
+  // https://www.tiktok.com/@username/video/1234567890
+  // https://vm.tiktok.com/xxxxx/
+  const match = url.match(/tiktok\.com\/.*\/video\/(\d+)/) || url.match(/vm\.tiktok\.com\/(\w+)/);
+  return match ? match[1] : null;
+};
+
 // Tutorial data mapping tool IDs to their YouTube tutorials
 const TOOL_TUTORIALS = {
   uxpilot: [
     {
-      title: "UX Pilot – Full YouTube Tutorial",
+      title: "UX Pilot – Full Tutorial",
       description: "Complete walkthrough with real examples",
-      youtubeUrl: "https://youtu.be/wtrrbMwb51I?si=IPq5WcycJroRKQe_"
+      youtubeUrl: "https://youtu.be/wtrrbMwb51I?si=IPq5WcycJroRKQe_",
+      tiktokUrl: "https://www.tiktok.com/@neai_tech/video/7592630171362970901?is_from_webapp=1&sender_device=pc"
     }
   ],
   lovable: [
     {
-      title: "Lovable – Full YouTube Tutorial",
+      title: "Lovable – Full Tutorial",
       description: "Complete walkthrough with real examples",
-      youtubeUrl: "https://youtu.be/xphj2fo9E6E?si=tY8T7IPESSAumNmG"
+      youtubeUrl: "https://youtu.be/xphj2fo9E6E?si=tY8T7IPESSAumNmG",
+      tiktokUrl: "https://www.tiktok.com/@neai_tech/video/7592635319950839061?is_from_webapp=1&sender_device=pc"
+    }
+  ],
+  cursor: [
+    {
+      title: "Cursor – Full Tutorial",
+      description: "Complete walkthrough with real examples",
+      youtubeUrl: "https://youtu.be/uH_7EmNHE_4?si=Lylzn_DN9eC9wEm4",
+      tiktokUrl: "https://www.tiktok.com/@neai_tech/video/7593293137095986452?is_from_webapp=1&sender_device=pc"
     }
   ]
 };
@@ -573,78 +592,193 @@ function ToolDetailPage({ theme = "dark" }) {
             {TOOL_TUTORIALS[toolId] && TOOL_TUTORIALS[toolId].length > 0 ? (
               <div className="space-y-8">
                 {TOOL_TUTORIALS[toolId].map((tutorial, index) => (
-                  <motion.a
-                    key={index}
-                    href={tutorial.youtubeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border ${cardClass} cursor-pointer transition-all duration-300 hover:scale-[1.02]`}
-                    variants={fadeInUp}
-                    whileHover={{ y: -2 }}
-                  >
-                    {/* Thumbnail Container */}
-                    <div className="relative w-full aspect-[16/9] overflow-hidden">
-                      {getYouTubeThumbnail(tutorial.youtubeUrl) ? (
-                        <img
-                          src={getYouTubeThumbnail(tutorial.youtubeUrl)}
-                          alt={tutorial.title}
-                          className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className={`h-full w-full flex items-center justify-center ${
-                          isLightMode 
-                            ? "bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200" 
-                            : "bg-gradient-to-br from-slate-800 via-slate-900 to-black"
-                        }`}>
-                          <div className={`h-20 w-20 rounded-full border backdrop-blur-md flex items-center justify-center ${
-                            isLightMode
-                              ? "border-slate-300/50 bg-slate-100/60"
-                              : "border-white/10 bg-slate-900/60"
+                  <div key={index} className="space-y-4">
+                    {/* TikTok Embed - Mobile Only */}
+                    {tutorial.tiktokUrl && (
+                      <motion.div
+                        className="block md:hidden"
+                        variants={fadeInUp}
+                      >
+                        <div className={`relative flex flex-col overflow-hidden rounded-2xl border ${cardClass}`}>
+                          {/* TikTok Embed Container */}
+                          <div className="relative w-full aspect-[9/16] overflow-hidden bg-black">
+                            <blockquote 
+                              className="tiktok-embed" 
+                              cite={tutorial.tiktokUrl}
+                              data-video-id={getTikTokVideoId(tutorial.tiktokUrl)}
+                              style={{ maxWidth: '100%', minWidth: '325px' }}
+                            >
+                              <section>
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={tutorial.tiktokUrl}
+                                  className="text-white/80 hover:text-white text-sm"
+                                >
+                                  View on TikTok
+                                </a>
+                              </section>
+                            </blockquote>
+                            <script async src="https://www.tiktok.com/embed.js"></script>
+                          </div>
+
+                          {/* Content Section */}
+                          <div className={`flex flex-col gap-2 px-6 py-4 ${
+                            isLightMode ? "bg-slate-50" : "bg-transparent"
                           }`}>
-                            <div className="ml-1 h-0 w-0 border-y-[10px] border-y-transparent border-l-[18px] border-l-white" />
+                            <h3 className={`text-lg font-semibold leading-snug ${headingClass}`}>
+                              {tutorial.title}
+                            </h3>
+                            {tutorial.description && (
+                              <p className={`text-sm leading-relaxed ${textClass}`}>
+                                {tutorial.description}
+                              </p>
+                            )}
                           </div>
                         </div>
-                      )}
+                      </motion.div>
+                    )}
 
-                      {/* Overlay gradient */}
-                      <div className={`pointer-events-none absolute inset-0 ${
-                        isLightMode 
-                          ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" 
-                          : "bg-gradient-to-t from-black/80 via-black/35 to-transparent"
-                      }`} />
+                    {/* YouTube Card - Desktop Only */}
+                    <motion.a
+                      href={tutorial.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`hidden md:flex group relative flex-col overflow-hidden rounded-2xl border ${cardClass} cursor-pointer transition-all duration-300 hover:scale-[1.02]`}
+                      variants={fadeInUp}
+                      whileHover={{ y: -2 }}
+                    >
+                      {/* Thumbnail Container */}
+                      <div className="relative w-full aspect-[16/9] overflow-hidden">
+                        {getYouTubeThumbnail(tutorial.youtubeUrl) ? (
+                          <img
+                            src={getYouTubeThumbnail(tutorial.youtubeUrl)}
+                            alt={tutorial.title}
+                            className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className={`h-full w-full flex items-center justify-center ${
+                            isLightMode 
+                              ? "bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200" 
+                              : "bg-gradient-to-br from-slate-800 via-slate-900 to-black"
+                          }`}>
+                            <div className={`h-20 w-20 rounded-full border backdrop-blur-md flex items-center justify-center ${
+                              isLightMode
+                                ? "border-slate-300/50 bg-slate-100/60"
+                                : "border-white/10 bg-slate-900/60"
+                            }`}>
+                              <div className="ml-1 h-0 w-0 border-y-[10px] border-y-transparent border-l-[18px] border-l-white" />
+                            </div>
+                          </div>
+                        )}
 
-                      {/* Play button overlay */}
-                      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                        <div className={`flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full backdrop-blur-md border shadow-[0_0_40px_rgba(0,0,0,0.9)] transition-all duration-300 ${
-                          isLightMode
-                            ? "bg-black/50 border-white/30 md:opacity-0 md:group-hover:opacity-100"
-                            : "bg-black/65 border-white/20 md:opacity-0 md:group-hover:opacity-100"
-                        } opacity-100`}>
-                          <div className="ml-1 h-0 w-0 border-y-[10px] md:border-y-[12px] border-y-transparent border-l-[18px] md:border-l-[20px] border-l-white" />
+                        {/* Overlay gradient */}
+                        <div className={`pointer-events-none absolute inset-0 ${
+                          isLightMode 
+                            ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" 
+                            : "bg-gradient-to-t from-black/80 via-black/35 to-transparent"
+                        }`} />
+
+                        {/* Play button overlay */}
+                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                          <div className={`flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full backdrop-blur-md border shadow-[0_0_40px_rgba(0,0,0,0.9)] transition-all duration-300 ${
+                            isLightMode
+                              ? "bg-black/50 border-white/30 md:opacity-0 md:group-hover:opacity-100"
+                              : "bg-black/65 border-white/20 md:opacity-0 md:group-hover:opacity-100"
+                          } opacity-100`}>
+                            <div className="ml-1 h-0 w-0 border-y-[10px] md:border-y-[12px] border-y-transparent border-l-[18px] md:border-l-[20px] border-l-white" />
+                          </div>
+                        </div>
+
+                        {/* YouTube red accent indicator */}
+                        <div className="absolute top-3 right-3 px-2 py-1 rounded-md bg-red-600/90 backdrop-blur-sm border border-red-500/50">
+                          <span className="text-[10px] font-semibold text-white uppercase tracking-wider">YouTube</span>
                         </div>
                       </div>
 
-                      {/* YouTube red accent indicator */}
-                      <div className="absolute top-3 right-3 px-2 py-1 rounded-md bg-red-600/90 backdrop-blur-sm border border-red-500/50">
-                        <span className="text-[10px] font-semibold text-white uppercase tracking-wider">YouTube</span>
+                      {/* Content Section */}
+                      <div className={`flex flex-col gap-2 px-6 py-4 ${
+                        isLightMode ? "bg-slate-50" : "bg-transparent"
+                      }`}>
+                        <h3 className={`text-lg font-semibold leading-snug ${headingClass}`}>
+                          {tutorial.title}
+                        </h3>
+                        {tutorial.description && (
+                          <p className={`text-sm leading-relaxed ${textClass}`}>
+                            {tutorial.description}
+                          </p>
+                        )}
                       </div>
-                    </div>
+                    </motion.a>
 
-                    {/* Content Section */}
-                    <div className={`flex flex-col gap-2 px-6 py-4 ${
-                      isLightMode ? "bg-slate-50" : "bg-transparent"
-                    }`}>
-                      <h3 className={`text-lg font-semibold leading-snug ${headingClass}`}>
-                        {tutorial.title}
-                      </h3>
-                      {tutorial.description && (
-                        <p className={`text-sm leading-relaxed ${textClass}`}>
-                          {tutorial.description}
-                        </p>
-                      )}
-                    </div>
-                  </motion.a>
+                    {/* Fallback: Show YouTube on mobile if no TikTok URL */}
+                    {!tutorial.tiktokUrl && (
+                      <motion.a
+                        href={tutorial.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`block md:hidden group relative flex flex-col overflow-hidden rounded-2xl border ${cardClass} cursor-pointer transition-all duration-300`}
+                        variants={fadeInUp}
+                      >
+                        {/* Thumbnail Container */}
+                        <div className="relative w-full aspect-[16/9] overflow-hidden">
+                          {getYouTubeThumbnail(tutorial.youtubeUrl) ? (
+                            <img
+                              src={getYouTubeThumbnail(tutorial.youtubeUrl)}
+                              alt={tutorial.title}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className={`h-full w-full flex items-center justify-center ${
+                              isLightMode 
+                                ? "bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200" 
+                                : "bg-gradient-to-br from-slate-800 via-slate-900 to-black"
+                            }`}>
+                              <div className={`h-20 w-20 rounded-full border backdrop-blur-md flex items-center justify-center ${
+                                isLightMode
+                                  ? "border-slate-300/50 bg-slate-100/60"
+                                  : "border-white/10 bg-slate-900/60"
+                              }`}>
+                                <div className="ml-1 h-0 w-0 border-y-[10px] border-y-transparent border-l-[18px] border-l-white" />
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Play button overlay */}
+                          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                            <div className={`flex h-14 w-14 items-center justify-center rounded-full backdrop-blur-md border shadow-[0_0_40px_rgba(0,0,0,0.9)] ${
+                              isLightMode
+                                ? "bg-black/50 border-white/30"
+                                : "bg-black/65 border-white/20"
+                            }`}>
+                              <div className="ml-1 h-0 w-0 border-y-[10px] border-y-transparent border-l-[18px] border-l-white" />
+                            </div>
+                          </div>
+
+                          {/* YouTube indicator */}
+                          <div className="absolute top-3 right-3 px-2 py-1 rounded-md bg-red-600/90 backdrop-blur-sm border border-red-500/50">
+                            <span className="text-[10px] font-semibold text-white uppercase tracking-wider">YouTube</span>
+                          </div>
+                        </div>
+
+                        {/* Content Section */}
+                        <div className={`flex flex-col gap-2 px-6 py-4 ${
+                          isLightMode ? "bg-slate-50" : "bg-transparent"
+                        }`}>
+                          <h3 className={`text-lg font-semibold leading-snug ${headingClass}`}>
+                            {tutorial.title}
+                          </h3>
+                          {tutorial.description && (
+                            <p className={`text-sm leading-relaxed ${textClass}`}>
+                              {tutorial.description}
+                            </p>
+                          )}
+                        </div>
+                      </motion.a>
+                    )}
+                  </div>
                 ))}
               </div>
             ) : (
