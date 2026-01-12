@@ -1,14 +1,23 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "./context/ThemeContext";
 import Hero from "./components/Hero";
-import AiToolGallery from "./components/AiToolGallery";
-import ExploreTools from "./components/ExploreTools";
+import FrameworkOverview from "./components/FrameworkOverview";
 import ToolDeck from "./components/ToolDeck";
 import AboutUs from "./components/AboutUs";
 import ToolSelectorOverlay from "./components/ToolSelectorOverlay";
 import { ToolSelectorProvider } from "./context/ToolSelectorContext";
 import { motion } from "framer-motion";
 
-function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
+function Home() {
+  const { theme, toggleTheme } = useTheme();
+  const { i18n } = useTranslation();
+  const language = i18n.language;
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+  };
+
   const mainClass =
     theme === "dark" ? "w-full bg-black text-white" : "w-full bg-white text-black";
   const isLightMode = theme === "light";
@@ -70,30 +79,20 @@ function Home({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
         <section className="h-screen">
           <Hero
             theme={theme}
-            onToggleTheme={onToggleTheme}
+            onToggleTheme={toggleTheme}
             language={language}
-            onToggleLanguage={onToggleLanguage}
+            onToggleLanguage={toggleLanguage}
           />
         </section>
 
-      {/* Horizontal AI tool gallery placed directly under hero */}
+      {/* Framework Overview section */}
       <motion.section
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
-        <AiToolGallery theme={theme} language={language} />
-      </motion.section>
-
-      {/* Explore Tools section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-      >
-        <ExploreTools theme={theme} language={language} />
+        <FrameworkOverview theme={theme} language={language} />
       </motion.section>
 
       {/* Center-snapping Tool Deck section */}

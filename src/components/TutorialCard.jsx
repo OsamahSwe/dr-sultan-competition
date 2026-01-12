@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
-import { translations } from "../config/translations";
+import { useTranslation } from "react-i18next";
 
-function TutorialCard({ title, youtubeUrl, videoId, status, language = "en" }) {
-  const t = translations[language];
+function TutorialCard({ title, youtubeUrl, videoId, status, language: languageProp }) {
+  const { t, i18n } = useTranslation();
+
+  // Support both props and context with fallback
+  const language = languageProp || i18n.language;
   const isLive = status === "live" && youtubeUrl && videoId;
   const thumbnailUrl = isLive
     ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
@@ -48,7 +51,7 @@ function TutorialCard({ title, youtubeUrl, videoId, status, language = "en" }) {
                 language === "ar" ? "arabic-body" : ""
               }`}
             >
-              {t.comingSoon}
+              {t("comingSoon")}
             </motion.div>
           )}
         </div>
@@ -64,7 +67,7 @@ function TutorialCard({ title, youtubeUrl, videoId, status, language = "en" }) {
             language === "ar" ? "arabic-body" : ""
           }`}
         >
-          {t.practicalTutorial}
+          {t("practicalTutorial")}
         </motion.span>
         <motion.h3
           key={`tutorial-title-${language}-${title}`}

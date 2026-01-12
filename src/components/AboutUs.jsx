@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { translations } from "../config/translations";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 60 },
@@ -24,24 +25,28 @@ const itemVariants = {
   },
 };
 
-function AboutUs({ theme = "dark", language = "en" }) {
+function AboutUs({ theme: themeProp, language: languageProp }) {
+  const { theme: themeContext } = useTheme();
+  const { t, i18n } = useTranslation();
+
+  const theme = themeProp || themeContext;
+  const language = languageProp || i18n.language;
   const isDark = theme === "dark";
-  const t = translations[language];
 
   const teamMembers = [
     {
       name: "Osamah Alosaimi",
-      role: t.teamMember,
+      role: t("teamMember"),
       photo: "/team/osamah.png",
     },
     {
       name: "Abdullah Barakeh",
-      role: t.teamMember,
+      role: t("teamMember"),
       photo: "/team/abdullah.png",
     },
     {
       name: "Dr. Sultan Alsarra",
-      role: t.instructor,
+      role: t("instructor"),
       photo: "/team/drsultan.png",
     },
   ];
@@ -72,7 +77,7 @@ function AboutUs({ theme = "dark", language = "en" }) {
                 isDark ? "text-teal-300" : "text-teal-600"
               }`}
             >
-              {t.meetTheTeam}
+              {t("meetTheTeam")}
             </motion.p>
             <motion.h2
               key={`aboutUs-title-${language}`}
@@ -85,7 +90,7 @@ function AboutUs({ theme = "dark", language = "en" }) {
                 isDark ? "text-white" : "text-slate-900"
               }`}
             >
-              {t.aboutUs}
+              {t("aboutUs")}
             </motion.h2>
           </div>
         </motion.div>

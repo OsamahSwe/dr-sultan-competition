@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import { useToolSelector } from "../context/ToolSelectorContext";
 import { getAllTools } from "../data/toolData";
-import { translations } from "../config/translations";
 
 // Get all tools from toolData and create config
 const getAllToolConfig = () => {
@@ -15,13 +16,18 @@ const getAllToolConfig = () => {
     .filter(Boolean);
 };
 
-function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
+function ToolSelectorOverlay({ theme: themeProp, language: languageProp }) {
   const { isToolSelectorOpen, selectedTool, closeToolSelector, selectTool } = useToolSelector();
-  const isLightMode = theme === "light";
-  const t = translations[language];
+  const { t, i18n } = useTranslation();
+  const { theme: themeContext } = useTheme();
   const panelRef = useRef(null);
   const firstFocusableRef = useRef(null);
   const lastFocusableRef = useRef(null);
+
+  // Support both props and context with fallback
+  const theme = themeProp || themeContext;
+  const language = languageProp || i18n.language;
+  const isLightMode = theme === "light";
 
   const toolConfig = getAllToolConfig();
 
@@ -173,7 +179,7 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                   isLightMode ? "text-black" : "text-white"
                 } ${language === "ar" ? "arabic-section-title" : ""}`}
               >
-                {t.chooseYourTool}
+                {t("chooseYourTool")}
               </h2>
 
               {/* Subtitle - Hidden on mobile */}
@@ -182,7 +188,7 @@ function ToolSelectorOverlay({ theme = "dark", language = "en" }) {
                   isLightMode ? "text-gray-600" : "text-gray-400"
                 } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.eachToolDifferent}
+                {t("eachToolDifferent")}
               </p>
 
               {/* Tool Cards Grid - Single column on mobile, 2 columns on desktop */}

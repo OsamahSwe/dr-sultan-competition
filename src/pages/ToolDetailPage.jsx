@@ -1,8 +1,11 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import { ArrowLeft, ExternalLink, CheckCircle2, Lightbulb, DollarSign, TrendingUp, AlertCircle } from "lucide-react";
 import { getToolById } from "../data/toolData";
+import { getTranslatedTool } from "../data/toolTranslations";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -63,14 +66,19 @@ const testImageExists = (src) => {
   });
 };
 
-function ToolDetailPage({ theme = "dark" }) {
+function ToolDetailPage({ theme: themeProp }) {
   const { toolId } = useParams();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const { theme: themeContext } = useTheme();
   const [activeTab, setActiveTab] = useState("features");
   const [screenshots, setScreenshots] = useState([]);
   const [isLoadingScreenshots, setIsLoadingScreenshots] = useState(false);
   const tabScrollRef = useRef(null);
+
+  const theme = themeProp || themeContext;
   const tool = getToolById(toolId);
+  const translatedTool = getTranslatedTool(toolId, i18n.language);
 
   const isLightMode = theme === "light";
 
@@ -174,27 +182,30 @@ function ToolDetailPage({ theme = "dark" }) {
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 backdrop-blur-xl border-b" style={{
         backgroundColor: isLightMode 
-          ? "rgba(255, 255, 255, 1)" 
-          : "rgba(0, 0, 0, 1)",
+          ? "rgba(255, 255, 255, 0.9)" 
+          : "rgba(0, 0, 0, 0.9)",
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
             className={`flex items-center gap-2 ${subheadingClass} hover:opacity-70 transition-opacity`}
           >
-            <ArrowLeft size={20} />
-            <span>Back to Home</span>
+            <ArrowLeft size={20} className="rtl:rotate-180" />
+            <span>{t("back")}</span>
           </button>
-          <div className="flex items-center gap-4">
-            <span className={`text-sm ${mutedTextClass}`}>{tool.category}</span>
+          
+          <div className="flex items-center gap-6">
+            <div className={`hidden md:block text-sm font-medium opacity-50 ${headingClass}`}>
+              {t("tool")}: {translatedTool.name || tool.name}
+            </div>
             <a
               href={tool.link}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 px-4 py-2 rounded-full ${isLightMode ? "bg-teal-600 text-white hover:bg-teal-700" : "bg-teal-500 text-black hover:bg-teal-400"} transition-colors`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${isLightMode ? "bg-teal-600 text-white hover:bg-teal-700" : "bg-teal-500 text-black hover:bg-teal-400"} transition-colors`}
             >
-              Visit Site
+              {t("visitSite")}
               <ExternalLink size={16} />
             </a>
           </div>
@@ -216,19 +227,19 @@ function ToolDetailPage({ theme = "dark" }) {
                 className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-4 md:mb-6 ${isLightMode ? "bg-teal-100 text-teal-700" : "bg-teal-500/20 text-teal-300"}`}
                 variants={fadeInUp}
               >
-                {tool.role}
+                {translatedTool.role || tool.role}
               </motion.div>
               <motion.h1
                 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 md:mb-6 ${headingClass}`}
                 variants={fadeInUp}
               >
-                {tool.name}
+                {translatedTool.name || tool.name}
               </motion.h1>
               <motion.p
                 className={`text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 ${textClass} leading-relaxed`}
                 variants={fadeInUp}
               >
-                {tool.tagline}
+                {translatedTool.tagline || tool.tagline}
               </motion.p>
               <motion.p
                 className={`text-base md:text-lg ${mutedTextClass} leading-relaxed mb-6 md:mb-8`}
@@ -278,19 +289,28 @@ function ToolDetailPage({ theme = "dark" }) {
       }}>
         <div className="max-w-7xl mx-auto px-6">
           <div ref={tabScrollRef} className="flex gap-8 overflow-x-auto tab-scroll">
-            {["features", "use-cases", "how-to-use", "pricing", "set-up"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`py-4 px-2 font-medium capitalize whitespace-nowrap border-b-2 transition-colors ${
-                  activeTab === tab
-                    ? `${isLightMode ? "border-teal-600 text-teal-600" : "border-teal-400 text-teal-400"}`
-                    : `border-transparent ${mutedTextClass} hover:${textClass}`
-                }`}
-              >
-                {tab.replace("-", " ")}
-              </button>
-            ))}
+            {["features", "use-cases", "how-to-use", "pricing", "set-up"].map((tab) => {
+              const tabLabels = {
+                "features": t("keyFeatures"),
+                "use-cases": t("useCases"),
+                "how-to-use": t("howToUse"),
+                "pricing": t("pricing"),
+                "set-up": t("setUp")
+              };
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`py-4 px-2 font-medium capitalize whitespace-nowrap border-b-2 transition-colors ${
+                    activeTab === tab
+                      ? `${isLightMode ? "border-teal-600 text-teal-600" : "border-teal-400 text-teal-400"}`
+                      : `border-transparent ${mutedTextClass} hover:${textClass}`
+                  }`}
+                >
+                  {tabLabels[tab]}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -305,7 +325,7 @@ function ToolDetailPage({ theme = "dark" }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              Key Features
+              {t("keyFeatures")}
             </motion.h2>
             <div className="grid md:grid-cols-2 gap-8">
               {tool.keyFeatures.map((feature, index) => (
@@ -332,7 +352,7 @@ function ToolDetailPage({ theme = "dark" }) {
             {/* Best Practices */}
             <motion.div className="mt-16" variants={fadeInUp}>
               <h3 className={`text-2xl md:text-3xl font-bold mb-8 ${headingClass}`}>
-                Best Practices
+                {t("bestPractices")}
               </h3>
               <div className={`p-8 rounded-2xl border ${cardClass}`}>
                 <ul className="space-y-4">
@@ -351,7 +371,7 @@ function ToolDetailPage({ theme = "dark" }) {
               <motion.div variants={fadeInUp}>
                 <h3 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${headingClass}`}>
                   <TrendingUp className={subheadingClass} size={24} />
-                  Advantages
+                  {t("pros")}
                 </h3>
                 <div className={`p-8 rounded-2xl border ${cardClass}`}>
                   <ul className="space-y-3">
@@ -367,7 +387,7 @@ function ToolDetailPage({ theme = "dark" }) {
               <motion.div variants={fadeInUp}>
                 <h3 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${headingClass}`}>
                   <AlertCircle className={subheadingClass} size={24} />
-                  Considerations
+                  {t("cons")}
                 </h3>
                 <div className={`p-8 rounded-2xl border ${cardClass}`}>
                   <ul className="space-y-3">
@@ -392,7 +412,7 @@ function ToolDetailPage({ theme = "dark" }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              Use Cases & Applications
+              {t("useCases")}
             </motion.h2>
             <div className="space-y-8">
               {tool.useCases.map((useCase, index) => (
@@ -407,7 +427,7 @@ function ToolDetailPage({ theme = "dark" }) {
                   <p className={`text-lg mb-4 ${textClass}`}>
                     {useCase.description}
                   </p>
-                  <div className={`p-4 rounded-xl ${isLightMode ? "bg-slate-100" : "bg-white/5"} border-l-4`} style={{ borderColor: tool.color }}>
+                  <div className={`p-4 rounded-xl ${isLightMode ? "bg-slate-100" : "bg-white/5"} border-s-4`} style={{ borderColor: tool.color }}>
                     <p className={`text-sm font-medium ${mutedTextClass} mb-1`}>Example:</p>
                     <p className={textClass}>{useCase.example}</p>
                   </div>
@@ -425,7 +445,7 @@ function ToolDetailPage({ theme = "dark" }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              How to Use {tool.shortName}
+              {t("howToUse")} {translatedTool.shortName || tool.shortName}
             </motion.h2>
             <div className="space-y-6">
               {tool.howToUse.map((step, index) => (
@@ -461,7 +481,7 @@ function ToolDetailPage({ theme = "dark" }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              Pricing & Plans
+              {t("pricing")}
             </motion.h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {Object.entries(tool.pricing).map(([tier, description], index) => (
@@ -498,7 +518,7 @@ function ToolDetailPage({ theme = "dark" }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              Set Up {tool.shortName}
+              {t("setUp")} {translatedTool.shortName || tool.shortName}
             </motion.h2>
             
             {isLoadingScreenshots ? (

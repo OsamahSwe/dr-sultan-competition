@@ -13,9 +13,9 @@ function MobileHeader({ theme = "dark", language = "en", onToggleLanguage, onTog
           AI Tools
         </div>
         
-        {/* Navigation Links - Right side - Wrapped together, pushed to far right with ml-auto */}
+        {/* Navigation Links - Right side - Wrapped together, pushed to far right with ms-auto */}
         <div
-          className={`flex items-center gap-3 text-base font-light ml-auto shrink-0 ${
+          className={`flex items-center gap-3 text-base font-light ms-auto shrink-0 ${
             isLightMode ? "text-black" : "text-white"
           }`}
         >

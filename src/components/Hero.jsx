@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { translations } from "../config/translations";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import { useToolSelector } from "../context/ToolSelectorContext";
 import RevealText from "./RevealText";
 
@@ -20,11 +21,19 @@ const heroItem = {
   },
 };
 
-function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage }) {
-  const isLightMode = theme === "light";
-  const t = translations[language];
-  const headingLines = t.heroHeading.split("\n");
+function Hero({ theme: themeProp, onToggleTheme: onToggleThemeProp, language: languageProp, onToggleLanguage: onToggleLanguageProp }) {
+  const { theme: themeContext, toggleTheme: toggleThemeContext } = useTheme();
+  const { t, i18n } = useTranslation();
   const { isToolSelectorOpen } = useToolSelector();
+
+  // Use props if provided (for backward compatibility), otherwise use context
+  const theme = themeProp || themeContext;
+  const onToggleTheme = onToggleThemeProp || toggleThemeContext;
+  const language = languageProp || i18n.language;
+  const onToggleLanguage = onToggleLanguageProp || (() => i18n.changeLanguage(i18n.language === "en" ? "ar" : "en"));
+
+  const isLightMode = theme === "light";
+  const headingLines = t("heroHeading").split("\n");
 
   return (
     <section className={`relative h-screen w-full overflow-hidden ${isToolSelectorOpen ? "opacity-60 transition-opacity duration-300" : ""}`}>
@@ -93,7 +102,7 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
             triggerOnView={true}
             className=""
           >
-            {t.aiTools}
+            {t("aiTools")}
           </RevealText>
         </motion.div>
         
@@ -134,7 +143,7 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
               triggerOnView={true}
               className=""
             >
-              {isLightMode ? t.darkMode : t.lightMode}
+              {isLightMode ? t("darkMode") : t("lightMode")}
             </RevealText>
           </button>
           {/* <a
@@ -214,9 +223,9 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
                     triggerOnView={true}
                     className=""
                   >
-                    {t.aboutUs}
+                    {t("aboutUs")}
                   </RevealText>
-                  <span className="text-lg">{t.arrow}</span>
+                  <span className="text-lg">{t("arrow")}</span>
                 </a>
               </div>
             </motion.div>
@@ -226,9 +235,9 @@ function Hero({ theme = "dark", onToggleTheme, language = "en", onToggleLanguage
 
       {/* Side Label */}
       {/* Vertical label on the right edge of the screen */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20">
+      <div className="absolute end-0 top-1/2 -translate-y-1/2 z-20">
         <div
-          className={`backdrop-blur-md px-2 py-12 rounded-l-lg border ${
+          className={`backdrop-blur-md px-2 py-12 rounded-s-lg border ${
             isLightMode
               ? "bg-gradient-to-b from-teal-200 via-cyan-200/90 to-emerald-200/90 border-teal-300/80 shadow-[0_10px_30px_rgba(34,197,94,0.25)]"
               : "bg-teal-400/20 border-white/10 shadow-[0_10px_24px_rgba(16,185,129,0.35)]"

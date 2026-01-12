@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import { useToolSelector } from "../context/ToolSelectorContext";
 import { getToolById } from "../data/toolData";
-import { translations } from "../config/translations";
 
 // Map tool IDs to their hero image filenames (folder structure: /{tool}-hero/{filename})
 const getToolHeroImage = (toolId) => {
@@ -36,12 +37,17 @@ const getToolHeroImage = (toolId) => {
   return `/${folderName}/${filename}`;
 };
 
-function ToolShowcase({ theme = "dark", language = "en" }) {
+function ToolShowcase({ theme: themeProp, language: languageProp }) {
   const navigate = useNavigate();
-  const t = translations[language];
+  const { t, i18n } = useTranslation();
+  const { theme: themeContext } = useTheme();
+  const { selectedTool } = useToolSelector();
+
+  // Support both props and context with fallback
+  const theme = themeProp || themeContext;
+  const language = languageProp || i18n.language;
   const isDark = theme === "dark";
   const isLightMode = theme === "light";
-  const { selectedTool } = useToolSelector();
   
   // Get tool data from toolData.js, default to claude
   const toolId = selectedTool || "claude";
@@ -104,7 +110,7 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
       ></div>
 
       {/* Content Layout - Grid: Left content, Right hero image */}
-      <div className="relative z-10 max-w-[1400px] ml-0 lg:ml-12 xl:ml-24 px-12 h-full min-h-screen flex items-center">
+      <div className="relative z-10 max-w-[1400px] ms-0 lg:ms-12 xl:ms-24 px-12 h-full min-h-screen flex items-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-[0.9fr_1.5fr] gap-8 lg:gap-12 xl:gap-16 items-center">
           {/* Text Content - Left Side */}
           <AnimatePresence mode="wait">
@@ -147,7 +153,7 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                       : "border-slate-300 text-black hover:border-slate-400 hover:bg-slate-50"
                   }`}
                 >
-                  {t.tryItNow}
+                  {t("tryItNow")}
                 </a>
 
                 {/* Secondary Link - Learn more */}
@@ -159,8 +165,8 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                       : "text-slate-700/80 hover:text-black hover:opacity-100"
                   }`}
                 >
-                  <span>{t.learnMore}</span>
-                  <span>{t.arrow}</span>
+                  <span>{t("learnMore")}</span>
+                  <span>{t("arrow")}</span>
                 </button>
               </div>
             </motion.div>
@@ -171,7 +177,7 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={toolId}
-                className="hidden lg:flex relative w-full h-full min-h-[600px] items-center justify-end -mr-12 xl:-mr-24"
+                className="hidden lg:flex relative w-full h-full min-h-[600px] items-center justify-end -me-12 xl:-me-24"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
@@ -181,7 +187,7 @@ function ToolShowcase({ theme = "dark", language = "en" }) {
                   <img
                     src={heroImage}
                     alt={tool.name}
-                    className="w-full h-auto max-h-[900px] xl:max-h-[1000px] 2xl:max-h-[1100px] object-contain object-right"
+                    className="w-full h-auto max-h-[900px] xl:max-h-[1000px] 2xl:max-h-[1100px] object-contain object-right rtl:object-left"
                   />
                 </div>
               </motion.div>

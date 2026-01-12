@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import CarouselArrow from "./CarouselArrow";
-import { translations } from "../config/translations";
 import { useToolSelector } from "../context/ToolSelectorContext";
 import RevealText from "./RevealText";
 
-const SHOW_CAROUSEL_UI = false; // Toggle to re-enable carousel UI
+const SHOW_CAROUSEL_UI = true; // Toggle to re-enable carousel UI
 
 const tools = [
   {
@@ -83,12 +84,17 @@ const tools = [
   },
 ];
 
-export default function AiToolGallery({ theme = "dark", language = "en" }) {
+export default function AiToolGallery({ theme: themeProp, language: languageProp }) {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
-  const isDark = theme === "dark";
-  const t = translations[language];
+  const { t, i18n } = useTranslation();
+  const { theme: themeContext } = useTheme();
   const { openToolSelector } = useToolSelector();
+
+  // Support both props and context with fallback
+  const theme = themeProp || themeContext;
+  const language = languageProp || i18n.language;
+  const isDark = theme === "dark";
 
   const handleNext = () => {
     const nextIndex = (activeIndex + 1) % tools.length;
@@ -116,7 +122,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
           muted
           playsInline
         >
-          <source src="/try-and-learn.mp4" type="video/mp4" />
+          <source src="/hero-video-v2.mp4" type="video/mp4" />
         </video>
       )}
 
@@ -134,14 +140,13 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
       )}
 
       {/* New Editorial Title - Top Left */}
-      {/* This English hero text stays in English with exact typography even when language is Arabic */}
-      <div className="absolute top-6 md:top-12 left-6 md:left-12 lg:left-16 z-20 max-w-4xl">
+      <div className="absolute top-6 md:top-12 start-6 md:start-12 lg:start-16 z-20 max-w-4xl">
         <h1
           className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-6 md:mb-8 ${
             isDark ? "text-white" : "text-black"
           }`}
         >
-          {["WHERE", "IDEAS", "EVOLVE", "INTO", "INTELLIGENCE"].map((line, index) => (
+          {t("galleryHeading").split("\n").map((line, index) => (
             <span key={index}>
               <RevealText
                 direction="up"
@@ -151,7 +156,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
               >
                 {line}
               </RevealText>
-              {index < 4 && <br />}
+              {index < t("galleryHeading").split("\n").length - 1 && <br />}
             </span>
           ))}
         </h1>
@@ -178,7 +183,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
               triggerOnView={true}
               className=""
             >
-              {t.exploreTools}
+              {t("exploreTools")}
             </RevealText>
             <span className="text-lg">↓</span>
           </button>
@@ -199,7 +204,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
               isDark ? "text-teal-300" : "text-teal-600"
             }`}
           >
-            {t.tryAndLearn}
+            {t("tryAndLearn")}
           </motion.h2>
           <motion.h2
             key={`modernDevelopment-${language}`}
@@ -212,7 +217,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
               isDark ? "text-white" : "text-slate-900"
             }`}
           >
-            {t.modernDevelopment}
+            {t("modernDevelopment")}
           </motion.h2>
         </div>
       )}
@@ -272,7 +277,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label={t.previousTool}
+                              aria-label={t("previousTool")}
                             >
                               <CarouselArrow direction="left" />
                             </button>
@@ -284,14 +289,14 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label={t.nextTool}
+                              aria-label={t("nextTool")}
                             >
                               <CarouselArrow direction="right" />
                             </button>
                           </div>
 
                           {/* Content Container - Mobile: Centered, Desktop: Left Aligned */}
-                          <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left max-w-2xl px-6 md:px-8 lg:px-12 w-full">
+                          <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-start max-w-2xl px-6 md:px-8 lg:px-12 w-full">
                             {/* Tool Name - Hero Headline */}
                             <h2
                               className={`text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light leading-tight mb-4 md:mb-6 ${
@@ -341,7 +346,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                     : "bg-emerald-500 text-black hover:bg-emerald-600"
                                 }`}
                               >
-                                {t.learnMore} {t.arrow}
+                                {t("learnMore")} {t("arrow")}
                               </motion.button>
                               {tool.link && (
                                 <motion.a
@@ -362,7 +367,7 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                       : "border border-slate-900/30 text-slate-900 hover:border-slate-900/50 hover:bg-slate-900/5"
                                   }`}
                                 >
-                                  {t.tryItNow} {t.arrow}
+                                  {t("tryItNow")} {t("arrow")}
                                 </motion.a>
                               )}
                             </div>
@@ -378,9 +383,9 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label="Previous tool"
+                              aria-label={t("previousTool")}
                             >
-                              <CarouselArrow direction="left" />
+                              <CarouselArrow direction="left" className="rtl:rotate-180" />
                             </button>
                             <button
                               type="button"
@@ -390,9 +395,9 @@ export default function AiToolGallery({ theme = "dark", language = "en" }) {
                                   ? "border-white/25 text-white hover:border-white/45"
                                   : "border-slate-900/25 text-slate-900 hover:border-slate-900/45"
                               }`}
-                              aria-label={t.nextTool}
+                              aria-label={t("nextTool")}
                             >
-                              <CarouselArrow direction="right" />
+                              <CarouselArrow direction="right" className="rtl:rotate-180" />
                             </button>
                           </div>
                         </>

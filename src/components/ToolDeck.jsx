@@ -1,11 +1,17 @@
 // src/components/ToolDeck.jsx
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
 import "./toolDeck.css";
-import { translations } from "../config/translations";
 
-export default function ToolDeck({ theme = "dark", language = "en" }) {
-  const t = translations[language];
+export default function ToolDeck({ theme: themeProp, language: languageProp }) {
+  const { t, i18n } = useTranslation();
+  const { theme: themeContext } = useTheme();
+
+  // Support both props and context with fallback
+  const theme = themeProp || themeContext;
+  const language = languageProp || i18n.language;
   
   return (
     <section
@@ -40,7 +46,7 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 theme === "dark" ? "text-teal-300" : "text-teal-600"
               }`}
             >
-              {t.watchAndBuild}
+              {t("watchAndBuild")}
             </motion.p>
             <motion.h2
               key={`practicalTutorials-${language}`}
@@ -53,7 +59,7 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}
             >
-              {t.practicalTutorials}
+              {t("practicalTutorials")}
             </motion.h2>
           </div>
         </header>
@@ -97,13 +103,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                {t.idea}
+                {t("idea")}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
               } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.ideaDescription}
+                {t("ideaDescription")}
               </p>
             </div>
 
@@ -131,13 +137,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                {t.chatgptStep1}
+                {t("chatgptStep1")}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
               } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.chatgptStep1Description}
+                {t("chatgptStep1Description")}
               </p>
             </div>
 
@@ -165,13 +171,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                {t.uxPilotStep}
+                {t("uxPilotStep")}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
               } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.uxPilotStepDescription}
+                {t("uxPilotStepDescription")}
               </p>
             </div>
 
@@ -199,13 +205,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                {t.chatgptStep2}
+                {t("chatgptStep2")}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
               } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.chatgptStep2Description}
+                {t("chatgptStep2Description")}
               </p>
             </div>
 
@@ -233,13 +239,13 @@ export default function ToolDeck({ theme = "dark", language = "en" }) {
               <h3 className={`font-semibold mb-2 text-sm md:text-base ${
                 theme === "dark" ? "text-white" : "text-slate-900"
               }`}>
-                {t.cursorStep}
+                {t("cursorStep")}
               </h3>
               <p className={`text-xs md:text-sm leading-relaxed ${
                 theme === "dark" ? "text-gray-400" : "text-slate-600"
               } ${language === "ar" ? "leading-relaxed" : ""}`}
               >
-                {t.cursorStepDescription}
+                {t("cursorStepDescription")}
               </p>
             </div>
           </div>
