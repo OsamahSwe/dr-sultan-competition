@@ -167,11 +167,20 @@ function PhaseDetailPage() {
                   className={`group relative p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${cardClass} hover:shadow-xl`}
                 >
                   <div 
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-2xl"
-                    style={{ backgroundColor: `${tool.iconBg}20`, color: tool.iconBg }}
+                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 overflow-hidden"
+                    style={{ backgroundColor: `${tool.iconBg}20` }}
                   >
-                   {/* Placeholder for tool icon - using first letter if no icon available */}
-                   <span className="font-bold">{tool.shortName[0]}</span>
+                   {tool.image ? (
+                     <img 
+                       src={tool.image} 
+                       alt={tool.name}
+                       className="w-full h-full object-cover"
+                     />
+                   ) : (
+                     <span className="font-bold text-2xl" style={{ color: tool.iconBg }}>
+                       {tool.shortName[0]}
+                     </span>
+                   )}
                   </div>
                   
                   <h3 className={`text-xl font-bold mb-2 ${headingClass}`}>

@@ -378,133 +378,6 @@ export const toolsData = {
     ]
   },
 
-  copilot: {
-    id: "copilot",
-    name: "GitHub Copilot",
-    shortName: "Copilot",
-    tagline: "Inline code suggestions, tests, and refactors directly inside your editor.",
-    category: "CODE",
-    role: "Coding Assistant",
-    iconBg: "#22c55e",
-    pattern: "green-dots",
-    color: "#0ea5e9",
-    image: "/github-copilot-ai/cover.png",
-    link: "https://github.com/features/copilot",
-
-    overview: "GitHub Copilot is your AI pair programmer that works directly in your code editor. Powered by OpenAI Codex, it suggests whole lines or entire functions as you type, dramatically accelerating your development workflow and helping you write better code faster.",
-
-    keyFeatures: [
-      {
-        title: "Inline Code Completion",
-        description: "Get intelligent code suggestions as you type. Copilot understands context and suggests complete functions, not just snippets."
-      },
-      {
-        title: "Multi-Language Support",
-        description: "Works with dozens of programming languages and frameworks, from Python and JavaScript to Rust and Go."
-      },
-      {
-        title: "Test Generation",
-        description: "Automatically generate unit tests, integration tests, and test cases based on your code implementation."
-      },
-      {
-        title: "Code Translation",
-        description: "Convert code between programming languages or refactor code to use different patterns and paradigms."
-      },
-      {
-        title: "Documentation Assistance",
-        description: "Generate code comments, docstrings, and documentation based on your code's functionality."
-      }
-    ],
-
-    useCases: [
-      {
-        title: "Full-Stack Developers",
-        description: "Speed up development across frontend, backend, and database code with context-aware suggestions.",
-        example: "Start writing a React component and let Copilot suggest complete component structure with hooks and state management."
-      },
-      {
-        title: "Learning New Languages",
-        description: "Discover language-specific patterns and best practices as you code in unfamiliar languages or frameworks.",
-        example: "Write comments describing what you want to do, and Copilot suggests the correct syntax in your target language."
-      },
-      {
-        title: "Writing Tests",
-        description: "Generate comprehensive test suites quickly, including edge cases and common scenarios you might miss.",
-        example: "Write a test function signature and let Copilot suggest test cases covering various scenarios."
-      },
-      {
-        title: "Boilerplate Code",
-        description: "Eliminate tedious boilerplate writing. Copilot handles repetitive patterns so you focus on unique logic.",
-        example: "Start a CRUD API endpoint and Copilot suggests complete implementations with error handling."
-      },
-      {
-        title: "Code Refactoring",
-        description: "Modernize legacy code, apply design patterns, or optimize algorithms with AI-assisted suggestions.",
-        example: "Select old code and ask Copilot to refactor it using modern patterns or frameworks."
-      }
-    ],
-
-    howToUse: [
-      {
-        step: 1,
-        title: "Install the Extension",
-        description: "Add GitHub Copilot to your editor (VS Code, JetBrains, Neovim, or Visual Studio) and sign in with your GitHub account."
-      },
-      {
-        step: 2,
-        title: "Write Comments or Code",
-        description: "Start with descriptive comments or begin typing code. Copilot analyzes context from your current file and workspace."
-      },
-      {
-        step: 3,
-        title: "Accept or Cycle Suggestions",
-        description: "Press Tab to accept suggestions or use keyboard shortcuts to cycle through alternative completions."
-      },
-      {
-        step: 4,
-        title: "Use Copilot Chat",
-        description: "Ask questions, request explanations, or get help with debugging through the integrated chat interface."
-      },
-      {
-        step: 5,
-        title: "Refine and Iterate",
-        description: "Edit suggestions to fit your needs. Copilot learns from your edits and improves suggestions over time."
-      }
-    ],
-
-    bestPractices: [
-      "Write clear, descriptive function names and comments to guide suggestions",
-      "Review and test all suggested code - treat Copilot as a junior developer",
-      "Use Copilot Chat for complex questions or when inline suggestions aren't quite right",
-      "Provide context through comments when working on complex or unique functionality",
-      "Cycle through multiple suggestions (Alt+[ and Alt+]) to see different approaches",
-      "Keep your codebase clean and well-structured for better contextual suggestions"
-    ],
-
-    pricing: {
-      individual: "$10/month or $100/year for individual developers",
-      business: "$19/user/month for teams with centralized management and policy controls",
-      enterprise: "$39/user/month with enhanced security, compliance, and enterprise features",
-      students: "Free for verified students, teachers, and open-source maintainers"
-    },
-
-    pros: [
-      "Dramatically speeds up coding workflow",
-      "Excellent at generating boilerplate and repetitive code",
-      "Supports wide range of languages and frameworks",
-      "Integrated directly in your favorite editor",
-      "Helpful for learning new languages and patterns"
-    ],
-
-    cons: [
-      "Can suggest suboptimal or outdated patterns",
-      "Requires review and testing of all suggestions",
-      "May not understand complex domain-specific logic",
-      "Subscription cost for individual developers",
-      "Can make you over-reliant on AI assistance"
-    ]
-  },
-
   cursor: {
     id: "cursor",
     name: "Cursor Editor",
@@ -1026,7 +899,7 @@ export const toolsData = {
     image: "/codex-ai/cover.png",
     link: "https://openai.com/codex/",
 
-    overview: "OpenAI Codex is the AI system that powers GitHub Copilot and represents cutting-edge code generation capabilities. While Codex itself is primarily available through integrations, it represents the foundation of modern AI-assisted development tools.",
+    overview: "OpenAI Codex is an advanced AI system that represents cutting-edge code generation capabilities. While Codex itself is primarily available through integrations, it represents the foundation of modern AI-assisted development tools.",
 
     keyFeatures: [
       {
@@ -1088,7 +961,7 @@ export const toolsData = {
       {
         step: 2,
         title: "Choose Your Integration",
-        description: "Decide whether to use Codex through existing tools like Copilot or build custom integrations."
+        description: "Decide whether to use Codex through existing integrations or build custom integrations."
       },
       {
         step: 3,
@@ -1119,7 +992,6 @@ export const toolsData = {
     pricing: {
       api: "Pay-per-use pricing based on tokens processed (pricing varies by model)",
       enterprise: "Volume discounts and dedicated capacity for large-scale deployments",
-      copilot: "Access Codex through GitHub Copilot subscription ($10-39/month depending on plan)",
       custom: "Custom agreements for specialized use cases and integrations"
     },
 
@@ -1127,7 +999,7 @@ export const toolsData = {
       "Powerful code generation capabilities",
       "Supports many programming languages",
       "Available via API for custom tools",
-      "Foundation for proven tools like Copilot",
+      "Foundation for modern AI-assisted development tools",
       "Excellent for boilerplate and standard patterns"
     ],
 
