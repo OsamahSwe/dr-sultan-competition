@@ -25,7 +25,6 @@ const stagger = {
 // Helper function to map tool IDs to screenshot folder names
 const getScreenshotFolderName = (toolId) => {
   const folderMap = {
-    copilot: "github-copilot",
     uxpilot: "ux-pilot",
     lovable: "loveable",
   };

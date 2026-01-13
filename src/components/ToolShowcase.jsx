@@ -14,7 +14,6 @@ const getToolHeroImage = (toolId) => {
     cursor: "0_VfWmB7dy737ViF0F.gif",
     deepseek: "deepseek_r1_example_en.gif",
     gemini: "Guided Learning Comparison_compressed.gif",
-    copilot: "jest_unit_tests.webp", // github-copilot-hero folder
     lovable: "agent-mode-beta.gif",
     uxpilot: "1714335360-matchmakingdesktop-optimize.gif", // ux-pilot-hero folder
   };
@@ -24,9 +23,7 @@ const getToolHeroImage = (toolId) => {
   
   // Handle special folder naming cases
   let folderName;
-  if (toolId === "copilot") {
-    folderName = "github-copilot-hero";
-  } else if (toolId === "uxpilot") {
+  if (toolId === "uxpilot") {
     folderName = "ux-pilot-hero";
   } else if (toolId === "lovable") {
     folderName = "loveable-hero"; // Note: folder uses "loveable" not "lovable"

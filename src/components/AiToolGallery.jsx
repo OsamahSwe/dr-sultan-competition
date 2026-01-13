@@ -43,14 +43,6 @@ const tools = [
     accent: "#3b82f6", // blue
   },
   {
-    name: "GitHub Copilot",
-    description: "Inline suggestions that keep your editor moving forward.",
-    image: "/github-copilot-ai/cover.png",
-    about: "Pairs with you in your editor to suggest code, tests, and small refactors as you type.",
-    link: "https://github.com/features/copilot",
-    accent: "#0ea5e9", // cyan
-  },
-  {
     name: "Cursor",
     description: "AI-native code editor that helps you ship faster.",
     image: "/cursor-ai/cover.png",
@@ -325,7 +317,6 @@ export default function AiToolGallery({ theme: themeProp, language: languageProp
                                     .replace('claudeai', 'claude')
                                     .replace('gemini', 'gemini')
                                     .replace('deepseek', 'deepseek')
-                                    .replace('githubcopilot', 'copilot')
                                     .replace('cursor', 'cursor')
                                     .replace('codexai', 'codex')
                                     .replace('lovableai', 'lovable')

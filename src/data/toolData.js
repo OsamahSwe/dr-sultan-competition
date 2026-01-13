@@ -1903,7 +1903,7 @@ export const toolsData = {
     image: "/codex-ai/cover.png",
     link: "https://openai.com/codex/",
 
-    overview: "OpenAI Codex is the AI system that powers GitHub Copilot and represents cutting-edge code generation capabilities. While Codex itself is primarily available through integrations, it represents the foundation of modern AI-assisted development tools.",
+    overview: "OpenAI Codex is an advanced AI system that represents cutting-edge code generation capabilities. While Codex itself is primarily available through integrations, it represents the foundation of modern AI-assisted development tools.",
 
     keyFeatures: [
       {
@@ -1965,7 +1965,7 @@ export const toolsData = {
       {
         step: 2,
         title: "Choose Your Integration",
-        description: "Decide whether to use Codex through existing tools like Copilot or build custom integrations."
+        description: "Decide whether to use Codex through existing integrations or build custom integrations."
       },
       {
         step: 3,
@@ -1996,7 +1996,6 @@ export const toolsData = {
     pricing: {
       api: "Pay-per-use pricing based on tokens processed (pricing varies by model)",
       enterprise: "Volume discounts and dedicated capacity for large-scale deployments",
-      copilot: "Access Codex through GitHub Copilot subscription ($10-39/month depending on plan)",
       custom: "Custom agreements for specialized use cases and integrations"
     },
 
@@ -2004,7 +2003,7 @@ export const toolsData = {
       "Powerful code generation capabilities",
       "Supports many programming languages",
       "Available via API for custom tools",
-      "Foundation for proven tools like Copilot",
+      "Foundation for modern AI-assisted development tools",
       "Excellent for boilerplate and standard patterns"
     ],
 

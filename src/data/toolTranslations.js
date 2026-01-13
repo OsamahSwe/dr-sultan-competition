@@ -48,22 +48,6 @@ export const toolTranslations = {
       role: "متعدد الوسائط"
     }
   },
-  copilot: {
-    en: {
-      name: "GitHub Copilot",
-      shortName: "Copilot",
-      tagline: "Inline code suggestions, tests, and refactors directly inside your editor.",
-      category: "CODE",
-      role: "Coding Assistant"
-    },
-    ar: {
-      name: "GitHub Copilot",
-      shortName: "Copilot",
-      tagline: "اقتراحات الكود والاختبارات وإعادة الهيكلة مباشرة داخل المحرر.",
-      category: "برمجة",
-      role: "مساعد البرمجة"
-    }
-  },
   cursor: {
     en: {
       name: "Cursor Editor",

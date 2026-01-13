@@ -52,7 +52,7 @@ export const AI_STAGES = [
       "Development environment setup"
     ],
     finalProductBenefit: "A production-ready codebase built with 60% faster velocity and standardized code quality.",
-    toolKeys: ["cursor", "copilot", "lovable", "deepseek", "codex"]
+    toolKeys: ["cursor", "lovable", "deepseek", "codex"]
   },
   {
     id: "qa",
@@ -69,7 +69,7 @@ export const AI_STAGES = [
       "Initial test plan"
     ],
     finalProductBenefit: "99.9% stable deployments with tests that evolve automatically alongside your code changes.",
-    toolKeys: ["deepseek", "copilot", "chatgpt"]
+    toolKeys: ["deepseek", "chatgpt"]
   },
   {
     id: "devops",
