@@ -63,5 +63,9 @@
   "recommendedTools": "الأدوات الموصى بها",
   "tool": "أداة",
   "visitSite": "زيارة الموقع",
-  "phase": "مرحلة"
+  "phase": "مرحلة",
+  "ctaHeading": "هل أنت مستعد للبدء مع {{toolName}}؟",
+  "ctaDescription": "استكشف ما يمكن لـ {{toolName}} القيام به من أجلك وحول سير عملك اليوم.",
+  "tryToolNow": "جرب {{toolName}} الآن",
+  "exploreOtherTools": "استكشف أدوات أخرى"
 }

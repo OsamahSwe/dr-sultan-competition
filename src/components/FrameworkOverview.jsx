@@ -94,7 +94,7 @@ export default function FrameworkOverview({ theme, language }) {
                     variants={itemVariants}
                     className={`group relative p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${cardClass}`}
                 >
-                    <div className="absolute top-8 right-8 text-6xl font-bold opacity-[0.03] select-none">
+                    <div className="absolute top-8 ltr:right-8 rtl:left-8 text-6xl font-bold opacity-[0.03] select-none">
                         {index + 1}
                     </div>
 

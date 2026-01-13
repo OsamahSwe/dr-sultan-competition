@@ -27,7 +27,7 @@ const itemVariants = {
 
 function FrameworkPage() {
   const { t, i18n } = useTranslation();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const isLightMode = theme === "light";
   
   const stages = getTranslatedStages(i18n.language);
@@ -57,9 +57,25 @@ function FrameworkPage() {
             <ArrowLeft size={20} className="rtl:rotate-180" />
             <span>{t("backToHome")}</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <Layers size={18} className={mutedTextClass} />
-            <span className={`text-sm font-medium ${headingClass}`}>{t("frameworkTitle")}</span>
+          <div className="flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-2">
+              <Layers size={18} className={mutedTextClass} />
+              <span className={`text-sm font-medium ${headingClass}`}>{t("frameworkTitle")}</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => i18n.changeLanguage(i18n.language === "en" ? "ar" : "en")}
+                className={`text-sm font-medium hover:opacity-70 transition-opacity ${headingClass}`}
+              >
+                {i18n.language === "en" ? "AR" : "EN"}
+              </button>
+              <button
+                onClick={toggleTheme}
+                className="hover:opacity-70 transition-opacity flex items-center"
+              >
+                <img src="/exposure-time.png" alt="toggle theme" className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </nav>

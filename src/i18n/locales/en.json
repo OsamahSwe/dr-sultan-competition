@@ -63,5 +63,9 @@
   "recommendedTools": "Recommended Tools",
   "tool": "Tool",
   "visitSite": "Visit Site",
-  "phase": "Phase"
+  "phase": "Phase",
+  "ctaHeading": "Ready to get started with {{toolName}}?",
+  "ctaDescription": "Explore what {{toolName}} can do for you and transform your workflow today.",
+  "tryToolNow": "Try {{toolName}} Now",
+  "exploreOtherTools": "Explore Other Tools"
 }

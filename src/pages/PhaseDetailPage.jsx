@@ -27,7 +27,7 @@ function PhaseDetailPage() {
   const { phaseId } = useParams();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const isLightMode = theme === "light";
 
   const phase = getTranslatedStage(phaseId, i18n.language);
@@ -73,8 +73,24 @@ function PhaseDetailPage() {
             <ArrowLeft size={20} className="rtl:rotate-180" />
             <span>{t("backToFramework")}</span>
           </Link>
-          <div className="hidden md:block text-sm font-medium opacity-50">
-            {t("phase")}: {phase.title}
+          <div className="flex items-center gap-6">
+            <div className="hidden md:block text-sm font-medium opacity-50">
+              {t("phase")}: {phase.title}
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => i18n.changeLanguage(i18n.language === "en" ? "ar" : "en")}
+                className={`text-sm font-medium hover:opacity-70 transition-opacity ${headingClass}`}
+              >
+                {i18n.language === "en" ? "AR" : "EN"}
+              </button>
+              <button
+                onClick={toggleTheme}
+                className="hover:opacity-70 transition-opacity flex items-center"
+              >
+                <img src="/exposure-time.png" alt="toggle theme" className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -167,11 +183,14 @@ function PhaseDetailPage() {
                   className={`group relative p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${cardClass} hover:shadow-xl`}
                 >
                   <div 
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-2xl"
+                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-2xl overflow-hidden"
                     style={{ backgroundColor: `${tool.iconBg}20`, color: tool.iconBg }}
                   >
-                   {/* Placeholder for tool icon - using first letter if no icon available */}
-                   <span className="font-bold">{tool.shortName[0]}</span>
+                   {tool.image ? (
+                     <img src={tool.image} alt={tool.name} className="w-full h-full object-cover" />
+                   ) : (
+                     <span className="font-bold">{tool.shortName[0]}</span>
+                   )}
                   </div>
                   
                   <h3 className={`text-xl font-bold mb-2 ${headingClass}`}>

@@ -1,5 +1,5 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
@@ -70,15 +70,26 @@ function ToolDetailPage({ theme: themeProp }) {
   const { toolId } = useParams();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
-  const { theme: themeContext } = useTheme();
+  const { theme: themeContext, toggleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState("features");
   const [screenshots, setScreenshots] = useState([]);
   const [isLoadingScreenshots, setIsLoadingScreenshots] = useState(false);
   const tabScrollRef = useRef(null);
 
   const theme = themeProp || themeContext;
-  const tool = getToolById(toolId);
-  const translatedTool = getTranslatedTool(toolId, i18n.language);
+  const toolRaw = getToolById(toolId);
+  const translatedToolBasic = getTranslatedTool(toolId, i18n.language);
+
+  // Merge tool data with translations
+  const tool = useMemo(() => {
+    if (!toolRaw) return null;
+    const specificTrans = toolRaw.translations?.[i18n.language] || {};
+    return {
+      ...toolRaw,
+      ...translatedToolBasic,
+      ...specificTrans
+    };
+  }, [toolRaw, translatedToolBasic, i18n.language]);
 
   const isLightMode = theme === "light";
 
@@ -197,7 +208,7 @@ function ToolDetailPage({ theme: themeProp }) {
           
           <div className="flex items-center gap-6">
             <div className={`hidden md:block text-sm font-medium opacity-50 ${headingClass}`}>
-              {t("tool")}: {translatedTool.name || tool.name}
+              {t("tool")}: {tool.name}
             </div>
             <a
               href={tool.link}
@@ -208,6 +219,20 @@ function ToolDetailPage({ theme: themeProp }) {
               {t("visitSite")}
               <ExternalLink size={16} />
             </a>
+            <div className="flex items-center gap-4 border-s ps-4 border-gray-300 dark:border-white/10">
+              <button
+                onClick={() => i18n.changeLanguage(i18n.language === "en" ? "ar" : "en")}
+                className={`text-sm font-medium hover:opacity-70 transition-opacity ${headingClass}`}
+              >
+                {i18n.language === "en" ? "AR" : "EN"}
+              </button>
+              <button
+                onClick={toggleTheme}
+                className="hover:opacity-70 transition-opacity flex items-center"
+              >
+                <img src="/exposure-time.png" alt="toggle theme" className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -227,19 +252,19 @@ function ToolDetailPage({ theme: themeProp }) {
                 className={`inline-block px-4 py-2 rounded-full text-sm font-medium mb-4 md:mb-6 ${isLightMode ? "bg-teal-100 text-teal-700" : "bg-teal-500/20 text-teal-300"}`}
                 variants={fadeInUp}
               >
-                {translatedTool.role || tool.role}
+                {tool.role}
               </motion.div>
               <motion.h1
                 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-tight mb-4 md:mb-6 ${headingClass}`}
                 variants={fadeInUp}
               >
-                {translatedTool.name || tool.name}
+                {tool.name}
               </motion.h1>
               <motion.p
                 className={`text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 ${textClass} leading-relaxed`}
                 variants={fadeInUp}
               >
-                {translatedTool.tagline || tool.tagline}
+                {tool.tagline}
               </motion.p>
               <motion.p
                 className={`text-base md:text-lg ${mutedTextClass} leading-relaxed mb-6 md:mb-8`}
@@ -445,7 +470,7 @@ function ToolDetailPage({ theme: themeProp }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              {t("howToUse")} {translatedTool.shortName || tool.shortName}
+              {t("howToUse")} {tool.shortName}
             </motion.h2>
             <div className="space-y-6">
               {tool.howToUse.map((step, index) => (
@@ -518,7 +543,7 @@ function ToolDetailPage({ theme: themeProp }) {
             variants={stagger}
           >
             <motion.h2 className={`text-3xl md:text-4xl font-bold mb-12 ${headingClass}`} variants={fadeInUp}>
-              {t("setUp")} {translatedTool.shortName || tool.shortName}
+              {t("setUp")} {tool.shortName}
             </motion.h2>
             
             {isLoadingScreenshots ? (
@@ -560,10 +585,10 @@ function ToolDetailPage({ theme: themeProp }) {
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className={`text-3xl md:text-4xl font-bold mb-6 ${headingClass}`}>
-            Ready to get started with {tool.shortName}?
+            {t("ctaHeading", { toolName: tool.shortName })}
           </h2>
           <p className={`text-xl mb-8 ${textClass}`}>
-            Explore what {tool.shortName} can do for you and transform your workflow today.
+            {t("ctaDescription", { toolName: tool.shortName })}
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <a
@@ -572,14 +597,14 @@ function ToolDetailPage({ theme: themeProp }) {
               rel="noopener noreferrer"
               className={`px-8 py-4 rounded-full text-lg font-medium ${isLightMode ? "bg-teal-600 text-white hover:bg-teal-700" : "bg-teal-500 text-black hover:bg-teal-400"} transition-all hover:scale-105 flex items-center gap-2`}
             >
-              Try {tool.shortName} Now
+              {t("tryToolNow", { toolName: tool.shortName })}
               <ExternalLink size={20} />
             </a>
             <button
               onClick={() => navigate("/#try-and-learn")}
               className={`px-8 py-4 rounded-full text-lg font-medium border-2 ${isLightMode ? "border-slate-300 text-black hover:bg-slate-50" : "border-white/20 text-white hover:bg-white/5"} transition-all`}
             >
-              Explore Other Tools
+              {t("exploreOtherTools")}
             </button>
           </div>
         </div>
