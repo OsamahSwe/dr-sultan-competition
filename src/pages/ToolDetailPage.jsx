@@ -307,7 +307,7 @@ function ToolDetailPage({ theme: themeProp }) {
       </motion.section>
 
       {/* Tab Navigation */}
-      <div className={`sticky top-[73px] z-40 border-b backdrop-blur-xl`} style={{
+      <div className={`z-40 border-b backdrop-blur-xl`} style={{
         backgroundColor: isLightMode ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)",
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
