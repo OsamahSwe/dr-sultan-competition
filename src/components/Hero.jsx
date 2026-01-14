@@ -90,11 +90,7 @@ function Hero({ theme: themeProp, onToggleTheme: onToggleThemeProp, language: la
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className={`text-xl md:text-2xl font-bold translated-text ${
-            language === "ar" ? "arabic-section-title" : ""
-          } ${
-            isLightMode ? "text-black" : "text-white"
-          }`}
+          className="shrink-0"
         >
           <RevealText
             direction="up"
@@ -102,7 +98,11 @@ function Hero({ theme: themeProp, onToggleTheme: onToggleThemeProp, language: la
             triggerOnView={true}
             className=""
           >
-            {t("aiTools")}
+            <img
+              src="/logo.png"
+              alt="NEAI Logo"
+              className="h-8 md:h-10 w-auto object-contain"
+            />
           </RevealText>
         </motion.div>
         

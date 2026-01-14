@@ -50,13 +50,22 @@ function FrameworkPage() {
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            to="/"
-            className={`flex items-center gap-2 ${isLightMode ? "text-teal-600" : "text-teal-400"} hover:opacity-70 transition-opacity`}
-          >
-            <ArrowLeft size={20} className="rtl:rotate-180" />
-            <span>{t("backToHome")}</span>
-          </Link>
+          <div className="flex items-center gap-4 md:gap-8">
+            <Link to="/" className="shrink-0">
+              <img
+                src="/logo.png"
+                alt="NEAI Logo"
+                className="h-8 w-auto object-contain"
+              />
+            </Link>
+            <Link
+              to="/"
+              className={`flex items-center gap-2 ${isLightMode ? "text-teal-600" : "text-teal-400"} hover:opacity-70 transition-opacity`}
+            >
+              <ArrowLeft size={20} className="rtl:rotate-180" />
+              <span className="hidden sm:inline">{t("backToHome")}</span>
+            </Link>
+          </div>
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-2">
               <Layers size={18} className={mutedTextClass} />

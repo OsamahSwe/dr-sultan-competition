@@ -5,12 +5,12 @@ function MobileHeader({ theme = "dark", language = "en", onToggleLanguage, onTog
     <header className={`mobile-header mobile-header-${theme} fixed top-0 left-0 right-0 z-[1000] flex md:hidden`}>
       <div className="flex items-center w-full px-4 py-3.5">
         {/* Logo - Left side - Always in English */}
-        <div
-          className={`text-xl font-bold shrink-0 ${
-            isLightMode ? "text-black" : "text-white"
-          }`}
-        >
-          AI Tools
+        <div className="shrink-0">
+          <img
+            src="/logo.png"
+            alt="NEAI Logo"
+            className="h-8 w-auto object-contain"
+          />
         </div>
         
         {/* Navigation Links - Right side - Wrapped together, pushed to far right with ms-auto */}

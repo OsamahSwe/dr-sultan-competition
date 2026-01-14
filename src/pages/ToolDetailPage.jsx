@@ -197,13 +197,22 @@ function ToolDetailPage({ theme: themeProp }) {
         borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
       }}>
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate(-1)}
-            className={`flex items-center gap-2 ${subheadingClass} hover:opacity-70 transition-opacity`}
-          >
-            <ArrowLeft size={20} className="rtl:rotate-180" />
-            <span>{t("back")}</span>
-          </button>
+          <div className="flex items-center gap-4 md:gap-8">
+            <Link to="/" className="shrink-0">
+              <img
+                src="/logo.png"
+                alt="NEAI Logo"
+                className="h-8 w-auto object-contain"
+              />
+            </Link>
+            <button
+              onClick={() => navigate(-1)}
+              className={`flex items-center gap-2 ${subheadingClass} hover:opacity-70 transition-opacity`}
+            >
+              <ArrowLeft size={20} className="rtl:rotate-180" />
+              <span className="hidden sm:inline">{t("back")}</span>
+            </button>
+          </div>
           
           <div className="flex items-center gap-6">
             <div className={`hidden md:block text-sm font-medium opacity-50 ${headingClass}`}>
