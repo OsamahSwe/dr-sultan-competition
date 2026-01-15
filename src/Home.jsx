@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "./context/ThemeContext";
 import Hero from "./components/Hero";
@@ -13,6 +13,8 @@ function Home() {
   const { theme, toggleTheme } = useTheme();
   const { i18n } = useTranslation();
   const language = i18n.language;
+  const [isMobile, setIsMobile] = useState(false);
+  const [frameworkRemountKey, setFrameworkRemountKey] = useState(0);
 
   const toggleLanguage = () => {
     i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
@@ -57,6 +59,29 @@ function Home() {
     }
   }, []);
 
+  // Mobile detection (used to make in-view triggers more reliable on initial mobile load)
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener?.("change", update);
+    return () => mql.removeEventListener?.("change", update);
+  }, []);
+
+  // Mobile-only: nudge Framer Motion to re-evaluate in-view on first load
+  useEffect(() => {
+    if (!isMobile) return;
+    const id = window.requestAnimationFrame(() => {
+      setFrameworkRemountKey((k) => k + 1);
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [isMobile]);
+
+  const frameworkViewport = useMemo(() => {
+    if (!isMobile) return { once: true, amount: 0.35 };
+    return { once: true, amount: 0.15, margin: "0px 0px -20% 0px" };
+  }, [isMobile]);
+
   return (
     <ToolSelectorProvider>
       <main className={`${mainClass} relative`}>
@@ -87,9 +112,10 @@ function Home() {
 
       {/* Framework Overview section */}
       <motion.section
+        key={frameworkRemountKey}
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={frameworkViewport}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <FrameworkOverview theme={theme} language={language} />

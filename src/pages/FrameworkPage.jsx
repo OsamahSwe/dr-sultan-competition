@@ -42,8 +42,28 @@ function FrameworkPage() {
 
   return (
     <main className={`min-h-screen ${mainClass}`}>
+      {/* Mobile back row (global MobileHeader handles theme/lang) */}
+      <div className="md:hidden sticky top-[60px] z-40 backdrop-blur-xl border-b" style={{
+        backgroundColor: isLightMode 
+          ? "rgba(255, 255, 255, 0.85)" 
+          : "rgba(0, 0, 0, 0.85)",
+        borderColor: isLightMode ? "rgba(226, 232, 240, 0.5)" : "rgba(255, 255, 255, 0.1)"
+      }}>
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          <Link
+            to="/"
+            className={`inline-flex items-center gap-2 text-sm font-medium ${
+              isLightMode ? "text-teal-600" : "text-teal-400"
+            } hover:opacity-70 transition-opacity`}
+          >
+            <ArrowLeft size={18} className="rtl:rotate-180" />
+            <span>{t("backToHome")}</span>
+          </Link>
+        </div>
+      </div>
+
        {/* Navigation Bar */}
-       <nav className="sticky top-0 z-50 backdrop-blur-xl border-b" style={{
+       <nav className="hidden md:block sticky top-0 z-50 backdrop-blur-xl border-b" style={{
         backgroundColor: isLightMode 
           ? "rgba(255, 255, 255, 0.9)" 
           : "rgba(0, 0, 0, 0.9)",
